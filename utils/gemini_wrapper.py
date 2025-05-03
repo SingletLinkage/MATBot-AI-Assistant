@@ -7,10 +7,9 @@ from google.genai import types
 load_dotenv()
 
 
-def universal_agent(input_message: str, system_prompt: str = "You are a helpful assistant."):
+def universal_agent(input_message: str, system_prompt: str = "You are a helpful assistant.", model: str = "gemini-2.0-flash"):
     
     client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
-    model = "gemini-2.0-flash"
 
     contents = [
         types.Content(
@@ -67,14 +66,14 @@ def stream_universal_agent(input_message: str, system_prompt: str = "You are a h
             yield chunk.text
 
 
-def chat_agent(input_message: str, chat_history=None, system_prompt: str = "You are a helpful assistant."):
+def chat_agent(input_message: str, chat_history=None, system_prompt: str = "You are a helpful assistant.", model: str = "gemini-2.0-flash"):
 
     client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
     
     # Create new chat or use existing one
     if chat_history is None:
         # Create a new chat session without system instruction
-        chat = client.chats.create(model="gemini-2.0-flash")
+        chat = client.chats.create(model=model)
         
         # Add system instruction as a separate message if provided
         if system_prompt:

@@ -3,7 +3,8 @@ import os
 from dotenv import load_dotenv
 import json
 import time
-import utils.gemini_wrapper as gw
+from agents.debugger_agent import DebuggerAgent, DEFAULT_SYSTEM_PROMPT as DEBUGGER_DEFAULT_PROMPT
+from agents.evaluator_agent import evaluate_response, DEFAULT_SYSTEM_PROMPT as EVALUATOR_DEFAULT_PROMPT
 
 # Load environment variables
 load_dotenv()
@@ -16,52 +17,29 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# Available models
+AVAILABLE_MODELS = [
+    "gemini-2.0-flash",
+    "gemini-pro", 
+    "gemini-1.5-flash"
+]
+
 # Initialize session state
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
-if "gemini_chat" not in st.session_state:
-    st.session_state.gemini_chat = None
+if "debugger_agent" not in st.session_state:
+    st.session_state.debugger_agent = DebuggerAgent()
 if "evaluation_history" not in st.session_state:
     st.session_state.evaluation_history = []
 if "feedback_given" not in st.session_state:
     st.session_state.feedback_given = {}
-
-# Defining system prompts
-DEBUGGER_SYSTEM_PROMPT = """
-You are CodeHelper, an expert debugging assistant specializing in programming.
-
-Your primary responsibility is to:
-1. Carefully analyze code problems and error messages
-2. Identify bugs and provide clear explanations of what's wrong
-3. Offer detailed, step-by-step solutions with corrected code
-4. Explain the underlying concepts or patterns that might have led to the issue
-5. Provide helpful tips to prevent similar issues in the future
-
-Use code blocks with syntax highlighting when providing code. Be concise but thorough.
-When uncertain, state your assumptions clearly.
-
-Remember previous interactions in the chat to provide context-aware responses.
-"""
-
-EVALUATOR_SYSTEM_PROMPT = """
-You are a critical evaluator of debugging assistance. Your job is to rate the quality of code debugging responses.
-
-Evaluate the responses based on:
-1. Accuracy - Is the solution correct and will it fix the issue?
-2. Clarity - Is the explanation clear and well-structured?
-3. Completeness - Does it address all aspects of the problem?
-4. Helpfulness - Does it provide useful context and prevention tips?
-
-Provide your evaluation as a JSON with the following structure:
-{
-  "score": 0.0-1.0,
-  "strengths": ["strength1", "strength2"],
-  "weaknesses": ["weakness1", "weakness2"],
-  "improvement_suggestions": "Specific ways to improve the response"
-}
-
-Be honest and constructive in your assessment.
-"""
+if "chat_started" not in st.session_state:
+    st.session_state.chat_started = False
+if "model_params" not in st.session_state:
+    st.session_state.model_params = {
+        "model": AVAILABLE_MODELS[0],
+        "system_prompt": DEBUGGER_DEFAULT_PROMPT
+    }
 
 # Custom CSS
 st.markdown("""
@@ -137,7 +115,7 @@ st.markdown("""
 
 # Define UI sections
 def render_header():
-    col1, col2, col3 = st.columns([1, 2, 2])
+    col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         st.markdown("<div class='main-header'><h1>🐞 CodeHelper - AI Debugging Assistant</h1></div>", unsafe_allow_html=True)
 
@@ -175,35 +153,7 @@ def display_chat_history():
                     st.session_state.feedback_given[i] = "not_helpful"
                     st.rerun()
 
-def parse_evaluation(eval_text):
-    try:
-        # Try to parse as JSON
-        if isinstance(eval_text, str):
-            eval_data = json.loads(eval_text)
-        else:
-            eval_data = eval_text
-            
-        # Ensure required fields exist
-        if "score" not in eval_data:
-            eval_data["score"] = 0.5
-        if "strengths" not in eval_data:
-            eval_data["strengths"] = []
-        if "weaknesses" not in eval_data:
-            eval_data["weaknesses"] = []
-        if "improvement_suggestions" not in eval_data:
-            eval_data["improvement_suggestions"] = "No specific suggestions provided."
-            
-        return eval_data
-    except json.JSONDecodeError:
-        # If not valid JSON, create a default structure
-        return {
-            "score": 0.5,
-            "strengths": ["Unable to parse evaluation"],
-            "weaknesses": ["Response format error"],
-            "improvement_suggestions": "The evaluation couldn't be properly parsed."
-        }
-
-def render_sidebar():
+def render_evaluation_sidebar():
     st.sidebar.markdown("<h3 class='sidebar-header'>Response Evaluations</h3>", unsafe_allow_html=True)
     
     if not st.session_state.evaluation_history:
@@ -225,49 +175,79 @@ def render_sidebar():
             st.markdown("**How to improve:**")
             st.markdown(eval_data["improvement_suggestions"])
 
+def render_model_params_sidebar():
+    with st.sidebar:
+        st.sidebar.markdown("<h3 class='sidebar-header'>Model Parameters</h3>", unsafe_allow_html=True)
+        
+        # Only allow changes if chat hasn't started
+        disabled = st.session_state.chat_started
+        
+        if disabled:
+            st.info("Chat already started. Parameters are locked.")
+        
+        selected_model = st.selectbox(
+            "Select Model", 
+            options=AVAILABLE_MODELS,
+            index=AVAILABLE_MODELS.index(st.session_state.model_params["model"]) if st.session_state.model_params["model"] in AVAILABLE_MODELS else 0,
+            disabled=disabled
+        )
+        
+        system_prompt = st.text_area(
+            "System Prompt", 
+            value=st.session_state.model_params["system_prompt"],
+            height=300,
+            disabled=disabled
+        )
+        
+        if st.button("Set Parameters", disabled=disabled):
+            st.session_state.model_params["model"] = selected_model
+            st.session_state.model_params["system_prompt"] = system_prompt
+            
+            # Create a new debugger agent with these parameters
+            st.session_state.debugger_agent = DebuggerAgent(
+                model=selected_model,
+                system_prompt=system_prompt
+            )
+            
+            st.success("Parameters set successfully!")
+            st.rerun()
+        
+        if st.button("Reset to Default", disabled=disabled):
+            st.session_state.model_params["model"] = AVAILABLE_MODELS[0]
+            st.session_state.model_params["system_prompt"] = DEBUGGER_DEFAULT_PROMPT
+            
+            # Create a new debugger agent with default parameters
+            st.session_state.debugger_agent = DebuggerAgent()
+            
+            st.success("Parameters reset to default!")
+            st.rerun()
+
 def handle_user_input():
     user_message = st.chat_input("Ask your code question here...")
     
     if user_message:
+        # Mark chat as started
+        st.session_state.chat_started = True
+        
         # Add user message to chat history
         st.session_state.chat_history.append({"role": "user", "content": user_message})
         
         with st.spinner("Generating response..."):
-            # Get response from Gemini
-            response, chat = gw.chat_agent(
-                user_message,
-                st.session_state.gemini_chat,
-                DEBUGGER_SYSTEM_PROMPT
-            )
-            
-            # Update chat history in session state
-            st.session_state.gemini_chat = chat
-            
-            # Process response (could be string or JSON)
-            if isinstance(response, str):
-                assistant_message = response
-            else:
-                assistant_message = response
+            # Get response from Debugger Agent
+            assistant_message = st.session_state.debugger_agent.get_response(user_message)
             
             # Add assistant response to chat history
             st.session_state.chat_history.append({"role": "assistant", "content": assistant_message})
             
             # Evaluate the response
-            evaluation_prompt = f"""
-            Evaluate the following debugging assistance:
+            eval_data = evaluate_response(
+                user_message, 
+                assistant_message,
+                system_prompt=EVALUATOR_DEFAULT_PROMPT,
+                model=st.session_state.model_params["model"]
+            )
             
-            USER QUERY:
-            {user_message}
-            
-            ASSISTANT RESPONSE:
-            {assistant_message}
-            
-            Provide your evaluation as a JSON with the structure described in your instructions.
-            """
-            
-            evaluation = gw.universal_agent(evaluation_prompt, EVALUATOR_SYSTEM_PROMPT)
-            parsed_eval = parse_evaluation(evaluation)
-            st.session_state.evaluation_history.append(parsed_eval)
+            st.session_state.evaluation_history.append(eval_data)
             
         # Rerun to update the UI
         st.rerun()
@@ -275,16 +255,21 @@ def handle_user_input():
 def main():
     render_header()
     
-    # Create two columns - main chat and sidebar
-    col1, col2 = st.columns([3, 1])
+    # Create three columns - main chat and two sidebars
+    left_sidebar, main_col, right_sidebar = st.columns([1, 3, 1])
     
-    with col1:
+    with main_col:
         render_debug_session_header()
         display_chat_history()
         handle_user_input()
     
-    # Sidebar content is handled by render_sidebar
-    render_sidebar()
+    # Left sidebar for evaluations
+    with left_sidebar:
+        render_evaluation_sidebar()
+    
+    # Right sidebar for model parameters
+    with right_sidebar:
+        render_model_params_sidebar()
 
 if __name__ == "__main__":
     main()
