@@ -26,6 +26,7 @@ Provide your evaluation as a JSON with the following structure:
 }
 
 Be honest and constructive in your assessment.
+All the agrents have memory so they can remember previous interactions.
 """
 
 def evaluate_response(user_query, assistant_response, system_prompt=DEFAULT_SYSTEM_PROMPT, model="gemini-2.0-flash"):

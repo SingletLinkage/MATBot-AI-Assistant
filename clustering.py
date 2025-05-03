@@ -150,8 +150,7 @@ class RAGClusterer:
         return results
 
 
-def init_clusters(n_clusters=3, num_closest_clusters=1):
-    json_file = 'corpus.json'
+def init_clusters(json_file="corpus.json", n_clusters=3, num_closest_clusters=1):
     with open(json_file, 'r', encoding='utf-8') as f:
         data_list = json.load(f)
 

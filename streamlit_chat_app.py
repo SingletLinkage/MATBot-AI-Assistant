@@ -5,7 +5,10 @@ import json
 import time
 from agents.debugger_agent import DebuggerAgent, DEFAULT_SYSTEM_PROMPT as DEBUGGER_DEFAULT_PROMPT
 from agents.evaluator_agent import evaluate_response, DEFAULT_SYSTEM_PROMPT as EVALUATOR_DEFAULT_PROMPT
+from agents.concise_agent import ConciseAgent, DEFAULT_SYSTEM_PROMPT as CONCISE_DEFAULT_PROMPT
 from clustering import init_clusters, query_clusters
+from functools import lru_cache
+import hashlib
 
 # Load environment variables
 load_dotenv()
@@ -25,28 +28,25 @@ AVAILABLE_MODELS = [
     "gemini-1.5-flash"
 ]
 
-# Initialize session state
-if "chat_history" not in st.session_state:
+# Initialize session state and use get() pattern to avoid re-initialization on rerun
+if "session_initialized" not in st.session_state:
     st.session_state.chat_history = []
-if "debugger_agent" not in st.session_state:
     st.session_state.debugger_agent = DebuggerAgent()
-if "evaluation_history" not in st.session_state:
+    st.session_state.concise_agent = ConciseAgent()
     st.session_state.evaluation_history = []
-if "feedback_given" not in st.session_state:
     st.session_state.feedback_given = {}
-if "chat_started" not in st.session_state:
     st.session_state.chat_started = False
-if "model_params" not in st.session_state:
     st.session_state.model_params = {
         "model": AVAILABLE_MODELS[0],
         "system_prompt": DEBUGGER_DEFAULT_PROMPT
     }
-if "source_clusters" not in st.session_state:
     st.session_state.source_clusters = {}
-if "feedback_messages" not in st.session_state:
     st.session_state.feedback_messages = {}
-if "improved_responses" not in st.session_state:
     st.session_state.improved_responses = {}
+    st.session_state.response_mode = "detailed"
+    st.session_state.expanded_details = {}
+    st.session_state.cached_responses = {}
+    st.session_state.session_initialized = True
 
 # Custom CSS
 st.markdown("""
@@ -164,6 +164,37 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+# Cache cluster initialization to avoid re-processing on every rerun
+@st.cache_resource
+def get_clusterer():
+    return init_clusters()
+
+# Cache context fetching for queries
+@st.cache_data(ttl=3600)  # Cache for 1 hour
+def get_query_clusters(_clusterer, query):  # Added underscore to prevent hashing
+    return query_clusters(_clusterer, query)
+
+# Hash a message to create a cache key
+def hash_message(message):
+    return hashlib.md5(message.encode()).hexdigest()
+
+# Cache response generation
+@st.cache_data(ttl=3600)
+def generate_agent_response(agent_type, message, model=None):
+    if agent_type == "debugger":
+        if model:
+            st.session_state.debugger_agent.set_model(model)
+        response = st.session_state.debugger_agent.get_response(message)
+    elif agent_type == "concise":
+        if model:
+            st.session_state.concise_agent.set_model(model)
+        # This will need special handling since it needs two inputs
+        user_query, detailed_response = message.split("::SPLIT::")
+        response = st.session_state.concise_agent.get_concise_response(
+            user_query, detailed_response
+        )
+    return response
+
 # Define UI sections
 def render_header():
     col1, col2, col3 = st.columns([1, 2, 1])
@@ -202,85 +233,102 @@ def render_chat_message(message, is_user=False, message_idx=None):
                     st.divider()
 
 def process_negative_feedback(message_idx):
-    """Generate an improved response based on evaluation feedback"""
+    """Generate an improved response based on evaluation feedback with caching"""
     # Get the original message and its evaluation
     original_message = st.session_state.chat_history[message_idx]["content"]
     user_query = st.session_state.chat_history[message_idx-1]["content"]
     
-    # Get the evaluation data
-    eval_idx = (message_idx - 1) // 2
-    if eval_idx < len(st.session_state.evaluation_history):
-        eval_data = st.session_state.evaluation_history[eval_idx]
-        
-        # Format the strengths and weaknesses
-        strengths = "\n".join([f"- {s}" for s in eval_data["strengths"]])
-        weaknesses = "\n".join([f"- {w}" for w in eval_data["weaknesses"]])
-        
-        # Create the improvement prompt
-        improvement_prompt = f"""
-        Please improve your previous response based on the following feedback:
-        
-        USER QUERY:
-        {user_query}
-        
-        YOUR PREVIOUS RESPONSE:
-        {original_message}
-        
-        EVALUATION:
-        Strengths:
-        {strengths}
-        
-        Weaknesses:
-        {weaknesses}
-        
-        Suggestions for improvement:
-        {eval_data["improvement_suggestions"]}
-        
-        Please provide a completely revised response that addresses the weaknesses
-        while maintaining the strengths.
-        """
-        
-        with st.spinner("Generating improved response..."):
-            # Get the context clusters if available
-            if message_idx in st.session_state.source_clusters:
-                context_text = ""
-                for i, cluster in enumerate(st.session_state.source_clusters[message_idx]):
-                    context_text += f"Source {i+1}:\nTitle: {cluster['title']}\nLink: {cluster.get('link', 'N/A')}\nHeading: {cluster['heading']}\nContent: {cluster['content']}\n\n"
+    # Create a cache key based on the original message and user query
+    cache_key = hash_message(f"{user_query}::{original_message}")
+    if cache_key in st.session_state.cached_responses:
+        improved_response = st.session_state.cached_responses[cache_key]
+    else:
+        # Get the evaluation data
+        eval_idx = (message_idx - 1) // 2
+        if eval_idx < len(st.session_state.evaluation_history):
+            strengths = "\n".join([f"- {s}" for s in st.session_state.evaluation_history[eval_idx]["strengths"]])
+            weaknesses = "\n".join([f"- {w}" for w in st.session_state.evaluation_history[eval_idx]["weaknesses"]])
+            
+            # Fixed formatting for improvement prompt - proper indentation and no extra whitespace
+            improvement_prompt = (
+                f"Please improve your previous response based on the following feedback:\n\n"
+                f"USER QUERY:\n{user_query}\n\n"
+                f"YOUR PREVIOUS RESPONSE:\n{original_message}\n\n"
+                f"EVALUATION:\n"
+                f"Strengths:\n{strengths}\n\n"
+                f"Weaknesses:\n{weaknesses}\n\n"
+                f"Suggestions for improvement:\n"
+                f"{st.session_state.evaluation_history[eval_idx]['improvement_suggestions']}\n\n"
+                f"Please provide a completely revised response that addresses the weaknesses "
+                f"while maintaining the strengths."
+            )
+            
+            with st.spinner("Generating improved response..."):
+                # Get the context clusters if available
+                if message_idx in st.session_state.source_clusters:
+                    context_text = ""
+                    for i, cluster in enumerate(st.session_state.source_clusters[message_idx]):
+                        context_text += (
+                            f"Source {i+1}:\n"
+                            f"Title: {cluster['title']}\n"
+                            f"Link: {cluster.get('link', 'N/A')}\n"
+                            f"Heading: {cluster['heading']}\n"
+                            f"Content: {cluster['content']}\n\n"
+                        )
+                    
+                    improvement_prompt += f"\nCONTEXT:\n{context_text}"
                 
-                improvement_prompt += f"\n\nCONTEXT: {context_text}"
-            
-            # Generate improved response
-            improved_response = st.session_state.debugger_agent.get_response(improvement_prompt)
-            
-            # Store the improved response
-            st.session_state.improved_responses[message_idx] = improved_response
-            
-            # Add the improved response to chat history as a new assistant message
-            st.session_state.chat_history.append({"role": "assistant", "content": improved_response})
-            
-            # Clone the source clusters from the original message to the new one
-            new_message_idx = len(st.session_state.chat_history) - 1
-            if message_idx in st.session_state.source_clusters:
-                st.session_state.source_clusters[new_message_idx] = st.session_state.source_clusters[message_idx]
-            
-            # Evaluate the improved response
-            with st.spinner("Evaluating improved response..."):
-                eval_data = evaluate_response(
-                    user_query, 
-                    improved_response,
-                    system_prompt=EVALUATOR_DEFAULT_PROMPT,
-                    model=st.session_state.model_params["model"]
-                )
-                st.session_state.evaluation_history.append(eval_data)
-            
-            return improved_response
+                # Generate improved response
+                improved_response = st.session_state.debugger_agent.get_response(improvement_prompt)
+                
+                # Cache the response
+                st.session_state.cached_responses[cache_key] = improved_response
+        else:
+            improved_response = "Sorry, I couldn't generate an improved response. Please try asking your question again."
     
-    return "Sorry, I couldn't generate an improved response. Please try asking your question again."
+    # Store the improved response
+    st.session_state.improved_responses[message_idx] = improved_response
+    
+    # Add the improved response to chat history as a new assistant message
+    st.session_state.chat_history.append({"role": "assistant", "content": improved_response})
+    
+    # Clone the source clusters from the original message to the new one
+    new_message_idx = len(st.session_state.chat_history) - 1
+    if message_idx in st.session_state.source_clusters:
+        st.session_state.source_clusters[new_message_idx] = st.session_state.source_clusters[message_idx]
+    
+    # Evaluate the improved response with properly formatted spinner text
+    with st.spinner("Evaluating improved response..."):
+        eval_data = evaluate_response(
+            user_query, 
+            improved_response,
+            system_prompt=EVALUATOR_DEFAULT_PROMPT,
+            model=st.session_state.model_params["model"]
+        )
+        st.session_state.evaluation_history.append(eval_data)
+    
+    return improved_response
 
 def display_chat_history():
     for i, message in enumerate(st.session_state.chat_history):
         # Display message
         render_chat_message(message["content"], message["role"] == "user", i)
+        
+        # If this is a concise response with a detailed version available, show an "Explain in Detail" button
+        if message["role"] == "assistant" and i in st.session_state.improved_responses and st.session_state.response_mode == "concise":
+            if i not in st.session_state.expanded_details:
+                if st.button("🔍 Explain in Detail", key=f"expand_{i}"):
+                    st.session_state.expanded_details[i] = True
+                    # Instead of using rerun, we'll use a placeholder to minimize page reloads
+                    placeholder = st.empty()
+                    with placeholder.container():
+                        with st.spinner("Generating detailed explanation..."):
+                            time.sleep(2.5)
+                    st.rerun()
+            else:
+                # Show the detailed response since it's been expanded
+                st.markdown("### Detailed Explanation")
+                st.markdown(st.session_state.improved_responses[i])
         
         # Display feedback thank you message if present
         if i in st.session_state.feedback_messages:
@@ -293,15 +341,13 @@ def display_chat_history():
                 if st.button("👍 Helpful", key=f"helpful_{i}"):
                     st.session_state.feedback_given[i] = "helpful"
                     st.session_state.feedback_messages[i] = "Thank you for your positive feedback! I'm glad the response was helpful."
-                    # st.toast("Thank you for your positive feedback! I'm glad the response was helpful.", icon="😊")
                     st.rerun()
-
             with cols[1]:
                 if st.button("👎 Not Helpful", key=f"not_helpful_{i}"):
                     st.session_state.feedback_given[i] = "not_helpful"
+                    # Fixed formatting for feedback message - single line
                     st.session_state.feedback_messages[i] = "I'm sorry the response wasn't helpful. Generating an improved response..."
-                    # st.toast("I'm sorry the response wasn't helpful.", icon="😞")
-
+                    
                     # Process negative feedback to generate improved response
                     process_negative_feedback(i)
                     st.rerun()
@@ -337,6 +383,15 @@ def render_model_params_sidebar():
         
         if disabled:
             st.info("Chat already started. Parameters are locked.")
+        
+        # Add response mode toggle
+        response_mode = st.radio(
+            "Response Style",
+            ["Detailed", "Concise"],
+            index=0 if st.session_state.response_mode == "detailed" else 1,
+            help="Detailed provides comprehensive answers. Concise gives shorter, to-the-point responses."
+        )
+        st.session_state.response_mode = response_mode.lower()
         
         selected_model = st.selectbox(
             "Select Model", 
@@ -385,10 +440,15 @@ def handle_user_input(clusterer):
         # Add user message to chat history
         user_message_idx = len(st.session_state.chat_history)
         st.session_state.chat_history.append({"role": "user", "content": user_message})
+        
+        # Create a progress bar for better UX during processing
+        progress_bar = st.progress(0)
 
         # Get clusters for the user message
         with st.spinner("Finding relevant clusters..."):
-            clusters = query_clusters(clusterer, user_message)
+            # Use cached clustering function with underscore parameter
+            clusters = get_query_clusters(clusterer, user_message)
+            progress_bar.progress(25)
             
             # Store the clusters for displaying as sources
             assistant_message_idx = user_message_idx + 1
@@ -397,33 +457,79 @@ def handle_user_input(clusterer):
             # Format clusters for context
             context_text = ""
             for i, cluster in enumerate(clusters):
-                context_text += f"Source {i+1}:\nTitle: {cluster['title']}\n Link: {cluster['link']}\nHeading: {cluster['heading']}\nContent: {cluster['content']}\n\n"
+                context_text += f"Source {i+1}:\nTitle: {cluster['title']}\nLink: {cluster.get('link', 'N/A')}\nHeading: {cluster['heading']}\nContent: {cluster['content']}\n\n"
             
             # Add context to user message
             user_message_with_context = f"USER: {user_message}\n\nCONTEXT: {context_text}"
         
+        progress_bar.progress(50)
+        
+        # Create a cache key for this message
+        cache_key = hash_message(user_message_with_context)
+        
         with st.spinner("Generating response..."):
-            # Get response from Debugger Agent
-            assistant_message = st.session_state.debugger_agent.get_response(user_message_with_context)
+            # Check if we have a cached detailed response
+            if cache_key in st.session_state.cached_responses:
+                detailed_response = st.session_state.cached_responses[cache_key]
+            else:
+                # Generate and cache the response
+                detailed_response = st.session_state.debugger_agent.get_response(user_message_with_context)
+                st.session_state.cached_responses[cache_key] = detailed_response
             
-            # Add assistant response to chat history
-            st.session_state.chat_history.append({"role": "assistant", "content": assistant_message})
+            progress_bar.progress(75)
+            
+            # Determine which response to show based on user preference
+            if st.session_state.response_mode == "concise":
+                with st.spinner("Refining response..."):
+                    # Create a cache key for the concise version
+                    concise_cache_key = hash_message(f"{user_message}::CONCISE::{detailed_response[:100]}")
+                    
+                    if concise_cache_key in st.session_state.cached_responses:
+                        final_response = st.session_state.cached_responses[concise_cache_key]
+                    else:
+                        # Process through concise agent
+                        final_response = st.session_state.concise_agent.get_concise_response(
+                            user_message, 
+                            detailed_response
+                        )
+                        st.session_state.cached_responses[concise_cache_key] = final_response
+                
+                # Store the detailed response for later access
+                st.session_state.improved_responses[assistant_message_idx] = detailed_response
+            else:
+                final_response = detailed_response
+            
+            progress_bar.progress(90)
+            
+            # Add final response to chat history
+            st.session_state.chat_history.append({"role": "assistant", "content": final_response})
             
             # Evaluate the response
             eval_data = evaluate_response(
                 user_message_with_context, 
-                assistant_message,
+                final_response,
                 system_prompt=EVALUATOR_DEFAULT_PROMPT,
                 model=st.session_state.model_params["model"]
             )
             
             st.session_state.evaluation_history.append(eval_data)
             
-        # Rerun to update the UI
+        progress_bar.progress(100)
+        
+        # Use container update with properly formatted success message
+        placeholder = st.empty()
+        with placeholder.container():
+            st.success("Response generated successfully!")
+            time.sleep(0.5)
+        
+        # Still need rerun to update the chat history display
         st.rerun()
 
-def main(clusterer):
+def main():
     render_header()
+    
+    # Get cached clusterer
+    clusterer = get_clusterer()
     
     # Create three columns - main chat and two sidebars
     left_sidebar, main_col, right_sidebar = st.columns([1, 3, 1])
@@ -442,5 +548,4 @@ def main(clusterer):
         render_model_params_sidebar()
 
 if __name__ == "__main__":
-    clusterer = init_clusters()
-    main(clusterer)
+    main()
