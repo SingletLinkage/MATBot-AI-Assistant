@@ -150,7 +150,7 @@ class RAGClusterer:
         return results
 
 
-def init_clusters(json_file="corpus.json", n_clusters=3, num_closest_clusters=1):
+def init_clusters(json_file="corpus.json", n_clusters=10, num_closest_clusters=1):
     with open(json_file, 'r', encoding='utf-8') as f:
         data_list = json.load(f)
 
@@ -168,9 +168,9 @@ def query_clusters(clusterer, query, top_x=None, top_y=3):
 
 
 if __name__ == "__main__":
-    clusterer = init_clusters()
+    clusterer = init_clusters(n_clusters=30, num_closest_clusters=5)
     from pprint import pprint
-    pprint(query_clusters(clusterer, "Troubleshoot Cannot Load Shared Object on Target Computer"))
+    pprint(query_clusters(clusterer, "In the SimpleMessagesModel, after changing the Receive block's Sample time to 0.5, the Scope output no longer matches the original sine wave pattern. What could be causing this discrepancy, and how can it be resolved to maintain signal integrity in the received messages?", top_y=5))
 
     # json_file = 'corpus.json'
     # with open(json_file, 'r', encoding='utf-8') as f:

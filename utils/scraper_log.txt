@@ -1,0 +1,823 @@
+2025-05-03 20:13:31,098 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/troubleshooting-basics.html at depth 0
+2025-05-03 20:13:31,572 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/troubleshooting-basics.html
+2025-05-03 20:13:32,573 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-communication-failure-through-firewall.html at depth 1
+2025-05-03 20:13:33,011 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-communication-failure-through-firewall.html
+2025-05-03 20:13:34,013 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-cannot-load-shared-object-on-target-computer.html at depth 1
+2025-05-03 20:13:34,413 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-cannot-load-shared-object-on-target-computer.html
+2025-05-03 20:13:35,415 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/vector-canape-troubleshooting.html at depth 1
+2025-05-03 20:13:35,821 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/vector-canape-troubleshooting.html
+2025-05-03 20:13:36,823 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/etas-inca-troubleshooting.html at depth 1
+2025-05-03 20:13:37,235 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/etas-inca-troubleshooting.html
+2025-05-03 20:13:38,237 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug_upgrade/troubleshoot-system-upgrade-to-r2020b.html at depth 1
+2025-05-03 20:13:38,655 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug_upgrade/troubleshoot-system-upgrade-to-r2020b.html
+2025-05-03 20:13:39,655 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-missing-real-time-tab.html at depth 1
+2025-05-03 20:13:40,064 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-missing-real-time-tab.html
+2025-05-03 20:13:41,064 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-folder-names-with-spaces-or-special-characters-halt-model-builds.html at depth 1
+2025-05-03 20:13:41,478 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-folder-names-with-spaces-or-special-characters-halt-model-builds.html
+2025-05-03 20:13:42,479 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-model-links-to-static-libraries-or-shared-objects.html at depth 1
+2025-05-03 20:13:42,992 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-model-links-to-static-libraries-or-shared-objects.html
+2025-05-03 20:13:43,993 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-build-error-for-accelerator-mode.html at depth 1
+2025-05-03 20:13:44,416 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-build-error-for-accelerator-mode.html
+2025-05-03 20:13:45,417 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-long-build-times-for-real-time-application.html at depth 1
+2025-05-03 20:13:45,861 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-long-build-times-for-real-time-application.html
+2025-05-03 20:13:46,863 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-working-with-persistent-variables.html at depth 1
+2025-05-03 20:13:47,289 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-working-with-persistent-variables.html
+2025-05-03 20:13:48,290 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug_upgrade/troubleshoot-model-upgrade-to-r2020b.html at depth 1
+2025-05-03 20:13:48,722 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug_upgrade/troubleshoot-model-upgrade-to-r2020b.html
+2025-05-03 20:13:49,724 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug_upgrade/troubleshoot-s-function-build-upgrade-for-r2020b.html at depth 1
+2025-05-03 20:13:50,145 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug_upgrade/troubleshoot-s-function-build-upgrade-for-r2020b.html
+2025-05-03 20:13:51,146 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-parameters-not-accessible-by-name.html at depth 1
+2025-05-03 20:13:51,560 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-parameters-not-accessible-by-name.html
+2025-05-03 20:13:52,561 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-signals-not-accessible-by-name.html at depth 1
+2025-05-03 20:13:53,059 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-signals-not-accessible-by-name.html
+2025-05-03 20:13:54,060 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-signal-data-logging-from-nonvirtual-bus-fixed-point-and-multidimensional-signals.html at depth 1
+2025-05-03 20:13:54,493 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-signal-data-logging-from-nonvirtual-bus-fixed-point-and-multidimensional-signals.html
+2025-05-03 20:13:55,495 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-signal-data-logging-from-inport-ref-model.html at depth 1
+2025-05-03 20:13:55,902 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-signal-data-logging-from-inport-ref-model.html
+2025-05-03 20:13:56,904 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-signal-data-logging-from-inport-ref-mode-test-harness.html at depth 1
+2025-05-03 20:13:57,325 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-signal-data-logging-from-inport-ref-mode-test-harness.html
+2025-05-03 20:13:58,326 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-signal-data-logging-from-send-and-receive-blocks.html at depth 1
+2025-05-03 20:13:58,739 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-signal-data-logging-from-send-and-receive-blocks.html
+2025-05-03 20:13:59,740 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-signals-for-streaming-or-file-log-logging.html at depth 1
+2025-05-03 20:14:00,136 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-signals-for-streaming-or-file-log-logging.html
+2025-05-03 20:14:01,137 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-unsatisfactory-real-time-performance.html at depth 1
+2025-05-03 20:14:01,561 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-unsatisfactory-real-time-performance.html
+2025-05-03 20:14:02,562 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-overloaded-cpu-from-executing-real-time-application.html at depth 1
+2025-05-03 20:14:02,966 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-overloaded-cpu-from-executing-real-time-application.html
+2025-05-03 20:14:03,967 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-gaps-in-streamed-data.html at depth 1
+2025-05-03 20:14:04,358 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-gaps-in-streamed-data.html
+2025-05-03 20:14:05,359 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug_upgrade/troubleshoot-matlab-api-call-upgrade-for-r2020b.html at depth 1
+2025-05-03 20:14:05,783 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug_upgrade/troubleshoot-matlab-api-call-upgrade-for-r2020b.html
+2025-05-03 20:14:06,785 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/find-simulink-real-time-support.html at depth 1
+2025-05-03 20:14:07,290 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/find-simulink-real-time-support.html
+2025-05-03 20:14:08,290 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/installing-simulink-real-time-software-updates.html at depth 1
+2025-05-03 20:14:08,791 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/installing-simulink-real-time-software-updates.html
+2025-05-03 20:14:09,793 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/create-standalone-instrument-panel-app-by-using-application-compiler.html at depth 2
+2025-05-03 20:14:10,207 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/create-standalone-instrument-panel-app-by-using-application-compiler.html
+2025-05-03 20:14:11,209 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-communication-failure-through-firewall.html#mw_ab9e2152-94a2-4e31-b407-0a612ebe3495 at depth 2
+2025-05-03 20:14:11,748 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-communication-failure-through-firewall.html#mw_ab9e2152-94a2-4e31-b407-0a612ebe3495
+2025-05-03 20:14:12,749 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/gs/development-computer-communication-setup-windows.html at depth 2
+2025-05-03 20:14:13,527 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/gs/development-computer-communication-setup-windows.html
+2025-05-03 20:14:14,529 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/execute-target-computer-rtos-commands-at-target-computer-command-line.html at depth 2
+2025-05-03 20:14:16,189 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/execute-target-computer-rtos-commands-at-target-computer-command-line.html
+2025-05-03 20:14:17,191 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.target.update.html at depth 2
+2025-05-03 20:14:17,732 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.update.html, skipping content extraction
+2025-05-03 20:14:17,733 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.update.html
+2025-05-03 20:14:18,734 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.getsupportinfo.html at depth 2
+2025-05-03 20:14:19,327 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.getsupportinfo.html, skipping content extraction
+2025-05-03 20:14:19,327 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.getsupportinfo.html
+2025-05-03 20:14:20,328 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/external-code-integration-of-libraries-and-cc-code-with-simulink-real-time-models.html at depth 2
+2025-05-03 20:14:21,081 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/external-code-integration-of-libraries-and-cc-code-with-simulink-real-time-models.html
+2025-05-03 20:14:22,082 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/prepare-third-party-calibrator-input-data-file.html at depth 2
+2025-05-03 20:14:22,889 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/prepare-third-party-calibrator-input-data-file.html
+2025-05-03 20:14:23,891 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/vector-canape-limitations-and-troubleshooting.html at depth 2
+2025-05-03 20:14:24,738 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/vector-canape-limitations-and-troubleshooting.html
+2025-05-03 20:14:25,739 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/etas-inca-limitations-and-troubleshooting.html at depth 2
+2025-05-03 20:14:26,362 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/etas-inca-limitations-and-troubleshooting.html
+2025-05-03 20:14:27,364 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/gs/create-and-run-a-real-time-application.html at depth 2
+2025-05-03 20:14:27,920 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/gs/create-and-run-a-real-time-application.html
+2025-05-03 20:14:28,921 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ug/enable-build-process-for-folder-names-with-spaces.html at depth 2
+2025-05-03 20:14:29,759 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/rtw/ug/enable-build-process-for-folder-names-with-spaces.html
+2025-05-03 20:14:30,760 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ref_extras/fmu.html at depth 2
+2025-05-03 20:14:32,392 - WARNING - No main content found on https://in.mathworks.com/help/simulink/ref_extras/fmu.html, skipping content extraction
+2025-05-03 20:14:32,392 - WARNING - No main content div found on https://in.mathworks.com/help/simulink/ref_extras/fmu.html
+2025-05-03 20:14:33,394 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ug/build-integrated-code-within-the-simulink-environment.html#bp67s_y-1 at depth 2
+2025-05-03 20:14:34,426 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/rtw/ug/build-integrated-code-within-the-simulink-environment.html#bp67s_y-1
+2025-05-03 20:14:35,427 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/build-considerations-for-functional-mockup-units.html at depth 2
+2025-05-03 20:14:35,924 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/build-considerations-for-functional-mockup-units.html
+2025-05-03 20:14:36,926 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/how-the-acceleration-modes-work.html at depth 2
+2025-05-03 20:14:37,344 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/how-the-acceleration-modes-work.html
+2025-05-03 20:14:38,346 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ref/simulink-real-time-options-pane.html at depth 2
+2025-05-03 20:14:38,769 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ref/simulink-real-time-options-pane.html
+2025-05-03 20:14:39,770 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.target.getpersistentvariables.html at depth 2
+2025-05-03 20:14:40,202 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.getpersistentvariables.html, skipping content extraction
+2025-05-03 20:14:40,202 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.getpersistentvariables.html
+2025-05-03 20:14:41,204 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.target.setpersistentvariables.html at depth 2
+2025-05-03 20:14:41,654 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.setpersistentvariables.html, skipping content extraction
+2025-05-03 20:14:41,655 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.setpersistentvariables.html
+2025-05-03 20:14:42,655 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.target.html at depth 2
+2025-05-03 20:14:43,091 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.html, skipping content extraction
+2025-05-03 20:14:43,092 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.html
+2025-05-03 20:14:44,093 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/io_ref/persistentvariableread.html at depth 2
+2025-05-03 20:14:44,631 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/io_ref/persistentvariableread.html, skipping content extraction
+2025-05-03 20:14:44,631 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/io_ref/persistentvariableread.html
+2025-05-03 20:14:45,633 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/io_ref/persistentvariablewrite.html at depth 2
+2025-05-03 20:14:46,049 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/io_ref/persistentvariablewrite.html, skipping content extraction
+2025-05-03 20:14:46,049 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/io_ref/persistentvariablewrite.html
+2025-05-03 20:14:47,050 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/apply-persistent-variables-in-real-time-applications.html at depth 2
+2025-05-03 20:14:47,494 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/apply-persistent-variables-in-real-time-applications.html
+2025-05-03 20:14:48,495 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/advanced-modeling-techniques.html at depth 2
+2025-05-03 20:14:48,946 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/advanced-modeling-techniques.html, skipping content extraction
+2025-05-03 20:14:48,946 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/advanced-modeling-techniques.html
+2025-05-03 20:14:49,947 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-parameters-not-accessible-by-name.html#mw_72c31b18-6244-491b-9212-ef3a816c316b at depth 2
+2025-05-03 20:14:50,356 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/troubleshoot-parameters-not-accessible-by-name.html#mw_72c31b18-6244-491b-9212-ef3a816c316b
+2025-05-03 20:14:51,357 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/internationalization-issues-for-simulink-real-time.html at depth 2
+2025-05-03 20:14:51,766 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/internationalization-issues-for-simulink-real-time.html
+2025-05-03 20:14:52,766 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/scope.html at depth 2
+2025-05-03 20:14:53,266 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/scope.html, skipping content extraction
+2025-05-03 20:14:53,267 - WARNING - No main content div found on https://in.mathworks.com/help/simulink/slref/scope.html
+2025-05-03 20:14:54,268 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/gain.html at depth 2
+2025-05-03 20:14:54,790 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/gain.html, skipping content extraction
+2025-05-03 20:14:54,792 - WARNING - No main content div found on https://in.mathworks.com/help/simulink/slref/gain.html
+2025-05-03 20:14:55,793 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/nonvirtual-and-virtual-blocks.html at depth 2
+2025-05-03 20:14:56,269 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/nonvirtual-and-virtual-blocks.html
+2025-05-03 20:14:57,271 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/composite-signal-techniques.html at depth 2
+2025-05-03 20:14:57,692 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/composite-signal-techniques.html
+2025-05-03 20:14:58,693 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ref/signalstoragereuse.html at depth 2
+2025-05-03 20:14:59,091 - WARNING - No main content found on https://in.mathworks.com/help/rtw/ref/signalstoragereuse.html, skipping content extraction
+2025-05-03 20:14:59,091 - WARNING - No main content div found on https://in.mathworks.com/help/rtw/ref/signalstoragereuse.html
+2025-05-03 20:15:00,092 - INFO - Processing URL: https://in.mathworks.com/help/simulink/gui/blockreduction.html at depth 2
+2025-05-03 20:15:00,546 - WARNING - No main content found on https://in.mathworks.com/help/simulink/gui/blockreduction.html, skipping content extraction
+2025-05-03 20:15:00,547 - WARNING - No main content div found on https://in.mathworks.com/help/simulink/gui/blockreduction.html
+2025-05-03 20:15:01,548 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/io_ref/filelog.html at depth 2
+2025-05-03 20:15:01,985 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/io_ref/filelog.html, skipping content extraction
+2025-05-03 20:15:01,985 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/io_ref/filelog.html
+2025-05-03 20:15:02,987 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.application.html at depth 2
+2025-05-03 20:15:03,428 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.application.html, skipping content extraction
+2025-05-03 20:15:03,429 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.application.html
+2025-05-03 20:15:04,429 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.instrument.html at depth 2
+2025-05-03 20:15:04,843 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.instrument.html, skipping content extraction
+2025-05-03 20:15:04,844 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.instrument.html
+2025-05-03 20:15:05,844 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.instrument.addsignal.html at depth 2
+2025-05-03 20:15:06,274 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.instrument.addsignal.html, skipping content extraction
+2025-05-03 20:15:06,275 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.instrument.addsignal.html
+2025-05-03 20:15:07,276 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.instrument.connectline.html at depth 2
+2025-05-03 20:15:07,786 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.instrument.connectline.html, skipping content extraction
+2025-05-03 20:15:07,787 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.instrument.connectline.html
+2025-05-03 20:15:08,788 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.instrument.connectscalar.html at depth 2
+2025-05-03 20:15:09,220 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.instrument.connectscalar.html, skipping content extraction
+2025-05-03 20:15:09,221 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.instrument.connectscalar.html
+2025-05-03 20:15:10,222 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/buscreator.html at depth 2
+2025-05-03 20:15:10,673 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/buscreator.html, skipping content extraction
+2025-05-03 20:15:10,674 - WARNING - No main content div found on https://in.mathworks.com/help/simulink/slref/buscreator.html
+2025-05-03 20:15:11,674 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/simulink.numerictype.fixdt.html at depth 2
+2025-05-03 20:15:12,186 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/simulink.numerictype.fixdt.html, skipping content extraction
+2025-05-03 20:15:12,187 - WARNING - No main content div found on https://in.mathworks.com/help/simulink/slref/simulink.numerictype.fixdt.html
+2025-05-03 20:15:13,188 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/parameter-tuning-and-data-logging.html at depth 2
+2025-05-03 20:15:13,675 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/parameter-tuning-and-data-logging.html
+2025-05-03 20:15:14,676 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/create-nonvirtual-buses.html#mw_cf61dd63-1e2a-4e9b-a5ae-60c574ad806d at depth 2
+2025-05-03 20:15:15,106 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/create-nonvirtual-buses.html#mw_cf61dd63-1e2a-4e9b-a5ae-60c574ad806d
+2025-05-03 20:15:16,108 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/fixed-point-data-in-matlab-and-simulink.html at depth 2
+2025-05-03 20:15:16,626 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/fixed-point-data-in-matlab-and-simulink.html
+2025-05-03 20:15:17,628 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/signal-basics.html at depth 2
+2025-05-03 20:15:18,056 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/signal-basics.html
+2025-05-03 20:15:19,058 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/variable-size-signal-basics.html at depth 2
+2025-05-03 20:15:19,479 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/variable-size-signal-basics.html
+2025-05-03 20:15:20,480 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/signalconversion.html at depth 2
+2025-05-03 20:15:20,914 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/signalconversion.html, skipping content extraction
+2025-05-03 20:15:20,915 - WARNING - No main content div found on https://in.mathworks.com/help/simulink/slref/signalconversion.html
+2025-05-03 20:15:21,917 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/log-or-stream-real-time-signals-by-using-simulation-data-inspector.html at depth 2
+2025-05-03 20:15:22,327 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/log-or-stream-real-time-signals-by-using-simulation-data-inspector.html
+2025-05-03 20:15:23,328 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/real-time-signal-logging-and-streaming-basics.html at depth 2
+2025-05-03 20:15:23,758 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/real-time-signal-logging-and-streaming-basics.html
+2025-05-03 20:15:24,759 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/test-real-time-application-in-simulink-test.html at depth 2
+2025-05-03 20:15:25,194 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/test-real-time-application-in-simulink-test.html
+2025-05-03 20:15:26,196 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/send.html at depth 2
+2025-05-03 20:15:26,707 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/send.html, skipping content extraction
+2025-05-03 20:15:26,708 - WARNING - No main content div found on https://in.mathworks.com/help/simulink/slref/send.html
+2025-05-03 20:15:27,709 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/receive.html at depth 2
+2025-05-03 20:15:28,177 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/receive.html, skipping content extraction
+2025-05-03 20:15:28,178 - WARNING - No main content div found on https://in.mathworks.com/help/simulink/slref/receive.html
+2025-05-03 20:15:29,179 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/visualize-animate-and-inspect-messages.html at depth 2
+2025-05-03 20:15:29,585 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/visualize-animate-and-inspect-messages.html
+2025-05-03 20:15:30,586 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/inspect-signals-in-external-mode-using-simulation-data-inspector.html at depth 2
+2025-05-03 20:15:30,993 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/inspect-signals-in-external-mode-using-simulation-data-inspector.html
+2025-05-03 20:15:31,995 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ref/compilewithgccffastmath.html at depth 2
+2025-05-03 20:15:32,426 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/ref/compilewithgccffastmath.html, skipping content extraction
+2025-05-03 20:15:32,427 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/ref/compilewithgccffastmath.html
+2025-05-03 20:15:33,428 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.target.startprofiler.html at depth 2
+2025-05-03 20:15:33,863 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.startprofiler.html, skipping content extraction
+2025-05-03 20:15:33,864 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.startprofiler.html
+2025-05-03 20:15:34,865 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.profilerdata.plot.html at depth 2
+2025-05-03 20:15:35,286 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.profilerdata.plot.html, skipping content extraction
+2025-05-03 20:15:35,286 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.profilerdata.plot.html
+2025-05-03 20:15:36,288 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/execution-profiling-for-real-time-application.html at depth 2
+2025-05-03 20:15:36,811 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/execution-profiling-for-real-time-application.html
+2025-05-03 20:15:37,812 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/setup-partitions-in-explicit-partitioning.html at depth 2
+2025-05-03 20:15:38,251 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/setup-partitions-in-explicit-partitioning.html
+2025-05-03 20:15:39,252 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/solving-embedded-performance-problems-using-multicore-processors-and-fpgas.html at depth 2
+2025-05-03 20:15:39,679 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/solving-embedded-performance-problems-using-multicore-processors-and-fpgas.html
+2025-05-03 20:15:40,681 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/creating-partitions-from-your-model.html#mw_73f885bc-8ea7-48d0-9136-0e0607276236 at depth 2
+2025-05-03 20:15:41,128 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/creating-partitions-from-your-model.html#mw_73f885bc-8ea7-48d0-9136-0e0607276236
+2025-05-03 20:15:42,129 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/matlabsystem.html at depth 2
+2025-05-03 20:15:42,597 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/matlabsystem.html, skipping content extraction
+2025-05-03 20:15:42,598 - WARNING - No main content div found on https://in.mathworks.com/help/simulink/slref/matlabsystem.html
+2025-05-03 20:15:43,599 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/execution-modes-for-real-time-applications.html at depth 2
+2025-05-03 20:15:44,047 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/execution-modes-for-real-time-applications.html
+2025-05-03 20:15:45,049 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/concurrent-execution-on-simulink-real-time.html at depth 2
+2025-05-03 20:15:45,445 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/concurrent-execution-on-simulink-real-time.html
+2025-05-03 20:15:46,446 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.targetsettings-properties.html#mw_b89830eb-6d1f-48bd-bfcd-eab44e197022 at depth 2
+2025-05-03 20:15:46,934 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.targetsettings-properties.html#mw_b89830eb-6d1f-48bd-bfcd-eab44e197022, skipping content extraction
+2025-05-03 20:15:46,934 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.targetsettings-properties.html#mw_b89830eb-6d1f-48bd-bfcd-eab44e197022
+2025-05-03 20:15:47,935 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/io_ref/slrtoverloadoptions.html at depth 2
+2025-05-03 20:15:48,440 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/io_ref/slrtoverloadoptions.html, skipping content extraction
+2025-05-03 20:15:48,440 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/io_ref/slrtoverloadoptions.html
+2025-05-03 20:15:49,442 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ref/forcepollingmode.html at depth 2
+2025-05-03 20:15:49,881 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/ref/forcepollingmode.html, skipping content extraction
+2025-05-03 20:15:49,881 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/ref/forcepollingmode.html
+2025-05-03 20:15:50,882 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/monitor-cpu-overload-rate.html at depth 2
+2025-05-03 20:15:51,315 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/monitor-cpu-overload-rate.html
+2025-05-03 20:15:52,317 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/target-computer-cpu-overloads.html at depth 2
+2025-05-03 20:15:52,774 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/target-computer-cpu-overloads.html
+2025-05-03 20:15:53,776 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.target.connect.html at depth 2
+2025-05-03 20:15:54,203 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.connect.html, skipping content extraction
+2025-05-03 20:15:54,203 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.connect.html
+2025-05-03 20:15:55,205 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.target.disconnect.html at depth 2
+2025-05-03 20:15:55,611 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.disconnect.html, skipping content extraction
+2025-05-03 20:15:55,612 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.disconnect.html
+2025-05-03 20:15:56,613 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.target.load.html at depth 2
+2025-05-03 20:15:57,102 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.load.html, skipping content extraction
+2025-05-03 20:15:57,103 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.load.html
+2025-05-03 20:15:58,104 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.target.reboot.html at depth 2
+2025-05-03 20:15:58,512 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.reboot.html, skipping content extraction
+2025-05-03 20:15:58,512 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.reboot.html
+2025-05-03 20:15:59,513 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.target.saveparamset.html at depth 2
+2025-05-03 20:15:59,926 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.saveparamset.html, skipping content extraction
+2025-05-03 20:15:59,927 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.saveparamset.html
+2025-05-03 20:16:00,928 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.target.importparamset.html at depth 2
+2025-05-03 20:16:01,367 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.importparamset.html, skipping content extraction
+2025-05-03 20:16:01,367 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.importparamset.html
+2025-05-03 20:16:02,369 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.target.start.html at depth 2
+2025-05-03 20:16:02,822 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.start.html, skipping content extraction
+2025-05-03 20:16:02,823 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.start.html
+2025-05-03 20:16:03,824 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.target.status.html at depth 2
+2025-05-03 20:16:04,254 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.status.html, skipping content extraction
+2025-05-03 20:16:04,254 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.status.html
+2025-05-03 20:16:05,256 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.target.stimulation.stop.html at depth 2
+2025-05-03 20:16:05,733 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.stimulation.stop.html, skipping content extraction
+2025-05-03 20:16:05,734 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.stimulation.stop.html
+2025-05-03 20:16:06,735 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.target.setstoptime.html at depth 2
+2025-05-03 20:16:07,172 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.setstoptime.html, skipping content extraction
+2025-05-03 20:16:07,173 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.setstoptime.html
+2025-05-03 20:16:08,174 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.tetmonitor.slrttetmonitor.html at depth 2
+2025-05-03 20:16:08,591 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.tetmonitor.slrttetmonitor.html, skipping content extraction
+2025-05-03 20:16:08,592 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.tetmonitor.slrttetmonitor.html
+2025-05-03 20:16:09,592 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.target.getprofilerdata.html at depth 2
+2025-05-03 20:16:10,031 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.getprofilerdata.html, skipping content extraction
+2025-05-03 20:16:10,032 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.getprofilerdata.html
+2025-05-03 20:16:11,033 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.target.resetprofiler.html at depth 2
+2025-05-03 20:16:11,468 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.resetprofiler.html, skipping content extraction
+2025-05-03 20:16:11,469 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.resetprofiler.html
+2025-05-03 20:16:12,470 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.target.stopprofiler.html at depth 2
+2025-05-03 20:16:12,903 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.stopprofiler.html, skipping content extraction
+2025-05-03 20:16:12,903 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.stopprofiler.html
+2025-05-03 20:16:13,905 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.target.setparam.html at depth 2
+2025-05-03 20:16:14,323 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.setparam.html, skipping content extraction
+2025-05-03 20:16:14,324 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.setparam.html
+2025-05-03 20:16:15,339 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.target.getparam.html at depth 2
+2025-05-03 20:16:15,829 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.getparam.html, skipping content extraction
+2025-05-03 20:16:15,829 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.getparam.html
+2025-05-03 20:16:16,830 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.application.getparameters.html at depth 2
+2025-05-03 20:16:17,367 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.application.getparameters.html, skipping content extraction
+2025-05-03 20:16:17,367 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.application.getparameters.html
+2025-05-03 20:16:18,369 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.application.getsignals.html at depth 2
+2025-05-03 20:16:18,775 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.application.getsignals.html, skipping content extraction
+2025-05-03 20:16:18,775 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.application.getsignals.html
+2025-05-03 20:16:19,777 - INFO - Processing URL: https://in.mathworks.com/help/simulink/gui/signallogging.html at depth 2
+2025-05-03 20:16:20,278 - WARNING - No main content found on https://in.mathworks.com/help/simulink/gui/signallogging.html, skipping content extraction
+2025-05-03 20:16:20,279 - WARNING - No main content div found on https://in.mathworks.com/help/simulink/gui/signallogging.html
+2025-05-03 20:16:21,280 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.target.filelog.list.html at depth 2
+2025-05-03 20:16:22,132 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.filelog.list.html, skipping content extraction
+2025-05-03 20:16:22,133 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.filelog.list.html
+2025-05-03 20:16:23,134 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.target.filelog.import.html at depth 2
+2025-05-03 20:16:23,605 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.filelog.import.html, skipping content extraction
+2025-05-03 20:16:23,606 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.filelog.import.html
+2025-05-03 20:16:24,606 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.target.filelog.html at depth 2
+2025-05-03 20:16:25,045 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.filelog.html, skipping content extraction
+2025-05-03 20:16:25,046 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.filelog.html
+2025-05-03 20:16:26,047 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.ethercat.slrealtime.ethercat.filternotifications.html at depth 2
+2025-05-03 20:16:26,494 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.ethercat.slrealtime.ethercat.filternotifications.html, skipping content extraction
+2025-05-03 20:16:26,495 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.ethercat.slrealtime.ethercat.filternotifications.html
+2025-05-03 20:16:27,503 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.targets.gettargetsettings.html at depth 2
+2025-05-03 20:16:27,941 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.targets.gettargetsettings.html, skipping content extraction
+2025-05-03 20:16:27,942 - WARNING - No main content div found on https://in.mathworks.com/help/slrealtime/api/slrealtime.targets.gettargetsettings.html
+2025-05-03 20:16:28,942 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug_upgrade/check-model-for-upgradable-slrt-features.html at depth 2
+2025-05-03 20:16:29,336 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug_upgrade/check-model-for-upgradable-slrt-features.html
+2025-05-03 20:16:30,337 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/gs/target-computer-settings.html at depth 2
+2025-05-03 20:16:30,802 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/gs/target-computer-settings.html
+2025-05-03 20:16:31,803 - INFO - Processing URL: matlab:openExample('slrealtime/CreateStandaloneInstPanelAppWithAppCompilerExample') at depth 3
+2025-05-03 20:16:31,804 - ERROR - Failed to fetch matlab:openExample('slrealtime/CreateStandaloneInstPanelAppWithAppCompilerExample'): No connection adapters were found for "matlab:openExample('slrealtime/CreateStandaloneInstPanelAppWithAppCompilerExample')"
+2025-05-03 20:16:32,805 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/create-app-designer-instrument-panels-by-using-simulink-real-time-components.html at depth 3
+2025-05-03 20:16:33,359 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/create-app-designer-instrument-panels-by-using-simulink-real-time-components.html
+2025-05-03 20:16:34,359 - INFO - Processing URL: https://in.mathworks.com/help/compiler/applicationcompiler-app.html at depth 3
+2025-05-03 20:16:34,770 - WARNING - No main content found on https://in.mathworks.com/help/compiler/applicationcompiler-app.html, skipping content extraction
+2025-05-03 20:16:35,771 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ref/simulinkrealtimeexplorer-app.html at depth 3
+2025-05-03 20:16:36,211 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/ref/simulinkrealtimeexplorer-app.html, skipping content extraction
+2025-05-03 20:16:37,213 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/add-app-des-app-to-inverted-pendulum-model.html at depth 3
+2025-05-03 20:16:37,632 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/add-app-des-app-to-inverted-pendulum-model.html
+2025-05-03 20:16:38,633 - INFO - Processing URL: https://in.mathworks.com/help/matlab/creating_guis/choose-components-for-your-app-designer-app.html at depth 3
+2025-05-03 20:16:39,045 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/matlab/creating_guis/choose-components-for-your-app-designer-app.html
+2025-05-03 20:16:40,046 - INFO - Processing URL: https://in.mathworks.com/help/matlab/creating_guis/app-designer-code-generation.html at depth 3
+2025-05-03 20:16:40,468 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/matlab/creating_guis/app-designer-code-generation.html
+2025-05-03 20:16:41,469 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/filter-hierarchical-list-of-signals-and-parameters-in-simulink-real-time-explorer.html at depth 3
+2025-05-03 20:16:41,880 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/filter-hierarchical-list-of-signals-and-parameters-in-simulink-real-time-explorer.html
+2025-05-03 20:16:42,881 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/gs/development-computer-requirements.html at depth 3
+2025-05-03 20:16:43,351 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/gs/development-computer-requirements.html
+2025-05-03 20:16:44,352 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/gs/install-development-computer-software.html at depth 3
+2025-05-03 20:16:44,784 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/gs/install-development-computer-software.html
+2025-05-03 20:16:45,784 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ref/target-computer-command-line-interface.html at depth 3
+2025-05-03 20:16:46,227 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ref/target-computer-command-line-interface.html
+2025-05-03 20:16:47,228 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.targets.html at depth 3
+2025-05-03 20:16:47,641 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.targets.html, skipping content extraction
+2025-05-03 20:16:48,643 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ref/target-computer-command-line-interface.html#mw_f8232268-82fe-4271-869b-dd780c4fb153 at depth 3
+2025-05-03 20:16:49,191 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ref/target-computer-command-line-interface.html#mw_f8232268-82fe-4271-869b-dd780c4fb153
+2025-05-03 20:16:50,192 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ref/target-computer-command-line-interface.html#mw_da374454-5c9f-4aff-8084-d43d9541976e at depth 3
+2025-05-03 20:16:50,616 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ref/target-computer-command-line-interface.html#mw_da374454-5c9f-4aff-8084-d43d9541976e
+2025-05-03 20:16:51,618 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ug/build-integrated-code-within-the-simulink-environment.html at depth 3
+2025-05-03 20:16:52,054 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/rtw/ug/build-integrated-code-within-the-simulink-environment.html
+2025-05-03 20:16:53,055 - INFO - Processing URL: https://in.mathworks.com/help/simulink/integrate-external-c-algorithms-using-c-function-block.html at depth 3
+2025-05-03 20:16:53,475 - WARNING - No main content found on https://in.mathworks.com/help/simulink/integrate-external-c-algorithms-using-c-function-block.html, skipping content extraction
+2025-05-03 20:16:54,476 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ug/use-makecfg-to-customize-generated-makefiles-for-s-functions.html at depth 3
+2025-05-03 20:16:54,864 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/rtw/ug/use-makecfg-to-customize-generated-makefiles-for-s-functions.html
+2025-05-03 20:16:55,864 - INFO - Processing URL: matlab:openExample('slrealtime/SlrtPrepareASAP2DataDescriptionFileExample') at depth 3
+2025-05-03 20:16:55,865 - ERROR - Failed to fetch matlab:openExample('slrealtime/SlrtPrepareASAP2DataDescriptionFileExample'): No connection adapters were found for "matlab:openExample('slrealtime/SlrtPrepareASAP2DataDescriptionFileExample')"
+2025-05-03 20:16:56,867 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ref/codemappingseditorc.html at depth 3
+2025-05-03 20:16:57,342 - WARNING - No main content found on https://in.mathworks.com/help/rtw/ref/codemappingseditorc.html, skipping content extraction
+2025-05-03 20:16:58,344 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ug/asap2-cdf-calibration.html at depth 3
+2025-05-03 20:16:58,767 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/rtw/ug/asap2-cdf-calibration.html
+2025-05-03 20:16:59,768 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ref/coder.asap2.export.html at depth 3
+2025-05-03 20:17:01,358 - WARNING - No main content found on https://in.mathworks.com/help/rtw/ref/coder.asap2.export.html, skipping content extraction
+2025-05-03 20:17:02,359 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/ndlookuptable.html at depth 3
+2025-05-03 20:17:03,593 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/ndlookuptable.html, skipping content extraction
+2025-05-03 20:17:04,595 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/calibrate-by-using-vector-canape.html at depth 3
+2025-05-03 20:17:06,199 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/calibrate-by-using-vector-canape.html
+2025-05-03 20:17:07,200 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/calibrate-by-using-etas-inca.html at depth 3
+2025-05-03 20:17:07,726 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/calibrate-by-using-etas-inca.html
+2025-05-03 20:17:08,728 - INFO - Processing URL: matlab:matlab.internal.addons.showAddon('RT') at depth 3
+2025-05-03 20:17:08,729 - ERROR - Failed to fetch matlab:matlab.internal.addons.showAddon('RT'): No connection adapters were found for "matlab:matlab.internal.addons.showAddon('RT')"
+2025-05-03 20:17:09,731 - INFO - Processing URL: https://in.mathworks.com/help/rtw/index.html at depth 3
+2025-05-03 20:17:10,229 - WARNING - No main content found on https://in.mathworks.com/help/rtw/index.html, skipping content extraction
+2025-05-03 20:17:11,231 - INFO - Processing URL: matlab:matlab.internal.addons.showAddon('SL') at depth 3
+2025-05-03 20:17:11,232 - ERROR - Failed to fetch matlab:matlab.internal.addons.showAddon('SL'): No connection adapters were found for "matlab:matlab.internal.addons.showAddon('SL')"
+2025-05-03 20:17:12,247 - INFO - Processing URL: https://in.mathworks.com/help/simulink/index.html at depth 3
+2025-05-03 20:17:12,712 - WARNING - No main content found on https://in.mathworks.com/help/simulink/index.html, skipping content extraction
+2025-05-03 20:17:13,713 - INFO - Processing URL: matlab:matlab.internal.addons.showAddon('SLRT_QNX') at depth 3
+2025-05-03 20:17:13,714 - ERROR - Failed to fetch matlab:matlab.internal.addons.showAddon('SLRT_QNX'): No connection adapters were found for "matlab:matlab.internal.addons.showAddon('SLRT_QNX')"
+2025-05-03 20:17:14,716 - INFO - Processing URL: matlab:matlab.internal.addons.showAddon('XP') at depth 3
+2025-05-03 20:17:14,717 - ERROR - Failed to fetch matlab:matlab.internal.addons.showAddon('XP'): No connection adapters were found for "matlab:matlab.internal.addons.showAddon('XP')"
+2025-05-03 20:17:15,718 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/index.html at depth 3
+2025-05-03 20:17:17,046 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/index.html, skipping content extraction
+2025-05-03 20:17:18,048 - INFO - Processing URL: matlab:openExample('slrealtime/SlrtCreateAndRunRealTimeAppFromSimulinkModelExample') at depth 3
+2025-05-03 20:17:18,049 - ERROR - Failed to fetch matlab:openExample('slrealtime/SlrtCreateAndRunRealTimeAppFromSimulinkModelExample'): No connection adapters were found for "matlab:openExample('slrealtime/SlrtCreateAndRunRealTimeAppFromSimulinkModelExample')"
+2025-05-03 20:17:19,051 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ref/target-computer-status-monitor.html at depth 3
+2025-05-03 20:17:19,595 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ref/target-computer-status-monitor.html
+2025-05-03 20:17:20,596 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/mux.html at depth 3
+2025-05-03 20:17:21,378 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/mux.html, skipping content extraction
+2025-05-03 20:17:22,380 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/host-target-configuration-1.html at depth 3
+2025-05-03 20:17:23,338 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/host-target-configuration-1.html, skipping content extraction
+2025-05-03 20:17:24,339 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/gs/set-up-and-configure-simulink-real-time.html at depth 3
+2025-05-03 20:17:24,802 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/gs/set-up-and-configure-simulink-real-time.html
+2025-05-03 20:17:25,804 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/apply-simulink-real-time-model-template-to-create-real-time-application.html at depth 3
+2025-05-03 20:17:26,216 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/apply-simulink-real-time-model-template-to-create-real-time-application.html
+2025-05-03 20:17:27,217 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/gs/build-and-download-with-run-on-target.html at depth 3
+2025-05-03 20:17:27,615 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/gs/build-and-download-with-run-on-target.html
+2025-05-03 20:17:28,616 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/gs/execute-real-time-application-in-external-mode-with-step-by-step.html at depth 3
+2025-05-03 20:17:29,298 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/gs/execute-real-time-application-in-external-mode-with-step-by-step.html
+2025-05-03 20:17:30,299 - INFO - Processing URL: https://in.mathworks.com/help/coder/ref/coder.make.toolchaininfo.addattribute.html at depth 3
+2025-05-03 20:17:30,838 - WARNING - No main content found on https://in.mathworks.com/help/coder/ref/coder.make.toolchaininfo.addattribute.html, skipping content extraction
+2025-05-03 20:17:31,840 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ug/enable-build-process-for-folder-names-with-spaces.html#bu6lx34 at depth 3
+2025-05-03 20:17:32,271 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/rtw/ug/enable-build-process-for-folder-names-with-spaces.html#bu6lx34
+2025-05-03 20:17:33,272 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ug/enable-build-process-for-folder-names-with-spaces.html#bviznfr at depth 3
+2025-05-03 20:17:33,727 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/rtw/ug/enable-build-process-for-folder-names-with-spaces.html#bviznfr
+2025-05-03 20:17:34,728 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ug/build-process-folders.html at depth 3
+2025-05-03 20:17:35,145 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/rtw/ug/build-process-folders.html
+2025-05-03 20:17:36,146 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ug/build-process-files.html at depth 3
+2025-05-03 20:17:37,167 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/rtw/ug/build-process-files.html
+2025-05-03 20:17:38,167 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ug/build-process-file-dependencies.html at depth 3
+2025-05-03 20:17:38,883 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/rtw/ug/build-process-file-dependencies.html
+2025-05-03 20:17:39,884 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ug/add-build-process-dependencies.html at depth 3
+2025-05-03 20:17:40,646 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/rtw/ug/add-build-process-dependencies.html
+2025-05-03 20:17:41,646 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ug/build-process-workflow-for-real-time-systems.html at depth 3
+2025-05-03 20:17:42,071 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/rtw/ug/build-process-workflow-for-real-time-systems.html
+2025-05-03 20:17:43,072 - INFO - Processing URL: https://in.mathworks.com/help/ecoder/ug/approaches-for-building-generated-code.html at depth 3
+2025-05-03 20:17:43,555 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/ecoder/ug/approaches-for-building-generated-code.html
+2025-05-03 20:17:44,557 - INFO - Processing URL: https://in.mathworks.com/help/ecoder/ug/build-process-workflow-for-real-time-systems.html at depth 3
+2025-05-03 20:17:45,095 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/ecoder/ug/build-process-workflow-for-real-time-systems.html
+2025-05-03 20:17:46,096 - INFO - Processing URL: https://in.mathworks.com/help/ecoder/ug/build-integrated-code-within-the-simulink-environment.html#bvnoovh at depth 3
+2025-05-03 20:17:46,528 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/ecoder/ug/build-integrated-code-within-the-simulink-environment.html#bvnoovh
+2025-05-03 20:17:47,529 - INFO - Processing URL: https://in.mathworks.com/help/ecoder/ug/build-integrated-code-within-the-simulink-environment.html#bp67s_y-1 at depth 3
+2025-05-03 20:17:48,238 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/ecoder/ug/build-integrated-code-within-the-simulink-environment.html#bp67s_y-1
+2025-05-03 20:17:49,239 - INFO - Processing URL: https://in.mathworks.com/help/ecoder/ug/use-makecfg-to-customize-generated-makefiles-for-s-functions.html at depth 3
+2025-05-03 20:17:49,909 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/ecoder/ug/use-makecfg-to-customize-generated-makefiles-for-s-functions.html
+2025-05-03 20:17:50,910 - INFO - Processing URL: https://in.mathworks.com/help/ecoder/ug/import-calls-to-external-reusable-algorithmic-code-into-models-for-code-generation.html at depth 3
+2025-05-03 20:17:51,628 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/ecoder/ug/import-calls-to-external-reusable-algorithmic-code-into-models-for-code-generation.html
+2025-05-03 20:17:52,629 - INFO - Processing URL: https://in.mathworks.com/help/ecoder/ug/build-process-file-dependencies.html at depth 3
+2025-05-03 20:17:53,056 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/ecoder/ug/build-process-file-dependencies.html
+2025-05-03 20:17:54,057 - INFO - Processing URL: https://in.mathworks.com/help/ecoder/ug/controlling-the-location-and-naming-of-libraries-during-the-build-process.html at depth 3
+2025-05-03 20:17:54,467 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/ecoder/ug/controlling-the-location-and-naming-of-libraries-during-the-build-process.html
+2025-05-03 20:17:55,468 - INFO - Processing URL: https://in.mathworks.com/help/ecoder/ug/customizing-post-code-generation-build-processing.html at depth 3
+2025-05-03 20:17:55,884 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/ecoder/ug/customizing-post-code-generation-build-processing.html
+2025-05-03 20:17:56,886 - INFO - Processing URL: https://in.mathworks.com/help/ecoder/ug/customizing-the-target-build-process-with-sl-customization-m.html at depth 3
+2025-05-03 20:17:57,297 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/ecoder/ug/customizing-the-target-build-process-with-sl-customization-m.html
+2025-05-03 20:17:58,299 - INFO - Processing URL: https://in.mathworks.com/help/ecoder/ug/customizing-the-target-build-process-with-the-stf-make-rtw-hook-file.html at depth 3
+2025-05-03 20:17:58,793 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/ecoder/ug/customizing-the-target-build-process-with-the-stf-make-rtw-hook-file.html
+2025-05-03 20:17:59,794 - INFO - Processing URL: https://in.mathworks.com/help/ecoder/ug/build-process-folders.html at depth 3
+2025-05-03 20:18:00,214 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/ecoder/ug/build-process-folders.html
+2025-05-03 20:18:01,215 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/simulinkpreferences.html#mw_52e50f72-177c-4bde-b12f-d86e3acd6a58 at depth 3
+2025-05-03 20:18:01,878 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/simulinkpreferences.html#mw_52e50f72-177c-4bde-b12f-d86e3acd6a58, skipping content extraction
+2025-05-03 20:18:02,879 - INFO - Processing URL: https://in.mathworks.com/help/ecoder/ug/build-integrated-code-within-the-simulink-environment.html#bvnk82z at depth 3
+2025-05-03 20:18:03,868 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/ecoder/ug/build-integrated-code-within-the-simulink-environment.html#bvnk82z
+2025-05-03 20:18:04,870 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ug/write-noninlined-s-function.html at depth 3
+2025-05-03 20:18:06,500 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/rtw/ug/write-noninlined-s-function.html
+2025-05-03 20:18:07,501 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ug/write-wrapper-s-function-and-tlc-files.html at depth 3
+2025-05-03 20:18:09,058 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/rtw/ug/write-wrapper-s-function-and-tlc-files.html
+2025-05-03 20:18:10,059 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ug/write-fully-inlined-s-functions.html at depth 3
+2025-05-03 20:18:11,128 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/rtw/ug/write-fully-inlined-s-functions.html
+2025-05-03 20:18:12,129 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ug/write-fully-inlined-s-functions-with-mdlrtw-routine.html at depth 3
+2025-05-03 20:18:12,989 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/rtw/ug/write-fully-inlined-s-functions-with-mdlrtw-routine.html
+2025-05-03 20:18:13,990 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ug/s-functions-for-code-reuse.html at depth 3
+2025-05-03 20:18:14,565 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/rtw/ug/s-functions-for-code-reuse.html
+2025-05-03 20:18:15,565 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ug/s-functions-for-multirate-multitasking-environments.html at depth 3
+2025-05-03 20:18:16,341 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/rtw/ug/s-functions-for-multirate-multitasking-environments.html
+2025-05-03 20:18:17,342 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ug/build-integrated-code-within-the-simulink-environment.html#bp67s_y-2 at depth 3
+2025-05-03 20:18:17,925 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/rtw/ug/build-integrated-code-within-the-simulink-environment.html#bp67s_y-2
+2025-05-03 20:18:18,926 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ug/control-regeneration-of-top-model-code.html at depth 3
+2025-05-03 20:18:19,491 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/rtw/ug/control-regeneration-of-top-model-code.html
+2025-05-03 20:18:20,491 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ug/use-rtwmakecfg-m-api-to-customize-generated-makefiles.html at depth 3
+2025-05-03 20:18:22,088 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/rtw/ug/use-rtwmakecfg-m-api-to-customize-generated-makefiles.html
+2025-05-03 20:18:23,088 - INFO - Processing URL: https://in.mathworks.com/help/rtw/tlc/code-configuration-functions.html#bp6sfq0 at depth 3
+2025-05-03 20:18:25,116 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/rtw/tlc/code-configuration-functions.html#bp6sfq0
+2025-05-03 20:18:26,117 - INFO - Processing URL: https://in.mathworks.com/help/rtw/tlc/code-configuration-functions.html#bp6sftd at depth 3
+2025-05-03 20:18:27,817 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/rtw/tlc/code-configuration-functions.html#bp6sftd
+2025-05-03 20:18:28,819 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ref/rtw_precompile_libs.html at depth 3
+2025-05-03 20:18:29,593 - WARNING - No main content found on https://in.mathworks.com/help/rtw/ref/rtw_precompile_libs.html, skipping content extraction
+2025-05-03 20:18:30,594 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ug/controlling-the-location-and-naming-of-libraries-during-the-build-process.html#bqg8123 at depth 3
+2025-05-03 20:18:31,166 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/rtw/ug/controlling-the-location-and-naming-of-libraries-during-the-build-process.html#bqg8123
+2025-05-03 20:18:32,167 - INFO - Processing URL: https://in.mathworks.com/help/ecoder/ug/place-external-c-cpp-code-in-generated-code.html at depth 3
+2025-05-03 20:18:33,100 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/ecoder/ug/place-external-c-cpp-code-in-generated-code.html
+2025-05-03 20:18:34,101 - INFO - Processing URL: https://in.mathworks.com/help/ecoder/ug/import-calls-to-external-hardware-specific-code-into-generated-algorithmic-code.html at depth 3
+2025-05-03 20:18:34,861 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/ecoder/ug/import-calls-to-external-hardware-specific-code-into-generated-algorithmic-code.html
+2025-05-03 20:18:35,863 - INFO - Processing URL: https://in.mathworks.com/help/ecoder/ug/standalone-programs-no-operating-system.html at depth 3
+2025-05-03 20:18:37,200 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/ecoder/ug/standalone-programs-no-operating-system.html
+2025-05-03 20:18:38,201 - INFO - Processing URL: https://in.mathworks.com/help/ecoder/ug/operating-system-integration.html at depth 3
+2025-05-03 20:18:38,763 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/ecoder/ug/operating-system-integration.html
+2025-05-03 20:18:39,765 - INFO - Processing URL: matlab:openExample('slrealtime/SlrtCompileSourceCodeForFunctionalMockupUnitsExample') at depth 3
+2025-05-03 20:18:39,766 - ERROR - Failed to fetch matlab:openExample('slrealtime/SlrtCompileSourceCodeForFunctionalMockupUnitsExample'): No connection adapters were found for "matlab:openExample('slrealtime/SlrtCompileSourceCodeForFunctionalMockupUnitsExample')"
+2025-05-03 20:18:40,768 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/apply-functional-mockup-units-with-simulink-real-time.html at depth 3
+2025-05-03 20:18:41,353 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/apply-functional-mockup-units-with-simulink-real-time.html
+2025-05-03 20:18:42,355 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.fmu.slrealtime.fmu.compilefmusources.html at depth 3
+2025-05-03 20:18:43,845 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.fmu.slrealtime.fmu.compilefmusources.html, skipping content extraction
+2025-05-03 20:18:44,845 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/work-with-fmi-in-simulink.html at depth 3
+2025-05-03 20:18:45,362 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/work-with-fmi-in-simulink.html
+2025-05-03 20:18:46,363 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/code-regeneration-in-accelerated-models.html at depth 3
+2025-05-03 20:18:47,268 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/code-regeneration-in-accelerated-models.html
+2025-05-03 20:18:48,269 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ug/about-model-execution.html#f17854 at depth 3
+2025-05-03 20:18:48,718 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/rtw/ug/about-model-execution.html#f17854
+2025-05-03 20:18:49,718 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/designing-your-model-for-effective-acceleration.html at depth 3
+2025-05-03 20:18:50,416 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/designing-your-model-for-effective-acceleration.html
+2025-05-03 20:18:51,417 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/performing-acceleration.html at depth 3
+2025-05-03 20:18:51,833 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/performing-acceleration.html
+2025-05-03 20:18:52,835 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/choosing-a-simulation-mode.html at depth 3
+2025-05-03 20:18:53,490 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/choosing-a-simulation-mode.html
+2025-05-03 20:18:54,492 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/comparing-performance.html at depth 3
+2025-05-03 20:18:55,079 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/comparing-performance.html
+2025-05-03 20:18:56,080 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ref/loglevel.html at depth 3
+2025-05-03 20:18:57,521 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/ref/loglevel.html, skipping content extraction
+2025-05-03 20:18:58,522 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ref/maxfilelogruns.html at depth 3
+2025-05-03 20:18:59,186 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/ref/maxfilelogruns.html, skipping content extraction
+2025-05-03 20:19:00,186 - INFO - Processing URL: matlab:openExample('slrealtime/ApplyPersistentVariablesInRealTimeAppsExample') at depth 3
+2025-05-03 20:19:00,187 - ERROR - Failed to fetch matlab:openExample('slrealtime/ApplyPersistentVariablesInRealTimeAppsExample'): No connection adapters were found for "matlab:openExample('slrealtime/ApplyPersistentVariablesInRealTimeAppsExample')"
+2025-05-03 20:19:01,188 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/busassignment.html at depth 3
+2025-05-03 20:19:01,655 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/busassignment.html, skipping content extraction
+2025-05-03 20:19:02,657 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/busselector.html at depth 3
+2025-05-03 20:19:03,929 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/busselector.html, skipping content extraction
+2025-05-03 20:19:04,931 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/demux.html at depth 3
+2025-05-03 20:19:05,741 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/demux.html, skipping content extraction
+2025-05-03 20:19:06,743 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/enable.html at depth 3
+2025-05-03 20:19:07,197 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/enable.html, skipping content extraction
+2025-05-03 20:19:08,198 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/outport.html at depth 3
+2025-05-03 20:19:08,684 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/outport.html, skipping content extraction
+2025-05-03 20:19:09,685 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/from.html at depth 3
+2025-05-03 20:19:10,173 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/from.html, skipping content extraction
+2025-05-03 20:19:11,175 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/goto.html at depth 3
+2025-05-03 20:19:11,778 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/goto.html, skipping content extraction
+2025-05-03 20:19:12,780 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/gototagvisibility.html at depth 3
+2025-05-03 20:19:13,234 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/gototagvisibility.html, skipping content extraction
+2025-05-03 20:19:14,235 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/ground.html at depth 3
+2025-05-03 20:19:14,851 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/ground.html, skipping content extraction
+2025-05-03 20:19:15,852 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/inbuselement.html at depth 3
+2025-05-03 20:19:16,590 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/inbuselement.html, skipping content extraction
+2025-05-03 20:19:17,591 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/inport.html at depth 3
+2025-05-03 20:19:18,412 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/inport.html, skipping content extraction
+2025-05-03 20:19:19,414 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/outbuselement.html at depth 3
+2025-05-03 20:19:20,544 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/outbuselement.html, skipping content extraction
+2025-05-03 20:19:21,546 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/outport.html#bve9go8 at depth 3
+2025-05-03 20:19:22,046 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/outport.html#bve9go8, skipping content extraction
+2025-05-03 20:19:23,048 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/selector.html at depth 3
+2025-05-03 20:19:23,650 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/selector.html, skipping content extraction
+2025-05-03 20:19:24,651 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/signalspecification.html at depth 3
+2025-05-03 20:19:25,267 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/signalspecification.html, skipping content extraction
+2025-05-03 20:19:26,268 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/subsystem.html at depth 3
+2025-05-03 20:19:27,046 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/subsystem.html, skipping content extraction
+2025-05-03 20:19:28,047 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/block-parameters-and-properties.html at depth 3
+2025-05-03 20:19:28,546 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/slref/block-parameters-and-properties.html
+2025-05-03 20:19:29,547 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/terminator.html at depth 3
+2025-05-03 20:19:29,948 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/terminator.html, skipping content extraction
+2025-05-03 20:19:30,949 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/trigger.html at depth 3
+2025-05-03 20:19:31,679 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/trigger.html, skipping content extraction
+2025-05-03 20:19:32,681 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/block-properties-dialog-box.html at depth 3
+2025-05-03 20:19:33,111 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/block-properties-dialog-box.html
+2025-05-03 20:19:34,112 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/displaying-block-outputs.html at depth 3
+2025-05-03 20:19:34,541 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/displaying-block-outputs.html
+2025-05-03 20:19:35,542 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/controlling-and-displaying-the-sorted-order.html at depth 3
+2025-05-03 20:19:36,173 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/controlling-and-displaying-the-sorted-order.html
+2025-05-03 20:19:37,175 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/accessing-block-data-during-simulation.html at depth 3
+2025-05-03 20:19:37,593 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/accessing-block-data-during-simulation.html
+2025-05-03 20:19:38,594 - INFO - Processing URL: https://in.mathworks.com/help/simulink/block-libraries.html at depth 3
+2025-05-03 20:19:39,139 - WARNING - No main content found on https://in.mathworks.com/help/simulink/block-libraries.html, skipping content extraction
+2025-05-03 20:19:40,141 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/simulink.bus.html at depth 3
+2025-05-03 20:19:40,693 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/simulink.bus.html, skipping content extraction
+2025-05-03 20:19:41,695 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/types-of-composite-interfaces.html at depth 3
+2025-05-03 20:19:42,222 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/types-of-composite-interfaces.html
+2025-05-03 20:19:43,223 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/compare-capabilities-of-composite-interfaces.html at depth 3
+2025-05-03 20:19:43,826 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/compare-capabilities-of-composite-interfaces.html
+2025-05-03 20:19:44,827 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/interface-design.html at depth 3
+2025-05-03 20:19:45,426 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/interface-design.html
+2025-05-03 20:19:46,427 - INFO - Processing URL: matlab:matlab.internal.addons.showAddon('ME') at depth 3
+2025-05-03 20:19:46,428 - ERROR - Failed to fetch matlab:matlab.internal.addons.showAddon('ME'): No connection adapters were found for "matlab:matlab.internal.addons.showAddon('ME')"
+2025-05-03 20:19:47,430 - INFO - Processing URL: https://in.mathworks.com/help/coder/index.html at depth 3
+2025-05-03 20:19:48,495 - WARNING - No main content found on https://in.mathworks.com/help/coder/index.html, skipping content extraction
+2025-05-03 20:19:49,497 - INFO - Processing URL: matlab:openExample('slrealtime/SlrtParameterTuningAndDataLoggingExample') at depth 3
+2025-05-03 20:19:49,498 - ERROR - Failed to fetch matlab:openExample('slrealtime/SlrtParameterTuningAndDataLoggingExample'): No connection adapters were found for "matlab:openExample('slrealtime/SlrtParameterTuningAndDataLoggingExample')"
+2025-05-03 20:19:50,499 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/simulationdatainspector.html at depth 3
+2025-05-03 20:19:50,923 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/simulationdatainspector.html, skipping content extraction
+2025-05-03 20:19:51,924 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/when-to-use-bus-objects.html at depth 3
+2025-05-03 20:19:52,487 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/when-to-use-bus-objects.html
+2025-05-03 20:19:53,489 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/specify-bus-signal-sample-times.html at depth 3
+2025-05-03 20:19:53,938 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/specify-bus-signal-sample-times.html
+2025-05-03 20:19:54,938 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/create-nonvirtual-buses.html#mw_d0fdf7c3-b81b-44c1-bea1-c682904dc889 at depth 3
+2025-05-03 20:19:55,408 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/create-nonvirtual-buses.html#mw_d0fdf7c3-b81b-44c1-bea1-c682904dc889
+2025-05-03 20:19:56,409 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/create-nonvirtual-buses.html#mw_113367ec-bc72-4adf-be7a-7b92e7c1b6ec at depth 3
+2025-05-03 20:19:56,859 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/create-nonvirtual-buses.html#mw_113367ec-bc72-4adf-be7a-7b92e7c1b6ec
+2025-05-03 20:19:57,859 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/create-nonvirtual-buses.html#mw_4bc621b4-576a-46c5-afe9-b43e8bcd16dd at depth 3
+2025-05-03 20:19:58,326 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/create-nonvirtual-buses.html#mw_4bc621b4-576a-46c5-afe9-b43e8bcd16dd
+2025-05-03 20:19:59,327 - INFO - Processing URL: matlab:openExample('simulink/CreateNonvirtualBusesWithinAComponentExample') at depth 3
+2025-05-03 20:19:59,329 - ERROR - Failed to fetch matlab:openExample('simulink/CreateNonvirtualBusesWithinAComponentExample'): No connection adapters were found for "matlab:openExample('simulink/CreateNonvirtualBusesWithinAComponentExample')"
+2025-05-03 20:20:00,331 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/getting-started-with-buses.html#bve502j-1 at depth 3
+2025-05-03 20:20:00,777 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/getting-started-with-buses.html#bve502j-1
+2025-05-03 20:20:01,778 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/simulink.bus.createobject.html at depth 3
+2025-05-03 20:20:02,203 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/simulink.bus.createobject.html, skipping content extraction
+2025-05-03 20:20:03,203 - INFO - Processing URL: matlab:openExample('simulink/CreateNonvirtualBusAtInterfaceExample') at depth 3
+2025-05-03 20:20:03,204 - ERROR - Failed to fetch matlab:openExample('simulink/CreateNonvirtualBusAtInterfaceExample'): No connection adapters were found for "matlab:openExample('simulink/CreateNonvirtualBusAtInterfaceExample')"
+2025-05-03 20:20:04,206 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/getting-started-with-buses.html#mw_a65d35f1-6b38-4df8-8484-8803c3d0e263 at depth 3
+2025-05-03 20:20:04,707 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/getting-started-with-buses.html#mw_a65d35f1-6b38-4df8-8484-8803c3d0e263
+2025-05-03 20:20:05,708 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/typeeditor.html at depth 3
+2025-05-03 20:20:07,589 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/typeeditor.html, skipping content extraction
+2025-05-03 20:20:08,590 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/simulink.buselement.html at depth 3
+2025-05-03 20:20:09,311 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/simulink.buselement.html, skipping content extraction
+2025-05-03 20:20:10,312 - INFO - Processing URL: matlab:openExample('simulink/ConvertVirtualBusToNonvirtualBusExample') at depth 3
+2025-05-03 20:20:10,314 - ERROR - Failed to fetch matlab:openExample('simulink/ConvertVirtualBusToNonvirtualBusExample'): No connection adapters were found for "matlab:openExample('simulink/ConvertVirtualBusToNonvirtualBusExample')"
+2025-05-03 20:20:11,315 - INFO - Processing URL: matlab:openExample('simulink/CreateNonvirtualBusFromStructureExample') at depth 3
+2025-05-03 20:20:11,316 - ERROR - Failed to fetch matlab:openExample('simulink/CreateNonvirtualBusFromStructureExample'): No connection adapters were found for "matlab:openExample('simulink/CreateNonvirtualBusFromStructureExample')"
+2025-05-03 20:20:12,318 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/programmatically-create-in-bus-element-blocks.html at depth 3
+2025-05-03 20:20:12,866 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/slref/programmatically-create-in-bus-element-blocks.html
+2025-05-03 20:20:13,867 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/inspect-generated-code-for-nonvirtual-buses.html at depth 3
+2025-05-03 20:20:14,430 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/inspect-generated-code-for-nonvirtual-buses.html
+2025-05-03 20:20:15,431 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/create-structures-in-matlab-function-blocks.html at depth 3
+2025-05-03 20:20:15,961 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/create-structures-in-matlab-function-blocks.html
+2025-05-03 20:20:16,963 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/simulink.numerictype.html at depth 3
+2025-05-03 20:20:18,285 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/simulink.numerictype.html, skipping content extraction
+2025-05-03 20:20:19,285 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/simulink-checks.html#bsgis28-1 at depth 3
+2025-05-03 20:20:20,326 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/slref/simulink-checks.html#bsgis28-1
+2025-05-03 20:20:21,327 - INFO - Processing URL: https://in.mathworks.com/help/fixedpoint/ref/embedded.fi.html at depth 3
+2025-05-03 20:20:22,060 - WARNING - No main content found on https://in.mathworks.com/help/fixedpoint/ref/embedded.fi.html, skipping content extraction
+2025-05-03 20:20:23,061 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/fromworkspace.html at depth 3
+2025-05-03 20:20:23,672 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/fromworkspace.html, skipping content extraction
+2025-05-03 20:20:24,672 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/toworkspace.html at depth 3
+2025-05-03 20:20:25,412 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/toworkspace.html, skipping content extraction
+2025-05-03 20:20:26,413 - INFO - Processing URL: https://in.mathworks.com/help/fixedpoint/ref/embedded.fimath.html at depth 3
+2025-05-03 20:20:27,066 - WARNING - No main content found on https://in.mathworks.com/help/fixedpoint/ref/embedded.fimath.html, skipping content extraction
+2025-05-03 20:20:28,067 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/sine.html at depth 3
+2025-05-03 20:20:28,533 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/sine.html, skipping content extraction
+2025-05-03 20:20:29,535 - INFO - Processing URL: https://in.mathworks.com/help/simulink/sources.html at depth 3
+2025-05-03 20:20:29,952 - WARNING - No main content found on https://in.mathworks.com/help/simulink/sources.html, skipping content extraction
+2025-05-03 20:20:30,953 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/signal-and-scope-manager.html at depth 3
+2025-05-03 20:20:31,349 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/signal-and-scope-manager.html
+2025-05-03 20:20:32,350 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/signal-types.html at depth 3
+2025-05-03 20:20:32,805 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/signal-types.html
+2025-05-03 20:20:33,806 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/displaying-signal-properties.html#f15-90108 at depth 3
+2025-05-03 20:20:34,205 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/displaying-signal-properties.html#f15-90108
+2025-05-03 20:20:35,207 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/simulink.signal.html at depth 3
+2025-05-03 20:20:35,622 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/simulink.signal.html, skipping content extraction
+2025-05-03 20:20:36,623 - INFO - Processing URL: https://in.mathworks.com/help/matlab/ref/namelengthmax.html at depth 3
+2025-05-03 20:20:37,040 - WARNING - No main content found on https://in.mathworks.com/help/matlab/ref/namelengthmax.html, skipping content extraction
+2025-05-03 20:20:38,042 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/exporting-signal-data-using-signal-logging.html at depth 3
+2025-05-03 20:20:38,456 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/exporting-signal-data-using-signal-logging.html
+2025-05-03 20:20:39,457 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/spaces-newlines-logged-signals.html at depth 3
+2025-05-03 20:20:39,864 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/spaces-newlines-logged-signals.html
+2025-05-03 20:20:40,865 - INFO - Processing URL: https://in.mathworks.com/help/matlab/ref/isvarname.html at depth 3
+2025-05-03 20:20:41,298 - WARNING - No main content found on https://in.mathworks.com/help/matlab/ref/isvarname.html, skipping content extraction
+2025-05-03 20:20:42,299 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/propertyinspector.html at depth 3
+2025-05-03 20:20:42,741 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/propertyinspector.html, skipping content extraction
+2025-05-03 20:20:43,743 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/modeldataeditor.html at depth 3
+2025-05-03 20:20:44,192 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/modeldataeditor.html, skipping content extraction
+2025-05-03 20:20:45,193 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/signalproperties.html at depth 3
+2025-05-03 20:20:45,706 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/signalproperties.html, skipping content extraction
+2025-05-03 20:20:46,708 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/get_param.html at depth 3
+2025-05-03 20:20:47,336 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/get_param.html, skipping content extraction
+2025-05-03 20:20:48,337 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/set_param.html at depth 3
+2025-05-03 20:20:48,799 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/set_param.html, skipping content extraction
+2025-05-03 20:20:49,799 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/displaying-signal-properties.html at depth 3
+2025-05-03 20:20:50,249 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/displaying-signal-properties.html
+2025-05-03 20:20:51,249 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/displaying-signal-sources-and-destinations.html at depth 3
+2025-05-03 20:20:51,696 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/displaying-signal-sources-and-destinations.html
+2025-05-03 20:20:52,697 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/simulink.valuetype.html at depth 3
+2025-05-03 20:20:53,307 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/simulink.valuetype.html, skipping content extraction
+2025-05-03 20:20:54,309 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/modelexplorer.html at depth 3
+2025-05-03 20:20:54,831 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/modelexplorer.html, skipping content extraction
+2025-05-03 20:20:55,833 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/determine-where-to-store-data-for-simulink-models.html at depth 3
+2025-05-03 20:20:56,300 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/determine-where-to-store-data-for-simulink-models.html
+2025-05-03 20:20:57,301 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/signal-ranges.html at depth 3
+2025-05-03 20:20:57,713 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/signal-ranges.html
+2025-05-03 20:20:58,714 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/signaleditorblock.html at depth 3
+2025-05-03 20:20:59,236 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/signaleditorblock.html, skipping content extraction
+2025-05-03 20:21:00,237 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/control-signal-data-types.html at depth 3
+2025-05-03 20:21:00,678 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/control-signal-data-types.html
+2025-05-03 20:21:01,679 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/signal-label-propagation.html at depth 3
+2025-05-03 20:21:02,119 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/signal-label-propagation.html
+2025-05-03 20:21:03,119 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/summary-of-mouse-and-keyboard-actions.html at depth 3
+2025-05-03 20:21:03,553 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/summary-of-mouse-and-keyboard-actions.html
+2025-05-03 20:21:04,555 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/simulink-models-using-variable-size-signals-demos-modeling-features-variable-size-signals-or-type-varsizedemos.html#br7dlm_-1 at depth 3
+2025-05-03 20:21:04,991 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/simulink-models-using-variable-size-signals-demos-modeling-features-variable-size-signals-or-type-varsizedemos.html#br7dlm_-1
+2025-05-03 20:21:05,992 - INFO - Processing URL: matlab:openExample('sldemo_varsize_basic') at depth 3
+2025-05-03 20:21:05,993 - ERROR - Failed to fetch matlab:openExample('sldemo_varsize_basic'): No connection adapters were found for "matlab:openExample('sldemo_varsize_basic')"
+2025-05-03 20:21:06,995 - INFO - Processing URL: matlab:showblockdatatypetable at depth 3
+2025-05-03 20:21:06,996 - ERROR - Failed to fetch matlab:showblockdatatypetable: No connection adapters were found for 'matlab:showblockdatatypetable'
+2025-05-03 20:21:07,998 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/actionport.html at depth 3
+2025-05-03 20:21:08,508 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/actionport.html, skipping content extraction
+2025-05-03 20:21:09,509 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/switch.html at depth 3
+2025-05-03 20:21:09,973 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/switch.html, skipping content extraction
+2025-05-03 20:21:10,974 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/multiportswitch.html at depth 3
+2025-05-03 20:21:11,469 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/multiportswitch.html, skipping content extraction
+2025-05-03 20:21:12,470 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/manualswitch.html at depth 3
+2025-05-03 20:21:12,908 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/manualswitch.html, skipping content extraction
+2025-05-03 20:21:13,909 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/define-referenced-model-inputs-and-outputs-1.html#btmmqdp at depth 3
+2025-05-03 20:21:14,342 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/define-referenced-model-inputs-and-outputs-1.html#btmmqdp
+2025-05-03 20:21:15,344 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ug/c-data-code-interface-configuration-for-model-interface-elements.html at depth 3
+2025-05-03 20:21:15,839 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/rtw/ug/c-data-code-interface-configuration-for-model-interface-elements.html
+2025-05-03 20:21:16,840 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/simulink-models-using-variable-size-signals-demos-modeling-features-variable-size-signals-or-type-varsizedemos.html at depth 3
+2025-05-03 20:21:17,296 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/simulink-models-using-variable-size-signals-demos-modeling-features-variable-size-signals-or-type-varsizedemos.html
+2025-05-03 20:21:18,297 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/simulink-models-using-variable-size-signals-demos-modeling-features-variable-size-signals-or-type-varsizedemos.html#br9ecac-1 at depth 3
+2025-05-03 20:21:18,880 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/simulink-models-using-variable-size-signals-demos-modeling-features-variable-size-signals-or-type-varsizedemos.html#br9ecac-1
+2025-05-03 20:21:19,882 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/unbounded-variable-size-signals.html at depth 3
+2025-05-03 20:21:20,372 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/unbounded-variable-size-signals.html
+2025-05-03 20:21:21,374 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/real-time-signal-logging-and-streaming-basics.html#mw_5565cf5a-d275-432c-8e46-878bba001c8d at depth 3
+2025-05-03 20:21:21,815 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/real-time-signal-logging-and-streaming-basics.html#mw_5565cf5a-d275-432c-8e46-878bba001c8d
+2025-05-03 20:21:22,816 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/instrumentationproperties.html at depth 3
+2025-05-03 20:21:24,142 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/instrumentationproperties.html, skipping content extraction
+2025-05-03 20:21:25,143 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/gs/simulink-external-mode-interface.html at depth 3
+2025-05-03 20:21:25,722 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/gs/simulink-external-mode-interface.html
+2025-05-03 20:21:26,723 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/io_ref/enablefilelog.html at depth 3
+2025-05-03 20:21:27,199 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/io_ref/enablefilelog.html, skipping content extraction
+2025-05-03 20:21:28,200 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.target.stop.html at depth 3
+2025-05-03 20:21:28,717 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.stop.html, skipping content extraction
+2025-05-03 20:21:29,718 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.target.startrecording.html at depth 3
+2025-05-03 20:21:30,157 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.startrecording.html, skipping content extraction
+2025-05-03 20:21:31,158 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.target.stoprecording.html at depth 3
+2025-05-03 20:21:31,572 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.stoprecording.html, skipping content extraction
+2025-05-03 20:21:32,572 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/real-time-file-logging-and-streaming-workflow.html at depth 3
+2025-05-03 20:21:33,009 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/real-time-file-logging-and-streaming-workflow.html
+2025-05-03 20:21:34,011 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ug/strean-real-time-signals-by-using-simulink-external-mode.html at depth 3
+2025-05-03 20:21:34,451 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ug/strean-real-time-signals-by-using-simulink-external-mode.html
+2025-05-03 20:21:35,451 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/populate-sdi-with-your-data.html at depth 3
+2025-05-03 20:21:35,886 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/populate-sdi-with-your-data.html
+2025-05-03 20:21:36,887 - INFO - Processing URL: matlab:matlab.internal.addons.showAddon('SZ') at depth 3
+2025-05-03 20:21:36,889 - ERROR - Failed to fetch matlab:matlab.internal.addons.showAddon('SZ'): No connection adapters were found for "matlab:matlab.internal.addons.showAddon('SZ')"
+2025-05-03 20:21:37,890 - INFO - Processing URL: https://in.mathworks.com/help/sltest/index.html at depth 3
+2025-05-03 20:21:38,300 - WARNING - No main content found on https://in.mathworks.com/help/sltest/index.html, skipping content extraction
+2025-05-03 20:21:39,301 - INFO - Processing URL: matlab:openExample('slrealtime/SlrtTestRealTimeApplicationExample') at depth 3
+2025-05-03 20:21:39,302 - ERROR - Failed to fetch matlab:openExample('slrealtime/SlrtTestRealTimeApplicationExample'): No connection adapters were found for "matlab:openExample('slrealtime/SlrtTestRealTimeApplicationExample')"
+2025-05-03 20:21:40,304 - INFO - Processing URL: https://in.mathworks.com/help/sltest/ref/testassessment.html at depth 3
+2025-05-03 20:21:40,725 - WARNING - No main content found on https://in.mathworks.com/help/sltest/ref/testassessment.html, skipping content extraction
+2025-05-03 20:21:41,727 - INFO - Processing URL: https://in.mathworks.com/help/sltest/ref/testsequence.html at depth 3
+2025-05-03 20:21:42,141 - WARNING - No main content found on https://in.mathworks.com/help/sltest/ref/testsequence.html, skipping content extraction
+2025-05-03 20:21:43,142 - INFO - Processing URL: https://in.mathworks.com/help/sltest/ug/test-models-in-real-time-and-assess-results.html at depth 3
+2025-05-03 20:21:43,569 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/sltest/ug/test-models-in-real-time-and-assess-results.html
+2025-05-03 20:21:44,570 - INFO - Processing URL: https://in.mathworks.com/help/sltest/ug/reuse-desktop-test-cases-for-real-time-testing.html at depth 3
+2025-05-03 20:21:44,996 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/sltest/ug/reuse-desktop-test-cases-for-real-time-testing.html
+2025-05-03 20:21:45,996 - INFO - Processing URL: matlab:openExample('simulink/ModelMessageBasedCommunicationFrameworkExample') at depth 3
+2025-05-03 20:21:45,998 - ERROR - Failed to fetch matlab:openExample('simulink/ModelMessageBasedCommunicationFrameworkExample'): No connection adapters were found for "matlab:openExample('simulink/ModelMessageBasedCommunicationFrameworkExample')"
+2025-05-03 20:21:46,999 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/sequenceviewertool.html at depth 3
+2025-05-03 20:21:47,417 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/sequenceviewertool.html, skipping content extraction
+2025-05-03 20:21:48,418 - INFO - Processing URL: matlab:openExample('simulink/ModelMessageBasedCommunicationFrameworkExample','supportingFile','SimpleMessagesModel.slx') at depth 3
+2025-05-03 20:21:48,419 - ERROR - Failed to fetch matlab:openExample('simulink/ModelMessageBasedCommunicationFrameworkExample','supportingFile','SimpleMessagesModel.slx'): No connection adapters were found for "matlab:openExample('simulink/ModelMessageBasedCommunicationFrameworkExample','supportingFile','SimpleMessagesModel.slx')"
+2025-05-03 20:21:49,420 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/sinewave.html at depth 3
+2025-05-03 20:21:51,165 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/sinewave.html, skipping content extraction
+2025-05-03 20:21:52,166 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/queue.html at depth 3
+2025-05-03 20:21:53,264 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/queue.html, skipping content extraction
+2025-05-03 20:21:54,265 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/use-a-queue-block-to-manage-messages.html at depth 3
+2025-05-03 20:21:55,082 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/use-a-queue-block-to-manage-messages.html
+2025-05-03 20:21:56,082 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/sequenceviewer.html at depth 3
+2025-05-03 20:21:56,743 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/sequenceviewer.html, skipping content extraction
+2025-05-03 20:21:57,744 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/hitcrossing.html at depth 3
+2025-05-03 20:21:58,565 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/hitcrossing.html, skipping content extraction
+2025-05-03 20:21:59,566 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/simulink-messages-overview.html at depth 3
+2025-05-03 20:22:00,219 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/simulink-messages-overview.html
+2025-05-03 20:22:01,221 - INFO - Processing URL: https://in.mathworks.com/help/ecoder/ug/message-communication.html#mw_b3d60f69-2274-4ed5-81df-b0842cd23062 at depth 3
+2025-05-03 20:22:02,082 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/ecoder/ug/message-communication.html#mw_b3d60f69-2274-4ed5-81df-b0842cd23062
+2025-05-03 20:22:03,083 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/message-based-communication-between-software-components.html at depth 3
+2025-05-03 20:22:04,010 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/message-based-communication-between-software-components.html
+2025-05-03 20:22:05,012 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/use-sequence-viewer-block.html at depth 3
+2025-05-03 20:22:06,132 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/use-sequence-viewer-block.html
+2025-05-03 20:22:07,133 - INFO - Processing URL: matlab:openExample('slrealtime/SlrtDataLoggingWithSimulationDataInspectorSDIExample') at depth 3
+2025-05-03 20:22:07,134 - ERROR - Failed to fetch matlab:openExample('slrealtime/SlrtDataLoggingWithSimulationDataInspectorSDIExample'): No connection adapters were found for "matlab:openExample('slrealtime/SlrtDataLoggingWithSimulationDataInspectorSDIExample')"
+2025-05-03 20:22:08,136 - INFO - Processing URL: matlab:openExample('slrealtime/SlrtExecutionProfilingForRealTimeApplicationsExample') at depth 3
+2025-05-03 20:22:08,137 - ERROR - Failed to fetch matlab:openExample('slrealtime/SlrtExecutionProfilingForRealTimeApplicationsExample'): No connection adapters were found for "matlab:openExample('slrealtime/SlrtExecutionProfilingForRealTimeApplicationsExample')"
+2025-05-03 20:22:09,139 - INFO - Processing URL: https://in.mathworks.com/help/ecoder/ref/coder.profile.executiontime.schedule.html at depth 3
+2025-05-03 20:22:10,742 - WARNING - No main content found on https://in.mathworks.com/help/ecoder/ref/coder.profile.executiontime.schedule.html, skipping content extraction
+2025-05-03 20:22:11,742 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.profilerdata.report.html at depth 3
+2025-05-03 20:22:12,501 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.profilerdata.report.html, skipping content extraction
+2025-05-03 20:22:13,502 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.profilerdata.html at depth 3
+2025-05-03 20:22:14,009 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.profilerdata.html, skipping content extraction
+2025-05-03 20:22:15,009 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.target.getavailableprofile.html at depth 3
+2025-05-03 20:22:15,573 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.getavailableprofile.html, skipping content extraction
+2025-05-03 20:22:16,573 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/api/slrealtime.target.deleteprofilerdata.html at depth 3
+2025-05-03 20:22:17,067 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/api/slrealtime.target.deleteprofilerdata.html, skipping content extraction
+2025-05-03 20:22:18,067 - INFO - Processing URL: https://in.mathworks.com/help/ecoder/ref/codeprofileanalyzer-app.html at depth 3
+2025-05-03 20:22:19,548 - WARNING - No main content found on https://in.mathworks.com/help/ecoder/ref/codeprofileanalyzer-app.html, skipping content extraction
+2025-05-03 20:22:20,550 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/implicit-and-explicit-partitioning-of-models.html at depth 3
+2025-05-03 20:22:21,075 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/implicit-and-explicit-partitioning-of-models.html
+2025-05-03 20:22:22,077 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/configure-your-model.html at depth 3
+2025-05-03 20:22:22,601 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/configure-your-model.html
+2025-05-03 20:22:23,602 - INFO - Processing URL: https://in.mathworks.com/help/simulink/configuration-sets.html at depth 3
+2025-05-03 20:22:24,091 - WARNING - No main content found on https://in.mathworks.com/help/simulink/configuration-sets.html, skipping content extraction
+2025-05-03 20:22:25,092 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/choose-a-target-architecture.html at depth 3
+2025-05-03 20:22:26,606 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/choose-a-target-architecture.html
+2025-05-03 20:22:27,608 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/setup-partitions-in-explicit-partitioning.html#bs38d7r-1 at depth 3
+2025-05-03 20:22:29,206 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/setup-partitions-in-explicit-partitioning.html#bs38d7r-1
+2025-05-03 20:22:30,207 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/setup-partitions-in-explicit-partitioning.html#bs38d7y-1 at depth 3
+2025-05-03 20:22:30,731 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/setup-partitions-in-explicit-partitioning.html#bs38d7y-1
+2025-05-03 20:22:31,732 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/setup-partitions-in-explicit-partitioning.html#bs38d7j-1 at depth 3
+2025-05-03 20:22:32,279 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/setup-partitions-in-explicit-partitioning.html#bs38d7j-1
+2025-05-03 20:22:33,280 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/model.html at depth 3
+2025-05-03 20:22:33,845 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/model.html, skipping content extraction
+2025-05-03 20:22:34,845 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ref/asynchronoustaskspecification.html at depth 3
+2025-05-03 20:22:35,281 - WARNING - No main content found on https://in.mathworks.com/help/rtw/ref/asynchronoustaskspecification.html, skipping content extraction
+2025-05-03 20:22:36,282 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/implement-data-parallelism-in-simulink.html at depth 3
+2025-05-03 20:22:36,694 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/implement-data-parallelism-in-simulink.html
+2025-05-03 20:22:37,696 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/implement-task-parallelism-in-simulink.html at depth 3
+2025-05-03 20:22:38,112 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/implement-task-parallelism-in-simulink.html
+2025-05-03 20:22:39,112 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/implement-pipelining-in-simulink.html at depth 3
+2025-05-03 20:22:39,507 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/implement-pipelining-in-simulink.html
+2025-05-03 20:22:40,508 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/concepts-in-multicore-programming.html at depth 3
+2025-05-03 20:22:40,932 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/concepts-in-multicore-programming.html
+2025-05-03 20:22:41,932 - INFO - Processing URL: https://in.mathworks.com/help/simulink/performance.html at depth 3
+2025-05-03 20:22:42,332 - WARNING - No main content found on https://in.mathworks.com/help/simulink/performance.html, skipping content extraction
+2025-05-03 20:22:43,342 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/building-and-downloading-the-model-to-a-multicore-target.html#bs6x65g at depth 3
+2025-05-03 20:22:43,786 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/building-and-downloading-the-model-to-a-multicore-target.html#bs6x65g
+2025-05-03 20:22:44,786 - INFO - Processing URL: https://in.mathworks.com/help/ecoder/ug/deploy-component-model.html at depth 3
+2025-05-03 20:22:45,259 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/ecoder/ug/deploy-component-model.html
+2025-05-03 20:22:46,259 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/standalone-operation.html at depth 3
+2025-05-03 20:22:46,688 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/standalone-operation.html, skipping content extraction
+2025-05-03 20:22:47,690 - INFO - Processing URL: https://in.mathworks.com/help/hdlcoder/deployment.html at depth 3
+2025-05-03 20:22:48,095 - WARNING - No main content found on https://in.mathworks.com/help/hdlcoder/deployment.html, skipping content extraction
+2025-05-03 20:22:49,096 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/building-and-downloading-the-model-to-a-multicore-target.html#bs4bgcj at depth 3
+2025-05-03 20:22:49,538 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/building-and-downloading-the-model-to-a-multicore-target.html#bs4bgcj
+2025-05-03 20:22:50,539 - INFO - Processing URL: https://in.mathworks.com/help/ecoder/code-execution-profiling.html at depth 3
+2025-05-03 20:22:50,964 - WARNING - No main content found on https://in.mathworks.com/help/ecoder/code-execution-profiling.html, skipping content extraction
+2025-05-03 20:22:51,965 - INFO - Processing URL: https://in.mathworks.com/help/hdlcoder/speed-and-area-optimization-1.html at depth 3
+2025-05-03 20:22:52,391 - WARNING - No main content found on https://in.mathworks.com/help/hdlcoder/speed-and-area-optimization-1.html, skipping content extraction
+2025-05-03 20:22:53,393 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/concepts-in-multicore-programming.html#buuyax5 at depth 3
+2025-05-03 20:22:54,002 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/concepts-in-multicore-programming.html#buuyax5
+2025-05-03 20:22:55,003 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/supported-targets-for-multicore-programming.html at depth 3
+2025-05-03 20:22:55,765 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/supported-targets-for-multicore-programming.html
+2025-05-03 20:22:56,766 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/limitations-with-multicore-programming-in-simulink.html at depth 3
+2025-05-03 20:22:58,146 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/limitations-with-multicore-programming-in-simulink.html
+2025-05-03 20:22:59,147 - INFO - Processing URL: https://in.mathworks.com/help/ecoder/ug/time-based-scheduling-and-code-generation.html at depth 3
+2025-05-03 20:22:59,768 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/ecoder/ug/time-based-scheduling-and-code-generation.html
+2025-05-03 20:23:00,770 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/modeling-a-fault-tolerant-fuel-control-system.html at depth 3
+2025-05-03 20:23:01,376 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/slref/modeling-a-fault-tolerant-fuel-control-system.html
+2025-05-03 20:23:02,378 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/create-export-function-model.html at depth 3
+2025-05-03 20:23:03,971 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/create-export-function-model.html
+2025-05-03 20:23:04,972 - INFO - Processing URL: https://in.mathworks.com/help/simulink/slref/scheduleeditor.html at depth 3
+2025-05-03 20:23:05,542 - WARNING - No main content found on https://in.mathworks.com/help/simulink/slref/scheduleeditor.html, skipping content extraction
+2025-05-03 20:23:06,543 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/schedule-partitions.html at depth 3
+2025-05-03 20:23:07,194 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/schedule-partitions.html
+2025-05-03 20:23:08,195 - INFO - Processing URL: https://in.mathworks.com/help/simulink/ug/generate-code-from-a-partitioned-model.html at depth 3
+2025-05-03 20:23:08,779 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/simulink/ug/generate-code-from-a-partitioned-model.html
+2025-05-03 20:23:09,780 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/io_ref/threadtrigger.html at depth 3
+2025-05-03 20:23:11,373 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/io_ref/threadtrigger.html, skipping content extraction
+2025-05-03 20:23:12,374 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/ref/tlc-command-line-options.html at depth 3
+2025-05-03 20:23:12,958 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/ref/tlc-command-line-options.html
+2025-05-03 20:23:13,958 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/performance.html at depth 3
+2025-05-03 20:23:14,446 - WARNING - No main content found on https://in.mathworks.com/help/slrealtime/performance.html, skipping content extraction
+2025-05-03 20:23:15,447 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/io_ref/about-rtos-interrupt-priorities-and-tasks.html at depth 3
+2025-05-03 20:23:15,894 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/io_ref/about-rtos-interrupt-priorities-and-tasks.html
+2025-05-03 20:23:16,895 - INFO - Processing URL: matlab:openExample('slrealtime/SlrtConcurrentExecutionExample') at depth 3
+2025-05-03 20:23:16,897 - ERROR - Failed to fetch matlab:openExample('slrealtime/SlrtConcurrentExecutionExample'): No connection adapters were found for "matlab:openExample('slrealtime/SlrtConcurrentExecutionExample')"
+2025-05-03 20:23:17,898 - INFO - Processing URL: matlab:open_system('slrt_ex_mds_and_tasks') at depth 3
+2025-05-03 20:23:17,899 - ERROR - Failed to fetch matlab:open_system('slrt_ex_mds_and_tasks'): No connection adapters were found for "matlab:open_system('slrt_ex_mds_and_tasks')"
+2025-05-03 20:23:18,909 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ug/generate-separate-code-and-files-for-subsystems-in-a-model.html at depth 3
+2025-05-03 20:23:19,398 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/rtw/ug/generate-separate-code-and-files-for-subsystems-in-a-model.html
+2025-05-03 20:23:20,399 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ug/generate-code-and-executables-for-an-individual-subsystem.html at depth 3
+2025-05-03 20:23:20,800 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/rtw/ug/generate-code-and-executables-for-an-individual-subsystem.html
+2025-05-03 20:23:21,802 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ug/inline-subsystem-code-ecoder.html at depth 3
+2025-05-03 20:23:22,227 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/rtw/ug/inline-subsystem-code-ecoder.html
+2025-05-03 20:23:23,229 - INFO - Processing URL: https://in.mathworks.com/help/rtw/ug/generate-reusable-code-from-library-subsystems-shared-across-models.html at depth 3
+2025-05-03 20:23:23,682 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/rtw/ug/generate-reusable-code-from-library-subsystems-shared-across-models.html
+2025-05-03 20:23:24,683 - INFO - Processing URL: matlab:openExample('slrealtime/SlrtMonitorCPUOverloadRateExample') at depth 3
+2025-05-03 20:23:24,684 - ERROR - Failed to fetch matlab:openExample('slrealtime/SlrtMonitorCPUOverloadRateExample'): No connection adapters were found for "matlab:openExample('slrealtime/SlrtMonitorCPUOverloadRateExample')"
+2025-05-03 20:23:25,686 - INFO - Processing URL: https://in.mathworks.com/help/slrealtime/gs/target-computer-operating-modes.html at depth 3
+2025-05-03 20:23:26,163 - INFO - Successfully scraped and saved: https://in.mathworks.com/help/slrealtime/gs/target-computer-operating-modes.html
+2025-05-03 20:23:27,185 - INFO - All corpus saved to corpus.json with 207 pages
+2025-05-03 20:23:27,186 - INFO - Saved 383 links to scraped_links.csv

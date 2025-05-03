@@ -1,12 +1,12 @@
-# SimuBot: Simulink Real-Time Troubleshooting Assistant
+# MATBot: MATLAB AI Troubleshooting Assistant
 
 ## Overview
 
-SimuBot is an intelligent assistant for troubleshooting Simulink Real-Time issues. The application leverages RAG (Retrieval-Augmented Generation) architecture and LLM models to provide accurate, contextual solutions to common Simulink Real-Time problems by drawing from MathWorks documentation.
+MATBot is an intelligent assistant designed to troubleshoot MATLAB software-related issues. The application leverages RAG (Retrieval-Augmented Generation) architecture and LLM models to provide accurate, contextual solutions to common MATLAB problems by drawing from official MathWorks documentation.
 
 ## Features
 
-- **AI-Powered Debugging Assistance**: Identifies and resolves Simulink Real-Time errors with step-by-step solutions
+- **AI-Powered Troubleshooting**: Identifies and resolves MATLAB errors with step-by-step solutions
 - **Semantic Clustering**: Organizes technical documentation into relevant clusters for better retrieval
 - **Interactive Chat Interface**: User-friendly Streamlit-based chat interface with real-time feedback
 - **Model Customization**: Select between different Gemini models with configurable system prompts
@@ -18,7 +18,7 @@ SimuBot is an intelligent assistant for troubleshooting Simulink Real-Time issue
 The application follows a modular architecture:
 
 1. **Data Collection & Processing**:
-   - Web scraping of Simulink Real-Time documentation (`scrapL1.py`, `individualLinkScrap.py`)
+   - Web scraping of MATLAB documentation
    - HTML to structured JSON conversion (`structurify.py`)
 
 2. **Knowledge Base**:
@@ -33,16 +33,18 @@ The application follows a modular architecture:
 4. **Agent System**:
    - Debugger agent for problem-solving (`debugger_agent.py`)
    - Evaluator agent for quality assessment (`evaluator_agent.py`)
+   - Intent agent for response type detection (`intent_agent.py`)
+   - Concise agent for summarization (`concise_agent.py`)
 
 5. **User Interface**:
    - Streamlit web application (`streamlit_chat_app.py`)
-   - Groq API integration for specific generation tasks (`app_1.py`)
+   - Interactive RAG configuration parameters
 
 ## Technical Stack
 
 - **Python 3.10+**
 - **Machine Learning**: scikit-learn, sentence-transformers, FAISS
-- **LLM APIs**: Google Gemini, Groq (llama3)
+- **LLM APIs**: Google Gemini
 - **Web Framework**: Streamlit
 - **Data Processing**: BeautifulSoup, pandas
 - **Vector Database**: FAISS (Facebook AI Similarity Search)
@@ -52,14 +54,14 @@ The application follows a modular architecture:
 ### Prerequisites
 
 - Python 3.10+
-- API keys for Google Gemini and Groq
+- API key for Google Gemini
 
 ### Installation
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/simubot.git
-   cd simubot
+   git clone https://github.com/yourusername/matbot.git
+   cd matbot
    ```
 
 2. Install dependencies:
@@ -69,10 +71,9 @@ The application follows a modular architecture:
 
 3. Set up environment variables:
    - Create a `.env` file in the project root
-   - Add your API keys:
+   - Add your API key:
      ```
      GEMINI_API_KEY=your_gemini_api_key
-     GROQ_API_KEY=your_groq_api_key
      ```
 
 ### Running the Application
@@ -84,12 +85,12 @@ streamlit run streamlit_chat_app.py
 
 ## Usage
 
-1. Enter your Simulink Real-Time troubleshooting query in the chat input
+1. Enter your MATLAB-related troubleshooting query in the chat input
 2. The system will:
    - Retrieve relevant documentation from the knowledge base
    - Generate a structured response with problem analysis and solution
    - Evaluate the quality of the response
-3. Use the model parameters sidebar to configure the LLM before starting the chat
+3. Use the model parameters sidebar to configure the LLM and RAG parameters before starting the chat
 
 ## Project Structure
 
@@ -99,12 +100,11 @@ streamlit run streamlit_chat_app.py
 - `structurify.py`: HTML processing utilities
 - `clustering.py`: Document clustering implementation
 - `streamlit_chat_app.py`: Main chat application
-- `app_1.py`: Alternative application using Groq API
 - `requirements.txt`: Project dependencies
 
 ## Future Improvements
 
-- Expanded knowledge base with additional Simulink documentation
+- Expanded knowledge base with additional MATLAB documentation
 - Integration with MATLAB for direct code analysis
 - User feedback-based continuous learning
 - Support for more LLM providers

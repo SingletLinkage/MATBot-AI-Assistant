@@ -137,9 +137,9 @@ if __name__ == "__main__":
 
     input_message = "Hey there! Can you help me with a Python code snippet that reverses a string?"
 
-    # print("Using non-streaming version:")
-    # output = universal_agent(input_message, system_prompt)
-    # print(json.dumps(output, indent=2))
+    print("Using non-streaming version:")
+    output = universal_agent(input_message, system_prompt)
+    print(json.dumps(output, indent=2))
     
     # print("\nUsing streaming version:")
     # for chunk in stream_universal_agent(input_message, system_prompt):
@@ -147,11 +147,11 @@ if __name__ == "__main__":
 
     # print()
 
-    print("\nTesting chat version:")
-    response, chat_history = chat_agent(input_message, None, system_prompt)
-    print(json.dumps(response, indent=2))
+    # print("\nTesting chat version:")
+    # response, chat_history = chat_agent(input_message, None, system_prompt)
+    # print(json.dumps(response, indent=2))
 
-    print("\nTesting chat continuity:")
-    follow_up = "Thanks for that! Can you now write me a short poem?"
-    response2, chat_history = chat_agent(follow_up, chat_history)
-    print(json.dumps(response2, indent=2))
+    # print("\nTesting chat continuity:")
+    # follow_up = "Thanks for that! Can you now write me a short poem?"
+    # response2, chat_history = chat_agent(follow_up, chat_history)
+    # print(json.dumps(response2, indent=2))

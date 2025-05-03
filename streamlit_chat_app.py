@@ -16,7 +16,7 @@ load_dotenv()
 
 # Set page configuration
 st.set_page_config(
-    page_title="CodeHelper - AI Debugging Assistant",
+    page_title="MATBot - MATLAB AI Assistant",
     page_icon="🐞",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -45,6 +45,11 @@ if "session_initialized" not in st.session_state:
         "model": AVAILABLE_MODELS[0],
         "system_prompt": DEBUGGER_DEFAULT_PROMPT
     }
+    st.session_state.rag_params = {
+        "n_clusters": 30,
+        "num_closest_clusters": 5,
+        "top_y": 5
+    }
     st.session_state.source_clusters = {}
     st.session_state.feedback_messages = {}
     st.session_state.improved_responses = {}
@@ -56,6 +61,8 @@ if "session_initialized" not in st.session_state:
     st.session_state.intent_analysis = {}  # Store intent analysis results
     st.session_state.show_advanced = False  # Advanced mode toggle
     st.session_state.session_initialized = True
+    st.session_state.retrieved_context = None
+    st.session_state.last_evaluation = None
 
 # Custom CSS
 st.markdown("""
@@ -233,13 +240,13 @@ st.markdown("""
 
 # Cache cluster initialization to avoid re-processing on every rerun
 @st.cache_resource
-def get_clusterer():
-    return init_clusters()
+def get_clusterer(n_clusters=30, num_closest_clusters=5):
+    return init_clusters(n_clusters=n_clusters, num_closest_clusters=num_closest_clusters)
 
 # Cache context fetching for queries
 @st.cache_data(ttl=3600)  # Cache for 1 hour
-def get_query_clusters(_clusterer, query):  # Added underscore to prevent hashing
-    return query_clusters(_clusterer, query)
+def get_query_clusters(_clusterer, query, top_y=5):  # Added underscore to prevent hashing
+    return query_clusters(_clusterer, query, top_y=top_y)
 
 # Hash a message to create a cache key
 def hash_message(message):
@@ -266,7 +273,7 @@ def generate_agent_response(agent_type, message, model=None):
 def render_header():
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-        st.markdown("<div class='main-header'><h1>🐞 CodeHelper - AI Assistant</h1></div>", unsafe_allow_html=True)
+        st.markdown("<div class='main-header'><h1>🐞 MATBot - MATLAB AI Assistant</h1></div>", unsafe_allow_html=True)
 
 def render_chat_container():
     st.markdown("<div class='chat-container'></div>", unsafe_allow_html=True)
@@ -277,7 +284,7 @@ def render_chat_message(message, is_user=False, message_idx=None, intent_type=No
         header = "👤 You"
     else:
         role = "assistant"
-        header = "🤖 CodeHelper"
+        header = "🤖 MATBot"
     
     # Add an intent badge for assistant messages if intent_type is provided
     intent_badge = f"<div></div>"
@@ -307,7 +314,7 @@ def render_chat_message(message, is_user=False, message_idx=None, intent_type=No
         if sources:
             with st.expander("Show sources used for this response"):
                 for i, source in enumerate(sources):
-                    st.markdown(f"**Source {i+1}: {source['title']}**")
+                    st.markdown(f"**Source {i+1}: {source['title'].strip()}**")
                     st.markdown(f"*{source['heading']}*")
                     st.markdown(source['content'])
                     if 'link' in source:
@@ -476,6 +483,7 @@ def display_chat_history():
             st.markdown('</div>', unsafe_allow_html=True)
 
 def render_evaluation_sidebar():
+    """Display all evaluation results in the sidebar with Ragas metrics"""
     st.sidebar.markdown("<h3 class='sidebar-header'>Response Evaluations</h3>", unsafe_allow_html=True)
     
     if not st.session_state.evaluation_history:
@@ -483,19 +491,48 @@ def render_evaluation_sidebar():
         return
     
     for i, eval_data in enumerate(st.session_state.evaluation_history):
-        with st.sidebar.expander(f"Evaluation #{i+1} (Score: {eval_data['score']:.2f})"):
-            st.markdown(f"<div class='score-container'><span class='score-label'>Score:</span> {eval_data['score']:.2f}</div>", unsafe_allow_html=True)
+        with st.sidebar.expander(f"Evaluation #{i+1} (Score: {eval_data.get('score', 0.5):.2f})", expanded=(i == len(st.session_state.evaluation_history) - 1)):
+            # Quality score with color
+            score = eval_data.get("score", 0.5)
+            score_color = get_score_color(score)
+            st.markdown(f"<h3 style='color: {score_color}'>Quality Score: {score:.2f}</h3>", unsafe_allow_html=True)
             
-            st.markdown("**Strengths:**")
-            for strength in eval_data["strengths"]:
-                st.markdown(f"- {strength}")
+            # Ragas metrics if available
+            if "ragas_metrics" in eval_data:
+                st.markdown("### Ragas Metrics")
+                ragas = eval_data["ragas_metrics"]
+                
+                # Faithfulness (accuracy)
+                faith_color = get_score_color(ragas["faithfulness"])
+                st.markdown(f"<p>Faithfulness: <span style='color: {faith_color}'>{ragas['faithfulness']:.3f}</span></p>", 
+                            unsafe_allow_html=True)
+                
+                # Answer relevance
+                ans_color = get_score_color(ragas["answer_relevance"])
+                st.markdown(f"<p>Answer Relevance: <span style='color: {ans_color}'>{ragas['answer_relevance']:.3f}</span></p>", 
+                            unsafe_allow_html=True)
+                
+                # Context relevance
+                ctx_color = get_score_color(ragas["context_relevance"])
+                st.markdown(f"<p>Context Relevance: <span style='color: {ctx_color}'>{ragas['context_relevance']:.3f}</span></p>", 
+                            unsafe_allow_html=True)
             
-            st.markdown("**Weaknesses:**")
-            for weakness in eval_data["weaknesses"]:
-                st.markdown(f"- {weakness}")
+            # Strengths
+            if "strengths" in eval_data and eval_data["strengths"]:
+                st.markdown("### Strengths")
+                for strength in eval_data["strengths"]:
+                    st.markdown(f"- {strength}")
             
-            st.markdown("**How to improve:**")
-            st.markdown(eval_data["improvement_suggestions"])
+            # Weaknesses
+            if "weaknesses" in eval_data and eval_data["weaknesses"]:
+                st.markdown("### Weaknesses")
+                for weakness in eval_data["weaknesses"]:
+                    st.markdown(f"- {weakness}")
+            
+            # Improvement suggestions
+            if "improvement_suggestions" in eval_data:
+                st.markdown("### Improvement Suggestions")
+                st.markdown(eval_data["improvement_suggestions"])
 
 def render_model_params_sidebar():
     with st.sidebar:
@@ -520,6 +557,45 @@ def render_model_params_sidebar():
                 help="Auto: Smart detection based on query. Detailed: Comprehensive answers. Concise: Shorter responses."
             )
             st.session_state.response_mode = response_mode
+            
+            # Add RAG Parameters section in advanced mode
+            st.sidebar.markdown("<h4 class='sidebar-header'>RAG Parameters</h4>", unsafe_allow_html=True)
+            
+            n_clusters = st.slider(
+                "Number of Clusters", 
+                min_value=10, 
+                max_value=50, 
+                value=st.session_state.rag_params["n_clusters"],
+                step=5,
+                help="Number of clusters for document organization. Higher values create more specific clusters.",
+                disabled=disabled
+            )
+            
+            num_closest_clusters = st.slider(
+                "Closest Clusters to Retrieve", 
+                min_value=1, 
+                max_value=10, 
+                value=st.session_state.rag_params["num_closest_clusters"],
+                step=1,
+                help="Number of closest topic clusters to search for context. Higher values retrieve more diverse information.",
+                disabled=disabled
+            )
+            
+            top_y = st.slider(
+                "Top Documents per Cluster", 
+                min_value=1, 
+                max_value=10, 
+                value=st.session_state.rag_params["top_y"],
+                step=1,
+                help="Number of most relevant documents to retrieve from each cluster. Higher values provide more context.",
+                disabled=disabled
+            )
+            
+            # Update RAG parameters in session state
+            st.session_state.rag_params["n_clusters"] = n_clusters
+            st.session_state.rag_params["num_closest_clusters"] = num_closest_clusters
+            st.session_state.rag_params["top_y"] = top_y
+            
         else:
             st.session_state.show_advanced = False
         
@@ -552,6 +628,10 @@ def render_model_params_sidebar():
                 system_prompt=system_prompt
             )
             
+            # Clear the cache for the clusterer to apply new RAG parameters
+            if st.session_state.show_advanced:
+                st.cache_resource.clear()
+            
             st.success("Parameters set successfully!")
             st.rerun()
         
@@ -559,9 +639,17 @@ def render_model_params_sidebar():
             st.session_state.model_params["model"] = AVAILABLE_MODELS[0]
             st.session_state.model_params["system_prompt"] = DEBUGGER_DEFAULT_PROMPT
             st.session_state.response_mode = "auto"
+            st.session_state.rag_params = {
+                "n_clusters": 30,
+                "num_closest_clusters": 5,
+                "top_y": 5
+            }
             
             # Create a new debugger agent with default parameters
             st.session_state.debugger_agent = DebuggerAgent()
+            
+            # Clear the cache for the clusterer
+            st.cache_resource.clear()
             
             st.success("Parameters reset to default!")
             st.rerun()
@@ -580,10 +668,17 @@ def handle_user_input(clusterer):
         # Create a progress bar for better UX during processing
         progress_bar = st.progress(0)
 
-        # Get clusters for the user message
-        with st.spinner("Finding relevant clusters..."):
-            # Use cached clustering function with underscore parameter
-            clusters = get_query_clusters(clusterer, user_message)
+        # Get clusters for the user message using top_y parameter from session state
+        with st.spinner("Fetching relevant documentation..."):
+            # Show "Fetching docs" message for a short time
+            time.sleep(1)
+            
+            # Use cached clustering function with parameters from session state
+            clusters = get_query_clusters(
+                clusterer, 
+                user_message, 
+                top_y=st.session_state.rag_params["top_y"]
+            )
             progress_bar.progress(20)
             
             # Store the clusters for displaying as sources
@@ -597,6 +692,7 @@ def handle_user_input(clusterer):
             
             # Add context to user message
             user_message_with_context = f"USER: {user_message}\n\nCONTEXT: {context_text}"
+            st.session_state.retrieved_context = context_text
         
         progress_bar.progress(30)
         
@@ -681,9 +777,11 @@ def handle_user_input(clusterer):
                 user_message_with_context, 
                 final_response,
                 system_prompt=EVALUATOR_DEFAULT_PROMPT,
-                model=st.session_state.model_params["model"]
+                model=st.session_state.model_params["model"],
+                context=st.session_state.retrieved_context
             )
             
+            st.session_state.last_evaluation = eval_data
             st.session_state.evaluation_history.append(eval_data)
             
         progress_bar.progress(100)
@@ -697,11 +795,24 @@ def handle_user_input(clusterer):
         # Still need rerun to update the chat history display
         st.rerun()
 
+# Helper function to get color based on score
+def get_score_color(score):
+    """Return a color based on the score value"""
+    if score >= 0.8:
+        return "#00CC66"  # Green for high scores
+    elif score >= 0.6:
+        return "#CCCC00"  # Yellow for medium scores
+    else:
+        return "#FF6666"  # Red for low scores
+
 def main():
     render_header()
     
-    # Get cached clusterer
-    clusterer = get_clusterer()
+    # Get cached clusterer with RAG parameters from session state
+    clusterer = get_clusterer(
+        n_clusters=st.session_state.rag_params["n_clusters"],
+        num_closest_clusters=st.session_state.rag_params["num_closest_clusters"]
+    )
     
     # Create three columns - main chat and two sidebars
     left_sidebar, main_col, right_sidebar = st.columns([1, 3, 1])
