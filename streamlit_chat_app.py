@@ -5,6 +5,7 @@ import json
 import time
 from agents.debugger_agent import DebuggerAgent, DEFAULT_SYSTEM_PROMPT as DEBUGGER_DEFAULT_PROMPT
 from agents.evaluator_agent import evaluate_response, DEFAULT_SYSTEM_PROMPT as EVALUATOR_DEFAULT_PROMPT
+from clustering import init_clusters, query_clusters
 
 # Load environment variables
 load_dotenv()
@@ -40,6 +41,12 @@ if "model_params" not in st.session_state:
         "model": AVAILABLE_MODELS[0],
         "system_prompt": DEBUGGER_DEFAULT_PROMPT
     }
+if "source_clusters" not in st.session_state:
+    st.session_state.source_clusters = {}
+if "feedback_messages" not in st.session_state:
+    st.session_state.feedback_messages = {}
+if "improved_responses" not in st.session_state:
+    st.session_state.improved_responses = {}
 
 # Custom CSS
 st.markdown("""
@@ -110,6 +117,50 @@ st.markdown("""
         text-align: center;
         color: #333333;
     }
+    .source-button {
+        margin-top: 0.5rem;
+        color: #4b9cff;
+        background: none;
+        border: none;
+        padding: 0;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+    .source-container {
+        margin-top: 0.5rem;
+        padding: 0.5rem;
+        background-color: #f9f9f9;
+        border-left: 3px solid #ffbc42;
+        font-size: 0.9rem;
+    }
+    .source-title {
+        font-weight: bold;
+        margin-bottom: 0.3rem;
+    }
+    .source-heading {
+        font-style: italic;
+        color: #555555;
+    }
+    .source-link {
+        color: #0366d6;
+        text-decoration: none;
+        display: inline-block;
+        padding: 0.3rem 0.7rem;
+        margin-top: 0.5rem;
+        border-radius: 0.3rem;
+        background-color: #e6f1ff;
+        font-size: 0.85rem;
+        transition: background-color 0.2s;
+        border: 1px solid #c8e1ff;
+    }
+    .source-link:hover {
+        background-color: #c8e1ff;
+        text-decoration: none;
+    }
+    .source-link i {
+        margin-right: 0.3rem;
+    }
+            
 </style>
 """, unsafe_allow_html=True)
 
@@ -122,7 +173,7 @@ def render_header():
 def render_debug_session_header():
     st.markdown("<div class='debug-session-header'><h3>Debug Session</h3></div>", unsafe_allow_html=True)
 
-def render_chat_message(message, is_user=False):
+def render_chat_message(message, is_user=False, message_idx=None):
     if is_user:
         role = "user"
         header = "You"
@@ -136,10 +187,104 @@ def render_chat_message(message, is_user=False):
         <div class="message-content">{message}</div>
     </div>
     """, unsafe_allow_html=True)
+    
+    # Show sources for assistant messages
+    if not is_user and message_idx is not None and message_idx in st.session_state.source_clusters:
+        sources = st.session_state.source_clusters[message_idx]
+        if sources:
+            with st.expander("Show sources used for this response"):
+                for i, source in enumerate(sources):
+                    st.markdown(f"**Source {i+1}: {source['title']}**")
+                    st.markdown(f"*{source['heading']}*")
+                    st.markdown(source['content'])
+                    if 'link' in source:
+                        st.markdown(f"[View original document]({source['link']})")
+                    st.divider()
+
+def process_negative_feedback(message_idx):
+    """Generate an improved response based on evaluation feedback"""
+    # Get the original message and its evaluation
+    original_message = st.session_state.chat_history[message_idx]["content"]
+    user_query = st.session_state.chat_history[message_idx-1]["content"]
+    
+    # Get the evaluation data
+    eval_idx = (message_idx - 1) // 2
+    if eval_idx < len(st.session_state.evaluation_history):
+        eval_data = st.session_state.evaluation_history[eval_idx]
+        
+        # Format the strengths and weaknesses
+        strengths = "\n".join([f"- {s}" for s in eval_data["strengths"]])
+        weaknesses = "\n".join([f"- {w}" for w in eval_data["weaknesses"]])
+        
+        # Create the improvement prompt
+        improvement_prompt = f"""
+        Please improve your previous response based on the following feedback:
+        
+        USER QUERY:
+        {user_query}
+        
+        YOUR PREVIOUS RESPONSE:
+        {original_message}
+        
+        EVALUATION:
+        Strengths:
+        {strengths}
+        
+        Weaknesses:
+        {weaknesses}
+        
+        Suggestions for improvement:
+        {eval_data["improvement_suggestions"]}
+        
+        Please provide a completely revised response that addresses the weaknesses
+        while maintaining the strengths.
+        """
+        
+        with st.spinner("Generating improved response..."):
+            # Get the context clusters if available
+            if message_idx in st.session_state.source_clusters:
+                context_text = ""
+                for i, cluster in enumerate(st.session_state.source_clusters[message_idx]):
+                    context_text += f"Source {i+1}:\nTitle: {cluster['title']}\nLink: {cluster.get('link', 'N/A')}\nHeading: {cluster['heading']}\nContent: {cluster['content']}\n\n"
+                
+                improvement_prompt += f"\n\nCONTEXT: {context_text}"
+            
+            # Generate improved response
+            improved_response = st.session_state.debugger_agent.get_response(improvement_prompt)
+            
+            # Store the improved response
+            st.session_state.improved_responses[message_idx] = improved_response
+            
+            # Add the improved response to chat history as a new assistant message
+            st.session_state.chat_history.append({"role": "assistant", "content": improved_response})
+            
+            # Clone the source clusters from the original message to the new one
+            new_message_idx = len(st.session_state.chat_history) - 1
+            if message_idx in st.session_state.source_clusters:
+                st.session_state.source_clusters[new_message_idx] = st.session_state.source_clusters[message_idx]
+            
+            # Evaluate the improved response
+            with st.spinner("Evaluating improved response..."):
+                eval_data = evaluate_response(
+                    user_query, 
+                    improved_response,
+                    system_prompt=EVALUATOR_DEFAULT_PROMPT,
+                    model=st.session_state.model_params["model"]
+                )
+                st.session_state.evaluation_history.append(eval_data)
+            
+            return improved_response
+    
+    return "Sorry, I couldn't generate an improved response. Please try asking your question again."
 
 def display_chat_history():
     for i, message in enumerate(st.session_state.chat_history):
-        render_chat_message(message["content"], message["role"] == "user")
+        # Display message
+        render_chat_message(message["content"], message["role"] == "user", i)
+        
+        # Display feedback thank you message if present
+        if i in st.session_state.feedback_messages:
+            st.info(st.session_state.feedback_messages[i])
         
         # Add feedback buttons after assistant's messages
         if message["role"] == "assistant" and i not in st.session_state.feedback_given:
@@ -147,10 +292,18 @@ def display_chat_history():
             with cols[0]:
                 if st.button("👍 Helpful", key=f"helpful_{i}"):
                     st.session_state.feedback_given[i] = "helpful"
+                    st.session_state.feedback_messages[i] = "Thank you for your positive feedback! I'm glad the response was helpful."
+                    # st.toast("Thank you for your positive feedback! I'm glad the response was helpful.", icon="😊")
                     st.rerun()
+
             with cols[1]:
                 if st.button("👎 Not Helpful", key=f"not_helpful_{i}"):
                     st.session_state.feedback_given[i] = "not_helpful"
+                    st.session_state.feedback_messages[i] = "I'm sorry the response wasn't helpful. Generating an improved response..."
+                    # st.toast("I'm sorry the response wasn't helpful.", icon="😞")
+
+                    # Process negative feedback to generate improved response
+                    process_negative_feedback(i)
                     st.rerun()
 
 def render_evaluation_sidebar():
@@ -222,7 +375,7 @@ def render_model_params_sidebar():
             st.success("Parameters reset to default!")
             st.rerun()
 
-def handle_user_input():
+def handle_user_input(clusterer):
     user_message = st.chat_input("Ask your code question here...")
     
     if user_message:
@@ -230,18 +383,35 @@ def handle_user_input():
         st.session_state.chat_started = True
         
         # Add user message to chat history
+        user_message_idx = len(st.session_state.chat_history)
         st.session_state.chat_history.append({"role": "user", "content": user_message})
+
+        # Get clusters for the user message
+        with st.spinner("Finding relevant clusters..."):
+            clusters = query_clusters(clusterer, user_message)
+            
+            # Store the clusters for displaying as sources
+            assistant_message_idx = user_message_idx + 1
+            st.session_state.source_clusters[assistant_message_idx] = clusters
+            
+            # Format clusters for context
+            context_text = ""
+            for i, cluster in enumerate(clusters):
+                context_text += f"Source {i+1}:\nTitle: {cluster['title']}\n Link: {cluster['link']}\nHeading: {cluster['heading']}\nContent: {cluster['content']}\n\n"
+            
+            # Add context to user message
+            user_message_with_context = f"USER: {user_message}\n\nCONTEXT: {context_text}"
         
         with st.spinner("Generating response..."):
             # Get response from Debugger Agent
-            assistant_message = st.session_state.debugger_agent.get_response(user_message)
+            assistant_message = st.session_state.debugger_agent.get_response(user_message_with_context)
             
             # Add assistant response to chat history
             st.session_state.chat_history.append({"role": "assistant", "content": assistant_message})
             
             # Evaluate the response
             eval_data = evaluate_response(
-                user_message, 
+                user_message_with_context, 
                 assistant_message,
                 system_prompt=EVALUATOR_DEFAULT_PROMPT,
                 model=st.session_state.model_params["model"]
@@ -252,7 +422,7 @@ def handle_user_input():
         # Rerun to update the UI
         st.rerun()
 
-def main():
+def main(clusterer):
     render_header()
     
     # Create three columns - main chat and two sidebars
@@ -261,7 +431,7 @@ def main():
     with main_col:
         render_debug_session_header()
         display_chat_history()
-        handle_user_input()
+        handle_user_input(clusterer)
     
     # Left sidebar for evaluations
     with left_sidebar:
@@ -272,4 +442,5 @@ def main():
         render_model_params_sidebar()
 
 if __name__ == "__main__":
-    main()
+    clusterer = init_clusters()
+    main(clusterer)

@@ -25,6 +25,7 @@ class RAGClusterer:
         data_list: List of dicts:
             - title: main heading (OR 'heading' as fallback)
             - introduction: string
+            - link: string
             - chunks: optional list of dicts {'heading': ..., 'content': ...}
             - content: optional full content (used if chunks missing)
         """
@@ -50,6 +51,7 @@ class RAGClusterer:
             title = item.get('title') or item.get('heading')
             introduction = item.get('introduction', '')
             chunks = item.get('chunks', [])
+            link = item.get('link', '')
             fallback_content = item.get('content', '')
 
             if chunks:
@@ -62,6 +64,7 @@ class RAGClusterer:
                         'title': title,
                         'heading': chunk['heading'],
                         'content': full_content,
+                        'link': link,
                         'embedding': embedding
                     })
             else:
@@ -74,6 +77,7 @@ class RAGClusterer:
                     'title': title,
                     'heading': title,
                     'content': full_content,
+                    'link': link,
                     'embedding': embedding
                 })
 
@@ -140,6 +144,7 @@ class RAGClusterer:
                 'title': c['title'],
                 'heading': c['heading'],
                 'content': c['content'],
+                'link': c['link'],
                 'distance': dist
             })
         return results
@@ -163,11 +168,10 @@ def query_clusters(clusterer, query, top_x=None, top_y=3):
     return top_chunks
 
 
-
-
 if __name__ == "__main__":
     clusterer = init_clusters()
-    print(query_clusters(clusterer, "Real-Time tab missing in Simulink"))
+    from pprint import pprint
+    pprint(query_clusters(clusterer, "Troubleshoot Cannot Load Shared Object on Target Computer"))
 
     # json_file = 'corpus.json'
     # with open(json_file, 'r', encoding='utf-8') as f:
