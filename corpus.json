@@ -1,0 +1,592 @@
+[
+    {
+        "title": "Troubleshoot Communication Failure Through Firewall (Windows)",
+        "introduction": "When attempting to connect to the SpeedgoatÂ® target computer by using Simulink Real-Time Explorer, this error message appears. Even though the connection fails, clicking on the Update button or Reboot button in Simulink Real-Time Explorer works. These operations indicate that the target computer can be reached through the Ethernet port.",
+        "chunks": [
+            {
+                "heading": "What This Issue Means",
+                "content": "In R2020b and later releases, SimulinkÂ® Real-Timeâ¢ uses a protocol for the development-to-target computer connection that is blocked by default in Window Defender Firewall for networks classified as Public. Windows also classifies all Ethernet connections as Public by default.\n\nIf you do not select the correct options when first running MATLABÂ®, it is can be possible to ping, update, and reboot the target computer from MATLAB. But, these incorrect option selections prevent communication connection to the target computer. This communication connection is necessary to load and run real-time applications on the target computer."
+            },
+            {
+                "heading": "Try These Workarounds",
+                "content": "Resolve this issue by allowing MATLAB to communicate on all types of networks. Apply this setting when prompted on first connection or apply this setting later through the Windows Defender Firewall Allow an app through Windows Firewall selection. If that is not possible due to privilege restrictions, the issue can also be resolved by changing the classification of the Ethernet interface used for development-to-target computer connection from Public to Private.\n\nNoteIf you develop a compiled application as described in Create Standalone Instrument Panel App by Using Application Compiler, apply these workarounds to let the compiled application communicate with the target computer through the firewall."
+            },
+            {
+                "heading": "Allow MATLAB for Public and Private Networks by Using Prompt",
+                "content": "When you first try to connect to a target computer, Windows Defender Firewall prompts you to allow MATLAB to communicate on Private and Public networks. Make sure that both Private and Public options are selected. Only one is selected by default.\n\nClick Allow access."
+            },
+            {
+                "heading": "Manually Allow MATLAB for Public and Private Networks",
+                "content": "From the WindowsÂ® Start menu, search Allow an app through Windows Firewall.\n\nClick the Allow an app through Windows Firewall option.\n\nScroll down in the Allowed apps and features list and find the MATLAB release that you are using. This rule should apply to the application path:\n\nC:\\Program Files\\MATLAB\\RXXXXx\\bin\\win64\\matlab.exe\n\nwhere RXXXXx is the release number. You can show this path by double-clicking on the rule. If missing, this rule can be added manually.\n\nIf both Private and Public check boxes are selected, see Configure Development-to-Target Computer Ethernet Interface as Private.\n\nClick the Change settings button and confirm the security dialog. Make sure that the Private and Public boxes are selected. A Domain option or others may be available, but these options are not relevant for the MATLAB network access configuration."
+            },
+            {
+                "heading": "Configure Development-to-Target Computer Ethernet Interface as Private",
+                "content": "You can use the Windows UI or PowerShell command window to configure development-to-target computer Ethernet interface as private.\n\nWindows UI Method\n\nThe Windows UI method is straightforward, but may not be available depending on your system configuration. If not, use the PowerShell Command Window Method.\n\nRight-click on the Wi-FiÂ® or Ethernet network icon in the lower right corner of the Windows taskbar (next to the clock). Select Open Network & Internet settings. Under the Ethernet section, click Properties. Select the radio button for Private.\n\nPowerShell Command Window Method\n\nRight-click on the Windows Start menu and click the Windows PowerShell (Admin) selection. Run the command Get-NetConnectionProfile. Find the name of the Ethernet interface that you are using for development-to-target computer communication.Enter the command Set-NetConnectionProfile. Use the interface name that you find as the Name argument. Confirm the changes by running Get-NetConnectionProfile.\n\nFor example, if the interface is named Unidentified network, enter the command:\n\nSet-NetConnectionProfile -Name \"Unidentified network\" -NetworkCategory \"Private\""
+            },
+            {
+                "heading": "Confirm Successful Configuration",
+                "content": "To confirm successful configuration, in Simulink Real-Time Explorer or in the Simulink Editor on the Real-Time tab, click the Disconnected button. Confirm that the button label changes to Connected.\n\nIf the label does not change to Connected, the connection problem persists. Contact a systems administrator for further assistance. Administrator credentials may be required to configure the Windows Defender Firewall, or there may be another firewall on the development computer that requires configuration. A systems administrator may need to allow communications on specific ports or add more specific firewall rules."
+            }
+        ],
+        "link": "https://in.mathworks.com/help/slrealtime/ug/troubleshoot-communication-failure-through-firewall.html"
+    },
+    {
+        "title": "Troubleshoot Cannot Load Shared Object on Target Computer",
+        "introduction": "When loading and running on the target computer a real-time application that depends on a shared object (.so), the real-time application cannot run and load the library. In the system log, A message like this error appears: update | slrealtime.getSupportInfo",
+        "chunks": [
+            {
+                "heading": "What This Issue Means",
+                "content": "An error loading a shared object can indicate some issue with missing or corrupt library dependencies on the target computer. The issue could be:\n\nThe download to the SpeedgoatÂ® target computer has modified or has removed some required files on the target computer.The download to the target computer put the library in a location that is not accessible when the real-time application runs."
+            },
+            {
+                "heading": "Try This Workaround",
+                "content": "These workarounds explore the possible issues."
+            },
+            {
+                "heading": "Check for Issues with Required Files",
+                "content": "To check for this issue, connect to the target computer, and then try to build, load, and run example model slrt_ex_osc. If working with the default target computer, in the MATLABÂ® Command Window, type:\n\ntg = slrealtime; connect(tg); openExample('slrealtime/SlrtAddIOBlocksToSimulinkModelExample'); open_system('slrt_ex_osc'); slbuild('slrt_ex_osc'); load('slrt_ex_osc'); start('slrt_ex_osc');\n\nIf you can successfully connect to the target computer and build, load, and run the real-time application, there is no issue with files from the Simulink Real-Time Target Support Package on the target computer.\n\nIf you cannot complete those operations successfully, update the target computer software by using the force option. If working with the default target computer, in the MATLAB Command Window, type:\n\nupdate(tg,'force',true);\n\nAfter the software update, connect to the target computer and try to build, load, and run the real-time application.."
+            },
+            {
+                "heading": "Check Location of Shared Object on Target Computer",
+                "content": "To check for this issue, use SSH or FTP to examine the location of the shared object file on the target computer. For more information, see Execute Target Computer RTOS Commands at Target Computer Command Line.\n\nAfter you build the real-time application that links to a shared object, you must install the real-time application and the shared object on the target computer. Put the shared objects in a location on the target computer where they can be found and loaded at run time. The recommended locations are /lib, /usr/lib, or /usr/local/lib. Root access is required to copy or modify files in these locations."
+            }
+        ],
+        "link": "https://in.mathworks.com/help/slrealtime/ug/troubleshoot-cannot-load-shared-object-on-target-computer.html"
+    },
+    {
+        "title": "Troubleshoot Vector CANape Operation",
+        "introduction": "A third-party calibration tool (Vector CANapeÂ®) is not working with the real-time application.",
+        "chunks": [
+            {
+                "heading": "What This Issue Means",
+                "content": "You can use the Vector CANape tool to view signals and tune parameters in the real-time application. For more information, see the steps in Prepare ASAP2 Data Description File. In addition to the limitations listed in Vector CANape Limitations, there are various issues that can prevent the operation of this tool."
+            },
+            {
+                "heading": "Try This Workaround",
+                "content": "For Vector CANape tool issues, try these workarounds."
+            },
+            {
+                "heading": "Simulation Data Inspector in Use",
+                "content": "Simulation Data Inspector and the third-party calibration tools (Vector CANape and ETASÂ® Inca) are mutually exclusive. If you use the Simulation Data Inspector to view signal data, you cannot use the calibration tools. If you use the calibration tools, you cannot use the Simulation Data Inspector to view signal data."
+            },
+            {
+                "heading": "Client Cannot Connect",
+                "content": "Check the IP address of the SpeedgoatÂ® target computer associated with the model and compare it to the address stored in the ASAP2 file."
+            },
+            {
+                "heading": "ASAP2 File Out of Date",
+                "content": "When you rebuild a SimulinkÂ® Real-Timeâ¢ application, update the ASAP2 file loaded in the calibration tool with the new version of the file. The ASAP2 file is valid only until the next time that you build the application."
+            }
+        ],
+        "link": "https://in.mathworks.com/help/slrealtime/ug/vector-canape-troubleshooting.html"
+    },
+    {
+        "title": "Troubleshoot ETAS Inca Operation",
+        "introduction": "Investigate issues that can occur when ETASÂ® Inca controls a real-time application. A third-party calibration tool (ETAS Inca) is not working with the real-time application.",
+        "chunks": [
+            {
+                "heading": "What This Issue Means",
+                "content": "You can use the ETAS Inca tool to view signals and tune parameters in the real-time application. For more information, see the steps in Prepare ASAP2 Data Description File. In addition to the limitations listed in ETAS Inca Limitations, there are various issues that can prevent the operation of this tool."
+            },
+            {
+                "heading": "Try This Workaround",
+                "content": "For ETAS Inca tool issues, try these workarounds."
+            },
+            {
+                "heading": "Simulation Data Inspector in Use",
+                "content": "Simulation Data Inspector and the third-party calibration tools (Vector CANapeÂ® and ETAS Inca) are mutually exclusive. If you use the Simulation Data Inspector to view signal data, you cannot use the calibration tools. If you use the calibration tools, you cannot use the Simulation Data Inspector to view signal data."
+            },
+            {
+                "heading": "Client Cannot Connect",
+                "content": "Check the IP address of the SpeedgoatÂ® target computer associated with the model and compare it to the address stored in the ASAP2 file."
+            },
+            {
+                "heading": "ASAP2 File Out of Date",
+                "content": "When you rebuild a SimulinkÂ® Real-Timeâ¢ application, update the ASAP2 file loaded in the calibration tool with the new version of the file. The ASAP2 file is valid only until the next time that you build the application."
+            },
+            {
+                "heading": "Cannot Disable Freeze Mode",
+                "content": "Remove the dataset file from the target file system and reset the parameters to the original values specified in your model. The dataset file is named flashdata_model_name.dat."
+            },
+            {
+                "heading": "Transport Layer Failure",
+                "content": "When a transport layer failure occurs, ETAS Inca can display this message:\n\nERROR: Transport Layer Failure, Inconsistent MsgCounter\n\nThis error appears in ETAS Inca when the incorrect setting is used for 'Counter Consistency Mode'. Make sure that the 'Counter Consistency Mode' is set to 'one counter for all CTOs+DTOs' in the hardware settings for your experiment."
+            }
+        ],
+        "link": "https://in.mathworks.com/help/slrealtime/ug/etas-inca-troubleshooting.html"
+    },
+    {
+        "title": "Troubleshoot System Upgrade for R2020b",
+        "introduction": "After upgrading Simulink Real-Time software to R2020b and installing the Simulink Real-Time Target Support Package, the system cannot download real-time applications to the target computer.",
+        "chunks": [
+            {
+                "heading": "What This Issue Means",
+                "content": "The upgrade for release R2020b requires software upgrades to the Simulink Real-Time software and the Speedgoat Target Machine software."
+            },
+            {
+                "heading": "Try This Workaround",
+                "content": "In R2020b, the change to a 64-bit POSIX compliant real-time operating system on the target computer requires a software upgrade for your SpeedgoatÂ® real-time target machine. For this upgrade, the Speedgoat I/O Blockset provides an interactive tool. To retain compatibility with previous versions of MATLAB, you can choose to upgrade the target machine to a dual-boot system where you can select the operating system at startup. Or, you can upgrade the target machine to use only the new operating system. For the upgrade, you need a USB drive and the target machine needs a keyboard and a monitor.\n\nTo upgrade your software:\n\nInstall Simulink Real-Time and other required products.Install the Simulink Real-Time Target Support Package by using the MATLAB Add-Ons menu.âInstall the Speedgoat I/O Blockset. Go to the Speedgoat customer portal.To start the target machine upgrade, in the MATLAB Command Window, type:speedgoat.migrateTarget\n\nFor more information, go to the Speedgoat website."
+            }
+        ],
+        "link": "https://in.mathworks.com/help/slrealtime/ug_upgrade/troubleshoot-system-upgrade-to-r2020b.html"
+    },
+    {
+        "title": "Troubleshoot Missing Real-Time Tab",
+        "introduction": "Where is the Real-Time tab? This tab is not visible in the SimulinkÂ® editor.",
+        "chunks": [
+            {
+                "heading": "What This Issue Means",
+                "content": "From the model configuration, the Simulink editor determines which tabs to display. The editor displays the Real-Time tab for models that are configured for Simulink Real-Timeâ¢."
+            },
+            {
+                "heading": "Try This Workaround",
+                "content": "To configure your model for Simulink Real-Time, in Simulink Editor, from the Apps tab, click Simulink Real-Time.\n\nThis operation changes the code generation target for the model to a Simulink Real-Time system target file (STF) and applies other configuration parameter changes for compatibility. After changing the configuration, the Simulink editor displays the Real-Time tab for the model."
+            }
+        ],
+        "link": "https://in.mathworks.com/help/slrealtime/ug/troubleshoot-missing-real-time-tab.html"
+    },
+    {
+        "title": "Troubleshoot Folder Names with Spaces or Special Characters Halt Model Builds",
+        "introduction": "When a space character appears the file path, the SimulinkÂ® Real-Timeâ¢ model build reports an error: When a special character, such as an open parenthesis character \"(\", appears in the file path, the model build reports an error:",
+        "chunks": [
+            {
+                "heading": "What This Issue Means",
+                "content": "For the Simulink Real-Time model build â¦ message or for the Error(s) encountered while building â¦ message, message indicates that a space character or special character appears in the file path. The QNXÂ® NeutrinoÂ® toolchain for the code generation target is not compatible with file paths that contain spaces or special characters, the model build halts and does not output a real-time application."
+            },
+            {
+                "heading": "Try This Workaround",
+                "content": "Try these workaround options to resolve the model build errors."
+            },
+            {
+                "heading": "Create a Build Folder",
+                "content": "Create a folder name that does not have spaces or special characters in it. Build your model in that folder."
+            },
+            {
+                "heading": "Map the Build Folder",
+                "content": "Map the folder name or path that has spaces or special characters in it to a folder name or path without spaces or special characters. Build your model in the mapped folder."
+            }
+        ],
+        "link": "https://in.mathworks.com/help/slrealtime/ug/troubleshoot-folder-names-with-spaces-or-special-characters-halt-model-builds.html"
+    },
+    {
+        "title": "Troubleshoot Model Links to Static Libraries or Shared Objects",
+        "introduction": "Some model build and runtime issues occur when linking a real-time application to static libraries (.a) or shared objects (.so). FMU",
+        "chunks": [
+            {
+                "heading": "What This Issue Means",
+                "content": "When building or running real-time an application that links to static link libraries (.a) or shared object libraries (.so), there are some considerations that help you use libraries that are compatible with the QNXÂ® NeutrinoÂ® RTOS on the SpeedgoatÂ® target computer. These recommendations are helpful when troubleshooting library usage, including:\n\nA link to a library from QNX Neutrino RTOS that is available in the Simulink Real-Time target support packageA shared object that is included in the model through an FMU blockA custom static library or shared object that is linked to the real-time application"
+            },
+            {
+                "heading": "Try This Workaround",
+                "content": "These workarounds explore the possible issues."
+            },
+            {
+                "heading": "Link to Accessible Libraries or Objects",
+                "content": "When you link to a static library or shared object, the library or object must be:\n\nCompatible with the QNX Neutrino RTOSAccessible to the toolchain at build time\n\nCheck to ensure that you have followed the guidelines for library compatibility. See External Code Integration of Libraries and C/C++ Code with Simulink Real-Time Models. Check that the toolchain can access the library at build time. Remember that the QNX Neutrino cannot process spaces in the path to files."
+            },
+            {
+                "heading": "Install Shared Objects on Target Computer",
+                "content": "After you build the real-time application that links to a shared object, install both the real-time application and the shared object on the target computer. Copy the shared objects to a location on the target computer where they can be found and loaded at runtime. The recommended locations are /lib, /usr/lib, or /usr/local/lib. Root access is required to copy files to these locations."
+            },
+            {
+                "heading": "Rebuild Real-Time Application When Rebuilding Static Libraries",
+                "content": "Because linked static libraries are included in the real-time application, when you modify and rebuild a static library, you rebuild any real-time applications that include that library. After rebuilding the static library and the real-time application, reinstall the real-time application on the target computer."
+            }
+        ],
+        "link": "https://in.mathworks.com/help/slrealtime/ug/troubleshoot-model-links-to-static-libraries-or-shared-objects.html"
+    },
+    {
+        "title": "Troubleshoot Build Error for Accelerator Mode",
+        "introduction": "A build error occurs when building a model in accelerator mode or rapid accelerator mode when the model contains Simulink Real-Time blocks (for example, model blocks that represent hardware).",
+        "chunks": [
+            {
+                "heading": "What This Issue Means",
+                "content": "Simulink Real-Time does not support accelerator mode or rapid accelerator mode simulation of models with blocks that represent hardware. For example, open the slrt_ex_serialasciitest model.\n\nopenExample('slrt_ex_serialasciitest').\n\nChange the Simulink mode to rapid accelerator, and run the model, Simulink displays this error:\n\nUnable to build a standalone executable to simulate the model 'slrt_ex_serialasciitest' in rapid accelerator mode.\n\nThis error occurs because accelerator mode and rapid accelerator mode produce compiled code that runs on the development computer, not on the SpeedgoatÂ® target computer. Any blocks that access hardware report a build error if you compile the model by using accelerator mode or rapid accelerator mode."
+            },
+            {
+                "heading": "Try This Workaround",
+                "content": "Change the simulation mode to normal mode or external mode."
+            }
+        ],
+        "link": "https://in.mathworks.com/help/slrealtime/ug/troubleshoot-build-error-for-accelerator-mode.html"
+    },
+    {
+        "title": "Troubleshoot Long Build Times for Real-Time Application",
+        "introduction": "The model build process for a Simscapeâ¢ Multibodyâ¢ models is slow and uses an unexpected amount of memory.",
+        "chunks": [
+            {
+                "heading": "What This Issue Means",
+                "content": "The default QNXÂ® NeutrinoÂ® compiler switches for SimulinkÂ® Real-Timeâ¢ apply optimizations that lead to long build times or slow builds for some complex models, such as Simscape Multibody models."
+            },
+            {
+                "heading": "Try This Workaround",
+                "content": "To improve the real-time application build speed, change the compiler switch selections from the default selections by adding the -fdisable-rtl-sched2 switch for the C/C++ compiler:\n\nOpen your Simulink Real-Time model.In the Simulink Editor, from the Real-Time tab, select Hardware Settings.Select Code Generation > Build configuration > SpecifyClick the C Compiler options and add option -fdisable-rtl-sched2.Click the C++ Compiler options and add option -fdisable-rtl-sched2.Click Apply and OK.\n\nAfter updating the compiler options, the options appear as shown.\n\nIf you prefer to use a programmatic approach to update these compiler switches, you could use this code.\n\n% add a compiler flag '-fdisable-rtl-sched2' set_param(modelName, 'BuildConfiguration', 'Specify'); options = get_param(modelName, 'CustomToolchainOptions'); ccompiler_idx = find(strcmp(options, 'C Compiler')); cppcompiler_idx = find(strcmp(options, 'C++ Compiler')); options{ccompiler_idx+1} = ... [options{ccompiler_idx+1} ' -fdisable-rtl-sched2']; options{cppcompiler_idx+1} = ... [options{cppcompiler_idx+1} ' -fdisable-rtl-sched2']; set_param(modelName, 'CustomToolchainOptions', options);"
+            }
+        ],
+        "link": "https://in.mathworks.com/help/slrealtime/ug/troubleshoot-long-build-times-for-real-time-application.html"
+    },
+    {
+        "title": "Troubleshoot Working with Persistent Variables",
+        "introduction": "When running the getPersistentVariables function or setPersistentVariables function, this error appears: getPersistentVariables | setPersistentVariables | Persistent Variable Read | Persistent Variable Write",
+        "chunks": [
+            {
+                "heading": "What This Issue Means",
+                "content": "This error message indicates that the file on the SpeedgoatÂ® target computer that stores the persistent variable values is corrupted or unreadable."
+            },
+            {
+                "heading": "Try This Workaround",
+                "content": "To resolve this issue, clear the persistent variable values that are stored on the target computer.\n\nOn the development computer, create a Target object tg and connect to the target computer.tg = slrealtime; connect(tg);Use the setPersistentVariables function to clear the persistent variable values that are stored on the target computer.setPersistentVariables(tg,[]);"
+            }
+        ],
+        "link": "https://in.mathworks.com/help/slrealtime/ug/troubleshoot-working-with-persistent-variables.html"
+    },
+    {
+        "title": "Troubleshoot Model Upgrade for R2020b",
+        "introduction": "When building a pre-R2020b Simulink Real-Time models in R2020b, build errors occur. Some of the blocks in the model have the label Obsolete Simulink Real-Time Block. Troubleshoot System Upgrade for R2020b",
+        "chunks": [
+            {
+                "heading": "What This Issue Means",
+                "content": "For R2020b, you must upgrade the Simulink Real-Time model. A model Upgrade Advisor check is available to support this upgrade."
+            },
+            {
+                "heading": "Try This Workaround",
+                "content": "To upgrade your model for Simulink Real-Time R2020b features, use this software upgrade process:\n\nInstall Simulink Real-Time and other required products.Install the Simulink Real-Time Target Support Package by using the MATLAB Add-Ons menu.âInstall the Speedgoat I/O Blockset. Go to the Speedgoat website.Upgrade the target machine software. See Troubleshoot System Upgrade for R2020b.Open a R2020b or earlier Simulink Real-Time model.Run the Upgrade Advisor. On the Modeling tab, select Model Advisor > Upgrade Advisor.In the Upgrade Advisor dialog box, select Check model for upgradable Simulink Real-Time features. Click the Run This Check button. The advisor lists the upgrades that it can apply and the upgrades that require manual changes.After the check, click the Upgrade button. The advisor upgrades the model by applying all nonmanual changes."
+            },
+            {
+                "heading": "Apply Manual Changes",
+                "content": "When the Upgrade Advisor encounters model issues that it cannot resolve by using automated changes, the Upgrade Advisor reports these as Warning: Some of the features require manual changes. It is a good practice to copy the text of these warnings and save it for reference as you apply changes to your model."
+            },
+            {
+                "heading": "Apply Speedgoat Utilities",
+                "content": "In R2020b, SpeedgoatÂ® software provides support for configuring interrupts and Ethernet communications.\n\nTo configure model interrupts, use a single block from the Speedgoat I/O Blockset. You can use this block for asynchronous subsystems or for triggering the base rate of the model. The list of available interrupt sources reflects the Speedgoat I/O Blockset blocks configured in the model. For more information see the block documentation in speedgoatlib_utilities.\n\nTo configure additional Ethernet ports on the target machine, the Speedgoat I/O Blockset provides a tool to configure these Ethernet ports. The configuration is specific to the target machine and reflects the labeling on the front plates of the target machine. For more information, in the MATLAB Command Window, type:\n\nspeedgoat.configureEthernet"
+            }
+        ],
+        "link": "https://in.mathworks.com/help/slrealtime/ug_upgrade/troubleshoot-model-upgrade-to-r2020b.html"
+    },
+    {
+        "title": "Troubleshoot S-Function Build Upgrade for R2020b",
+        "introduction": "A pre-R2020b model uses S-Functions. When migrating this model to the current release, this S-Function related message appears in the build log:",
+        "chunks": [
+            {
+                "heading": "What This Issue Means",
+                "content": "In R2020b, the compiler for model builds changed from a WindowsÂ® compatible C compiler to the QNXÂ® NeutrinoÂ® C++ compiler. To accommodate this change, update S-Function code for C++ compatibility.\n\nTipFortran S-Functions are not supported in R2020b and later releases of SimulinkÂ® Real-Timeâ¢."
+            },
+            {
+                "heading": "Try This Workaround",
+                "content": "To update S-Function code for C++ compatibility, modify the declaration of the S-Function in the header file.\n\nFor example, update this C S-Function declaration:\n\nvoid getAllDataMyFunction(short); void myfunction_initialize(short, unsigned char*, short*); void myfunction_terminate(short, int);\n\nUpdated the code to this C++ S-Function declaration:\n\n#ifdef __cplusplus extern \"C\" { #endif void getAllDataMyFunction(short); void myfunction_initialize(short, unsigned char*, short*); void myfunction_terminate(short, int); #ifdef __cplusplus } #endif\n\nBefore building the updated code, remember to remove all artifacts from previous model builds."
+            }
+        ],
+        "link": "https://in.mathworks.com/help/slrealtime/ug_upgrade/troubleshoot-s-function-build-upgrade-for-r2020b.html"
+    },
+    {
+        "title": "Troubleshoot Parameters Not Accessible by Name",
+        "introduction": "Some parameters cannot be observed or tuned in the real-time application.",
+        "chunks": [
+            {
+                "heading": "What This Issue Means",
+                "content": "Reasons that you cannot observe or tune some parameters in the real-time application are:\n\nSimulinkÂ® Real-Timeâ¢ does not support parameters of multiword data types.During execution, you cannot tune parameters that change the model structure, for example, by adding a port. To change these parameters, you must stop the execution, change the parameter, and rebuild the real-time application."
+            },
+            {
+                "heading": "Try This Workaround",
+                "content": "Check the parameters for the issues described in What This Issue Means."
+            }
+        ],
+        "link": "https://in.mathworks.com/help/slrealtime/ug/troubleshoot-parameters-not-accessible-by-name.html"
+    },
+    {
+        "title": "Troubleshoot Signals Not Accessible by Name",
+        "introduction": "Some signal types cannot be logged or streamed in the real-time application. Gain",
+        "chunks": [
+            {
+                "heading": "What This Issue Means",
+                "content": "You cannot log or stream by name these types of signals in the real-time application:\n\nVirtual or bus signals (including signals from bus creator blocks and virtual blocks). For example, assume that you connect the output of a Mux block (a virtual block) to a SimulinkÂ® Scope block. The Scope block displays the names of the Mux input signals rather than the names of the Mux output signals.Signals that Simulink optimizes away after you set the Signal storage reuse or Block reduction configuration parameters. The output of a block that was optimized away is replaced with the corresponding input signal to the block. To access these signals, make them test points.Signals of complex or multiword data types.If a block name consists only of spaces, Simulink Real-Timeâ¢ Explorer does not display a node for signals from that block. To reference such a block:Provide an alphanumeric name for the block.Rebuild and download the model to the SpeedgoatÂ® target computer.Reconnect the MATLABÂ® session to the target computer."
+            },
+            {
+                "heading": "Try This Workaround",
+                "content": "Check these signal types are not being logged or streamed by name in the real-time application::\n\nVirtual or bus signals (including signals from bus creator blocks and virtual blocks)Signals that Simulink optimizes awaySignals of complex or multiword data typesBlocks without alphanumeric names"
+            }
+        ],
+        "link": "https://in.mathworks.com/help/slrealtime/ug/troubleshoot-signals-not-accessible-by-name.html"
+    },
+    {
+        "title": "Troubleshoot Signal Data Logging from Nonvirtual Bus, Fixed-Point, and Multidimensional Signals",
+        "introduction": "Some models use signals in nonvirtual buses, signals with fixed-point data types, and multidimensional signals that have a number of dimensions greater than two. It would be helpful to view signal data from these signals in the Simulation Data Inspector. The data for these signals is not visible when they are selected in Simulink Real-Time Explorer for streaming to the Simulation Data Inspector. Bus Creator | fixdt | addSignal | connectLine | connectScalar",
+        "chunks": [
+            {
+                "heading": "What This Issue Means",
+                "content": "There are some guidelines to data logging signals in nonvirtual buses, signals with fixed-point data types, and multidimensional signals that have a number of dimensions greater than two:\n\nWhen these signals are marked for logging with the Simulation Data Inspector, the signal data displays in the Simulation Data Inspector.When these signals are connected to File Log blocks, the signal data displays in the Simulation Data Inspector.When these signals are selected for dynamic streaming with an instrument objectâeither by selecting the signals in Simulink Real-Time Explorer or adding the signals by using the Application object API, the signal data does not display in the Simulation Data Inspector or in App Designer instrument panel applications."
+            },
+            {
+                "heading": "Try This Workaround",
+                "content": "There are workarounds to get signals in nonvirtual buses, signals with fixed-point data types, and mutidimensional signals (that have a number of dimensions greater than two) to display in the Simulation Data Inspector."
+            },
+            {
+                "heading": "Signals in Nonvirtual Buses",
+                "content": "To get signals in nonvirtual buses to display in the Simulation Data Inspector, mark the signals for data logging in the model or connect the signals to File Log blocks.\n\nTo instrument signals in nonvirtual buses to stream to an Instrument object, use the BusElement argument in the addSignal, connectLine, or connectScalar methods."
+            },
+            {
+                "heading": "Signals with Fixed-Point Data Types",
+                "content": "To get signals with fixed-point data types to display in the Simulation Data Inspector, mark the signals for data logging in the model or connect the signals to File Log blocks."
+            },
+            {
+                "heading": "Multidimensional Signal",
+                "content": "To get signals in multidimensional signals (that have a number of dimensions greater than two) to display in the Simulation Data Inspector, mark the signals for data logging in the model or connect the signals to File Log blocks."
+            }
+        ],
+        "link": "https://in.mathworks.com/help/slrealtime/ug/troubleshoot-signal-data-logging-from-nonvirtual-bus-fixed-point-and-multidimensional-signals.html"
+    },
+    {
+        "title": "Troubleshoot Signal Data Logging from Inport in Referenced Model",
+        "introduction": "A model contains referenced models. The referenced models have root-inport signals that would be helpful to log and stream to the Simulation Data Inspector for visualization. When these signals are marked in the model for logging, a warning occurs in the diagnostic viewer when building the model:",
+        "chunks": [
+            {
+                "heading": "What This Issue Means",
+                "content": "The warning message reports that the root-inport signals of referenced models are not available for streaming. Within top model A, the referenced model root inports that generate this warning message appear in referenced model A/B and referenced model A/B/C.\n\nTop Model A\n\nReferenced Model A/B\n\nReferenced Model A/B/C"
+            },
+            {
+                "heading": "Try This Workaround",
+                "content": "To instrument a root-inport signal in a referenced model and stream the signal to the Simulation Data Inspector, you can connect the signal to a Signal Conversion block that you configure as a Signal Copy block. Mark the output of the Signal Copy block for logging to the Simulation Data Inspector."
+            }
+        ],
+        "link": "https://in.mathworks.com/help/slrealtime/ug/troubleshoot-signal-data-logging-from-inport-ref-model.html"
+    },
+    {
+        "title": "Troubleshoot Signal Data Logging from Inport in Referenced Model in Test Harness",
+        "introduction": "A SimulinkÂ® Testâ¢ test harness is available for a Simulink Real-Timeâ¢ model. The model has a referenced model that contains an inport whose signal are marked for data logging in the Simulation Data Inspector. During testing, this error occurs:",
+        "chunks": [
+            {
+                "heading": "What This Issue Means",
+                "content": "It is not possible to stream signal data from the referenced model inport for logging from within the test harness."
+            },
+            {
+                "heading": "Try This Workaround",
+                "content": "Mark the input signals to the model block for logging. This model provides an example workaround. For more information, see the Simulink Test documentation."
+            }
+        ],
+        "link": "https://in.mathworks.com/help/slrealtime/ug/troubleshoot-signal-data-logging-from-inport-ref-mode-test-harness.html"
+    },
+    {
+        "title": "Troubleshoot Signal Data Logging from Send and Receive Blocks",
+        "introduction": "A model uses Send and Receive blocks. It would be helpful to view signal data from the message line (output of send or input of receive) in the Simulation Data Inspector. Unexpected data appears when a message line in Simulink Real-Time Explorer is selected for streaming to the Simulation Data Inspector. File Log",
+        "chunks": [
+            {
+                "heading": "What This Issue Means",
+                "content": "There are some guidelines to data logging message line signals:\n\nMessage line signals that are marked for logging with the Simulation Data Inspector display the data accurately in the Simulation Data Inspector.Message line signals that are connected to File Log blocks display the data accurately in the Simulation Data Inspector.Message line signals that are selected for dynamic streaming with an instrument objectâeither by selecting the signals in Simulink Real-Time Explorer or adding the signals by using the Application object APIâdo not display the data accurately in the Simulation Data Inspector or in App Designer instrument panel applications.\n\nFor more information about message lines, see Animate and Understand Sending and Receiving Messages."
+            },
+            {
+                "heading": "Try This Workaround",
+                "content": "To get accurate display of message line signals in the Simulation Data Inspector, mark the signals for data logging in the model or connect the signals to File Log blocks."
+            }
+        ],
+        "link": "https://in.mathworks.com/help/slrealtime/ug/troubleshoot-signal-data-logging-from-send-and-receive-blocks.html"
+    },
+    {
+        "title": "Troubleshoot Signals for Streaming or File Logging",
+        "introduction": "There are signals selected for streaming or connected to File Log blocks in a model that generate an error that includes the text: Unable stream signal signal_name.",
+        "chunks": [
+            {
+                "heading": "What This Issue Means",
+                "content": "This error message for signals selected for streaming or connected to File Log blocks could indicate that the signal has one or more of these issues:\n\nThe signal is not available in application.The signal does not use globally accessible memory in application.The signal connects to a Send/MessageSend block.The signal has inherited sample time.The signal is discontiguous."
+            },
+            {
+                "heading": "Try These Workarounds",
+                "content": "The workarounds for these issues vary. Try these."
+            },
+            {
+                "heading": "Workaround for Signal Not Available",
+                "content": "Make sure that these signal types are not being logged or streamed by name in the real-time application:\n\nVirtual or bus signals (including signals from bus creator blocks and virtual blocks)Signals that Simulink optimizes awaySignals of complex or multiword data typesBlocks without alphanumeric names"
+            },
+            {
+                "heading": "Workaround for Signal Not Global Available or Discontiguous Signal",
+                "content": "To resolve, try inserting a Signal Copy block (a Signal Conversion block in Signal Copy mode) into the signals that you want to stream. Log the copied signal output instead. If you use a Dashboard block, connect it to the output signal of the Signal Copy block."
+            },
+            {
+                "heading": "Workaround for Signal Connected to Message Block",
+                "content": "To resolve, try streaming or file logging the input signal to the Send/MessageSend block. The output of the block (a message) cannot be streamed or logged."
+            },
+            {
+                "heading": "Workaround for Signal Has Inherited Sample Time",
+                "content": "To resolve, change the signal sample time from inherited to a value. Signals with inherited sample time cannot be streamed or logged."
+            }
+        ],
+        "link": "https://in.mathworks.com/help/slrealtime/ug/troubleshoot-signals-for-streaming-or-file-log-logging.html"
+    },
+    {
+        "title": "Troubleshoot Unsatisfactory Real-Time Performance",
+        "introduction": "I want some recommended methods to improve unsatisfactory real-time application performance. Compile with GCC -ffast-math",
+        "chunks": [
+            {
+                "heading": "What This Issue Means",
+                "content": "Run-time performance and reduce the task execution time (TET) of a model depend on model design, SpeedgoatÂ® target computer capacity, and target computer utilization."
+            },
+            {
+                "heading": "Try This Workaround",
+                "content": "You can improve run-time performance and reduce the task execution time (TET) of a model with these methods."
+            },
+            {
+                "heading": "Enable Compile with GCC -ffast-math Option",
+                "content": "The Compile with GCC -ffast-math option enables the GCC compiler -ffast-math option when compiling real-time application code. This option is disabled by default for SimulinkÂ® Real-Timeâ¢ models.\n\nBy enabling the Compile with GCC -ffast-math option, you provide the compiler with more flexibility to optimize floating-point math at the expense of deviating from the IEEE-754 floating-point standard.\n\nFor more information about the -ffast-math option, see the Semantics of Floating-Point Math in GCC and gcc.gnu.org/wiki/FloatingPointMath/."
+            },
+            {
+                "heading": "Run Performance Tools",
+                "content": "Use these performance tools:\n\nTo profile execution of a real-time application , use the startProfiler command. To run the profiler and plot the results, use the plot function.\n\nFor more information, see Execution Profiling for Real-Time Applications."
+            },
+            {
+                "heading": "Customize Concurrent Execution on Multicore Target Computer",
+                "content": "You can improve run-time performance by configuring your model to take advantage of your multicore target computer:\n\nPartition the model into subsystems according to the physical requirements of the system that you are modeling. Set the block sample rates within each subsystem to the slowest rate that meets the physical requirements of the system. Create execution tasks and triggers, and then explicitly assign subsystem partitions to the tasks. See Partition Your Model Using Explicit Partitioning and Multicore Programming with Simulink.You can also use the Simulink Schedule Editor to partition the model. In the Simulink Editor, click the Modeling tab and select Design > Schedule Editor. For more information, see Create Partitions from a Rate-Based Model. Run the real-time application.\n\nNoteDo not use MATLAB System blocks in the top level of Simulink Real-Time models in which task execution is explicitly partitioned. These blocks generate a TLC error when building the real-time application, for example:\"Unable to find TLCBlockSID within the Block scope\""
+            },
+            {
+                "heading": "Minimize the Model",
+                "content": "You can improve run-time performance by minimizing your model to make more memory and CPU cycles available for the real-time application:\n\nOn the Solver pane, increase Fixed-step size (fundamental sample time). Executing with a short sample time can overload the CPU.Use polling mode. See Execution Modes for Real-Time Applications.Reduce the number of I/O channels in the model."
+            },
+            {
+                "heading": "Contact Technical Support",
+                "content": "For additional guidance, refer to these sources:\n\nMathWorksÂ® Tech Support: MathWorks Help Center websiteMATLABÂ® Answers: www.mathworks.com/matlabcentral/answers/?term=Simulink+Real-TimeMATLAB Central: www.mathworks.com/matlabcentral\n\nFor Speedgoat hardware issues, contact Speedgoat Tech Support: www.speedgoat.com/knowledge-center."
+            }
+        ],
+        "link": "https://in.mathworks.com/help/slrealtime/ug/troubleshoot-unsatisfactory-real-time-performance.html"
+    },
+    {
+        "title": "Troubleshoot Overloaded CPU from Executing Real-Time Application",
+        "introduction": "Some issue is producing a CPU overload when executing a real-time application. Compile with GCC -ffast-math",
+        "chunks": [
+            {
+                "heading": "What This Issue Means",
+                "content": "A CPU overload indicates that the CPU is unable to complete processing a model time step before restarting for the next time step.\n\nWhen this error occurs, the Simulink Real-Time RTOS halts model execution and the Target object property TargetStatus shows an error, for example:\n\nmCPUOverload: Sub-rate exception: Overload limit (0) exceeded in 0.02s rate with 1 overloads\n\nIf you allow the overload, model execution continues until the allowed overload limit is reached. If the model continues to run after a CPU overload, the time step lasts as long as the time required to finish the execution. This behavior delays the next time step.\n\nModel design or SpeedgoatÂ® target computer resources cause CPU overloads. Possible reasons are:\n\nThe target computer is too slow or the model sample time is too small.The model is too complex (algorithmic complexity).I/O latency, where each I/O channel used introduces latency into the system. I/O latency can cause the execution time to exceed the model time step.To find latency values for Speedgoat boards, see www.speedgoat.com and select Products & Services > Services."
+            },
+            {
+                "heading": "Try This Workaround",
+                "content": "The SimulinkÂ® Real-Timeâ¢ RTOS usually halts model execution when it encounters a CPU overload. You can configure the Simulink Real-Time model to allow CPU overloads. Use this capability to support long initializations and for overload diagnosis. You also can try to reduce overloads by improving application performance and enabling the Compile with GCC -ffast-math option."
+            },
+            {
+                "heading": "Permit Long Initialization Time",
+                "content": "For some real-time applications, normal initialization can extend beyond the first sample time. Use the SLRT Overload Options block to increase the number of startup time steps to ignore overloads. By default, only the first time step ignores overloads.\n\nNoteAllowing the target computer CPU to overload can cause incorrect results, especially for multirate models. Use the SLRT Overload Options block only for diagnosis. When your diagnosis is complete, turn off these options."
+            },
+            {
+                "heading": "Enable Compile with GCC -ffast-math Option",
+                "content": "The Compile with GCC -ffast-math option enables the GCC compiler -ffast-math option when compiling real-time application code. This option is disabled by default for Simulink Real-Time models.\n\nBy enabling the Compile with GCC -ffast-math option, you provide the compiler with more flexibility to optimize floating-point math at the expense of deviating from the IEEE-754 floating-point standard.\n\nFor more information about the -ffast-math option, see the Semantics of Floating-Point Math in GCC and gcc.gnu.org/wiki/FloatingPointMath/."
+            },
+            {
+                "heading": "Force Polling Mode",
+                "content": "The Force polling mode option enables polling mode â instead of interrupt-driven mode â for clocking the real-time application. Enabling this option can help reduce CPU overloads if:\n\nThe target computer has at least four CPU cores.The CPU overload is caused by sporadic TET spikes."
+            }
+        ],
+        "link": "https://in.mathworks.com/help/slrealtime/ug/troubleshoot-overloaded-cpu-from-executing-real-time-application.html"
+    },
+    {
+        "title": "Troubleshoot Gaps in Streamed Data",
+        "introduction": "A real-time application is producing a live streaming overload while attempting to stream signal data at a high rate.",
+        "chunks": [
+            {
+                "heading": "What This Issue Means",
+                "content": "Live streaming from a real-time application does not guarantee all the data appears in the Simulation Data Inspector. Live stream instrumentation runs at a lower priority than the real-time application. So, data sent by live streaming could be dropped if the development computer to SpeedgoatÂ® target computer connection cannot keep up.\n\nIf a live stream overload occurs, you could see noticeable gaps in the data in the Simulation Data Inspector or see that some time steps are lost when you export data from the Simulation Data Inspector."
+            },
+            {
+                "heading": "Try This Workaround",
+                "content": "The issue is caused by high data rates and live streaming of data.\n\nTo workaround the issue:\n\nModify the real-time application to decrease the data rate for live streaming data. To do this, you could increase the sample rate, instrument fewer signals, or increase the decimation of instrumented signals. Change the real-time application to use file logging instead of live streaming. File logging is capable of logging higher data rates without dropping data."
+            }
+        ],
+        "link": "https://in.mathworks.com/help/slrealtime/ug/troubleshoot-gaps-in-streamed-data.html"
+    },
+    {
+        "title": "Troubleshoot System Upgrade for R2020b",
+        "introduction": "After upgrading Simulink Real-Time software to R2020b and installing the Simulink Real-Time Target Support Package, the system cannot download real-time applications to the target computer.",
+        "chunks": [
+            {
+                "heading": "What This Issue Means",
+                "content": "The upgrade for release R2020b requires software upgrades to the Simulink Real-Time software and the Speedgoat Target Machine software."
+            },
+            {
+                "heading": "Try This Workaround",
+                "content": "In R2020b, the change to a 64-bit POSIX compliant real-time operating system on the target computer requires a software upgrade for your SpeedgoatÂ® real-time target machine. For this upgrade, the Speedgoat I/O Blockset provides an interactive tool. To retain compatibility with previous versions of MATLAB, you can choose to upgrade the target machine to a dual-boot system where you can select the operating system at startup. Or, you can upgrade the target machine to use only the new operating system. For the upgrade, you need a USB drive and the target machine needs a keyboard and a monitor.\n\nTo upgrade your software:\n\nInstall Simulink Real-Time and other required products.Install the Simulink Real-Time Target Support Package by using the MATLAB Add-Ons menu.âInstall the Speedgoat I/O Blockset. Go to the Speedgoat customer portal.To start the target machine upgrade, in the MATLAB Command Window, type:speedgoat.migrateTarget\n\nFor more information, go to the Speedgoat website."
+            }
+        ],
+        "link": "https://in.mathworks.com/help/slrealtime/ug_upgrade/troubleshoot-system-upgrade-to-r2020b.html"
+    },
+    {
+        "title": "Troubleshoot Model Upgrade for R2020b",
+        "introduction": "When building a pre-R2020b Simulink Real-Time models in R2020b, build errors occur. Some of the blocks in the model have the label Obsolete Simulink Real-Time Block. Troubleshoot System Upgrade for R2020b",
+        "chunks": [
+            {
+                "heading": "What This Issue Means",
+                "content": "For R2020b, you must upgrade the Simulink Real-Time model. A model Upgrade Advisor check is available to support this upgrade."
+            },
+            {
+                "heading": "Try This Workaround",
+                "content": "To upgrade your model for Simulink Real-Time R2020b features, use this software upgrade process:\n\nInstall Simulink Real-Time and other required products.Install the Simulink Real-Time Target Support Package by using the MATLAB Add-Ons menu.âInstall the Speedgoat I/O Blockset. Go to the Speedgoat website.Upgrade the target machine software. See Troubleshoot System Upgrade for R2020b.Open a R2020b or earlier Simulink Real-Time model.Run the Upgrade Advisor. On the Modeling tab, select Model Advisor > Upgrade Advisor.In the Upgrade Advisor dialog box, select Check model for upgradable Simulink Real-Time features. Click the Run This Check button. The advisor lists the upgrades that it can apply and the upgrades that require manual changes.After the check, click the Upgrade button. The advisor upgrades the model by applying all nonmanual changes."
+            },
+            {
+                "heading": "Apply Manual Changes",
+                "content": "When the Upgrade Advisor encounters model issues that it cannot resolve by using automated changes, the Upgrade Advisor reports these as Warning: Some of the features require manual changes. It is a good practice to copy the text of these warnings and save it for reference as you apply changes to your model."
+            },
+            {
+                "heading": "Apply Speedgoat Utilities",
+                "content": "In R2020b, SpeedgoatÂ® software provides support for configuring interrupts and Ethernet communications.\n\nTo configure model interrupts, use a single block from the Speedgoat I/O Blockset. You can use this block for asynchronous subsystems or for triggering the base rate of the model. The list of available interrupt sources reflects the Speedgoat I/O Blockset blocks configured in the model. For more information see the block documentation in speedgoatlib_utilities.\n\nTo configure additional Ethernet ports on the target machine, the Speedgoat I/O Blockset provides a tool to configure these Ethernet ports. The configuration is specific to the target machine and reflects the labeling on the front plates of the target machine. For more information, in the MATLAB Command Window, type:\n\nspeedgoat.configureEthernet"
+            }
+        ],
+        "link": "https://in.mathworks.com/help/slrealtime/ug_upgrade/troubleshoot-model-upgrade-to-r2020b.html"
+    },
+    {
+        "title": "Troubleshoot MATLAB API Call Upgrade for R2020b",
+        "introduction": "In R2020b, many objects and functions in the SimulinkÂ® Real-Timeâ¢ API changed. Check model for upgradable Simulink Real-Time features",
+        "chunks": [
+            {
+                "heading": "What This Issue Means",
+                "content": "MATLABÂ® m-scripts written by using the Simulink Real-Time API require updates to run in R2020b and later releases."
+            },
+            {
+                "heading": "Try This Workaround",
+                "content": "These tables identify Simulink Real-Time API changes in R2020 and identify new workflows. Use these tables to guide your updates to pre-R2020b m-scripts. For information about Simulink Real-Time in previous releases, see:\n\nhttps://www.mathworks.com/help/doc-archives.html"
+            },
+            {
+                "heading": "Target Computer Operations",
+                "content": "R2020a and Previous CommandCommand DescriptionR2020b and Later Command StatusNew Workflow slrealtime.Application object, ApplicationName property slrealtime.target object, Application propertyGet name of real-time application.Changed nameUse Target object, Application property. slrealtime.target object, Connected property value is 'Yes'.Get communication status between development computer and target computers.Changed nameUse Target object, Connected event.Use connect function to make connection. close functionClose connection between development and target computers.Changed nameUse disconnect function to close connection. getDiskSpace functionGet free space and total space on the drive, in bytes.Moved to Speedgoat APISee the speedgoat.getDiskSpace function at www.speedgoat.com. load functionDownload real-time application to target computer.UnchangedUse load function after creating Target object. The real-time application is not automatically loaded as part of the build process. reboot functionRestart target computer.UnchangedUse reboot function to restart target computer in standalone mode. Other, previously supported boot modes are not available.saveparamsetSave a set of parameters to a real-time applicationChanged name. Changed workflow.Use saveParamSet to save the parameter set to a file.loadparamsetLoad a set of saved parameters to a real-time applicationChanged name. Changed workflow.Use importParamSet to Import the parameter set into a ParameterSet object on the development computer."
+            },
+            {
+                "heading": "Real-Time Execution Operations",
+                "content": "R2020a and Previous CommandCommand DescriptionR2020b and Later Command StatusNew Workflow slrealtime.target object, CPUoverload propertyGet CPU overload status.Changed nameUse Target object, TargetStatus property or ModelStatus property. slrealtime.target object, AvgTET propertyGet average task execution time.Changed nameUse Target object, ModelStatus.TETInfo property. slrealtime.target object, ExecTime propertyGet real-time application execution time.Changed nameUse Target object, ModelStatus.TETInfo property. slrealtime.target object, MaxTET propertyGet maximum task execution time.Changed nameUse Target object, ModelStatus.TETInfo property. slrealtime.target object, MinTET propertyGet minimum task execution time.Changed nameUse Target object, ModelStatus.TETInfo property. slrealtime.target object, SampleTime propertyGet time between samples (step size).Changed nameUse Target object, ModelStatus.TETInfo.Rate property. start functionStart execution of real-time application on target computer.Changed workflowUse start function to start real-time application and set real-time application options. slrealtime.target object, Status propertyGet execution status of real-time application.Changed workflowUse Target object, ModelStatus property or status function. stop functionStop execution of real-time application on target computer.UnchangedUse stop function. slrealtime.target object, StopTime propertyGet or set time when real-time application stops running.Changed workflowGet by using Target object, ModelStatus.StopTime property and set by using setStopTime function. slrealtime.target object, TETLog propertyAccess storage in the MATLAB workspace for task execution time.Changed workflowUse slrtTETMonitor function."
+            },
+            {
+                "heading": "Execution Profiler Operations",
+                "content": "R2020a and Previous CommandCommand DescriptionR2020b and Later Command StatusNew Workflow getProfilerData functionRetrieve profile data object.UnchangedUse getProfilerData function. Start the execution profiler before you start the real-time application. slrealtime.target object, ProfilerStatus propertyGet state of profiler.Changed workflowUse Target object, Application property. There are added property values. resetProfiler functionReset profiling service state to Ready.UnchangedUse resetProfiler function. The profiler resets itself when you start the real-time application. startProfiler functionStart profiling service on target computer.UnchangedUse startProfiler function. Start the execution profiler before you start the real-time application. stopProfiler functionStop profiling service on target computer.Changed limitationUse stopProfiler function. The profiler auto stop at 1GB is eliminated."
+            },
+            {
+                "heading": "Parameter Tuning Operations",
+                "content": "R2020a and Previous CommandCommand DescriptionR2020b and Later Command StatusNew Workflow setparam functionChange value of tunable parameter in real-time application.Changed syntaxUse setparam function. getparam functionRead value of observable parameter in real-time application.Changed syntaxUse getparam function. slrealtime.target object, NumParameters propertyGet number of tunable parameters.Changed workflowUse Application object and getParameters function. slrealtime.target object, Parameters propertyGet list of tunable parameters.Changed workflowUse Application object and getParameters function. slrealtime.target object, ShowParameters propertySet flag to display the list of parameters.Changed workflowUse Application object and getParameters function."
+            },
+            {
+                "heading": "Signal Tracing Operations",
+                "content": "R2020a and Previous CommandCommand DescriptionR2020b and Later Command StatusNew Workflow getsignal functionGet single numerical value of a signal.Changed workflowUse Instrument object and connectScalar function. slrealtime.target object, NumSignals propertyGet number of observable signals.Changed workflowUse Application object and getSignals function. slrealtime.target object, OutputLog propertyAccess storage in MATLAB workspace for output or Y-vector.Changed workflowUse Simulink model Signal logging parameter: set_param(bdroot,... 'SignalLogging','on') slrealtime.target object, ShowSignals propertySet flag to display the list of signals.Changed workflowUse Application object and getSignals function. slrealtime.target object, Signals propertyGet list of observable signals.Changed workflowUse Application object and getSignals function."
+            },
+            {
+                "heading": "Signal Logging Operations",
+                "content": "R2020a and Previous CommandCommand DescriptionR2020b and Later Command StatusNew Workflow importLogData functionImport buffered logging data to the active session of the Simulation Data Inspector.ReplacedUse list function and import function. For more information, see the Target.FileLog object."
+            },
+            {
+                "heading": "Instrumentation Operations",
+                "content": "R2020a and Previous CommandCommand DescriptionR2020b and Later Command StatusNew Workflow addscope functionCreate a scope of specified type.ReplacedUse the Simulation Data Inspector. Use File Log blocks instead File Scope blocks. Use Instrument objects instead of Host Scope blocks. getscope functionReturn scope identified by scope number.ReplacedUse the Simulation Data Inspector. Use File Log blocks instead File Scope blocks. Use Instrumentobjects instead of Host Scope blocks."
+            },
+            {
+                "heading": "Ethernet and EtherCAT Operations",
+                "content": "R2020a and Previous CommandCommand DescriptionR2020b and Later Command StatusNew WorkflowTarget Computer Settings provided information about Ethernet setup on target computer.Configure Ethernet ports on target computerMoved to Speedgoat APISee the speedgoat.configureEthernet function at www.speedgoat.com. slrealtime.etherCAT.filterNotifications functionDisplay EtherCAT notifications in human-readable formatChanged nameUse slrealtime.EtherCAT.filterNotifications function"
+            },
+            {
+                "heading": "Target Computer Settings Operations",
+                "content": "R2020a and Previous CommandCommand DescriptionR2020b and Later Command StatusNew Workflow slrealtime.getTargetSettings functionGet target computer settings.Changed nameUse getTargetSettings function."
+            }
+        ],
+        "link": "https://in.mathworks.com/help/slrealtime/ug_upgrade/troubleshoot-matlab-api-call-upgrade-for-r2020b.html"
+    },
+    {
+        "title": "Find Simulink Real-Time Support",
+        "introduction": "For support with SpeedgoatÂ® target machines or the Speedgoat I/O Blockset, contact Speedgoat support: www.speedgoat.com/knowledge-center For support on general MATLABÂ® or SimulinkÂ® issues, see MathWorksÂ® Help: www.mathworks.com/help For support on Simulink Real-Timeâ¢ issues, see: After searching these resources, if you still cannot solve your issue:",
+        "chunks": [],
+        "link": "https://in.mathworks.com/help/slrealtime/ug/find-simulink-real-time-support.html"
+    },
+    {
+        "title": "Install Simulink Real-Time Software Updates",
+        "introduction": "The general procedure for updating SimulinkÂ® Real-Timeâ¢ is: After updating Simulink Real-Time, to re-create your Simulink Real-Time target settings:",
+        "chunks": [],
+        "link": "https://in.mathworks.com/help/slrealtime/ug/installing-simulink-real-time-software-updates.html"
+    }
+]
