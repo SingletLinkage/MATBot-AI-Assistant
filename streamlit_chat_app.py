@@ -6,6 +6,7 @@ import time
 from agents.debugger_agent import DebuggerAgent, DEFAULT_SYSTEM_PROMPT as DEBUGGER_DEFAULT_PROMPT
 from agents.evaluator_agent import evaluate_response, DEFAULT_SYSTEM_PROMPT as EVALUATOR_DEFAULT_PROMPT
 from agents.concise_agent import ConciseAgent, DEFAULT_SYSTEM_PROMPT as CONCISE_DEFAULT_PROMPT
+from agents.intent_agent import IntentAgent, DEFAULT_SYSTEM_PROMPT as INTENT_DEFAULT_PROMPT
 from clustering import init_clusters, query_clusters
 from functools import lru_cache
 import hashlib
@@ -28,11 +29,15 @@ AVAILABLE_MODELS = [
     "gemini-1.5-flash"
 ]
 
+# Response modes
+RESPONSE_MODES = ["auto", "detailed", "concise"]
+
 # Initialize session state and use get() pattern to avoid re-initialization on rerun
 if "session_initialized" not in st.session_state:
     st.session_state.chat_history = []
     st.session_state.debugger_agent = DebuggerAgent()
     st.session_state.concise_agent = ConciseAgent()
+    st.session_state.intent_agent = IntentAgent()
     st.session_state.evaluation_history = []
     st.session_state.feedback_given = {}
     st.session_state.chat_started = False
@@ -43,9 +48,13 @@ if "session_initialized" not in st.session_state:
     st.session_state.source_clusters = {}
     st.session_state.feedback_messages = {}
     st.session_state.improved_responses = {}
-    st.session_state.response_mode = "detailed"
+    st.session_state.response_mode = "auto"  # Default to auto for smart detection
     st.session_state.expanded_details = {}
+    st.session_state.expanded_summary = {}
     st.session_state.cached_responses = {}
+    st.session_state.alternative_versions = {}  # Store both versions of responses
+    st.session_state.intent_analysis = {}  # Store intent analysis results
+    st.session_state.show_advanced = False  # Advanced mode toggle
     st.session_state.session_initialized = True
 
 # Custom CSS
@@ -57,6 +66,7 @@ st.markdown("""
         margin-bottom: 1rem;
         display: flex;
         flex-direction: column;
+        position: relative;
     }
     .chat-message.user {
         background-color: #f0f2f6;
@@ -76,24 +86,79 @@ st.markdown("""
         font-weight: bold;
         font-size: 0.85rem;
         color: #555555;
+        display: flex;
+        align-items: center;
     }
-    .evaluation-card {
-        background-color: #f8f8f8;
-        border-radius: 0.5rem;
-        padding: 1rem;
-        margin-bottom: 1rem;
-        border-left: 5px solid #ffbc42;
+    .message-header-icon {
+        margin-right: 0.3rem;
     }
-    .main-header {
-        text-align: center;
-        margin-bottom: 2rem;
+    .intent-badge {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        padding: 0.2rem 0.5rem;
+        border-radius: 0.3rem;
+        font-size: 0.7rem;
+        font-weight: bold;
     }
-    .feedback-button {
-        margin-right: 0.5rem;
+    .intent-badge.user-badge {
+        background-color: #e6f7ff;
+        color: #0056b3;
+        border: 1px solid #b3d7ff;
     }
-    .st-emotion-cache-1mb7ed5 {
-        padding-top: 2rem;
+    .intent-badge.concise {
+        background-color: #e6f4ff;
+        color: #0066cc;
+        border: 1px solid #99ccff;
     }
+    .intent-badge.detailed {
+        background-color: #fff0e6;
+        color: #cc6600;
+        border: 1px solid #ffcc99;
+    }
+    /* Fix for code blocks not rendering properly */
+    pre {
+        margin-top: 1em;
+        margin-bottom: 1em;
+        background-color: #f6f8fa;
+        border-radius: 0.3rem;
+        padding: 16px;
+        overflow: auto;
+    }
+    code {
+        font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+        font-size: 85%;
+        padding: 0.2em 0.4em;
+        margin: 0;
+        background-color: rgba(27,31,35,0.05);
+        border-radius: 3px;
+    }
+    pre code {
+        background-color: transparent;
+        padding: 0;
+        margin: 0;
+        overflow: visible;
+        font-size: 100%;
+        word-break: normal;
+        white-space: pre;
+        border: 0;
+    }
+    
+    /* Reduce corner rounding for chat input */
+    .stChatInput {
+        border-radius: 0.3rem !important;
+    }
+    .stChatInput > div {
+        border-radius: 0.3rem !important;
+    }
+    .stChatInput input {
+        border-radius: 0.3rem !important;
+    }
+    /* Adjust the send button styling as well */
+    .stChatInput button {
+        border-radius: 0.3rem !important;
+    }
+    
     div[data-testid="stSidebarNav"] {
         padding-top: 2rem;
     }
@@ -109,13 +174,8 @@ st.markdown("""
         margin-right: 0.5rem;
         font-weight: bold;
     }
-    .debug-session-header {
-        padding: 0.5rem;
-        background-color: #f0f2f6;
-        border-radius: 0.5rem;
-        margin-bottom: 1rem;
-        text-align: center;
-        color: #333333;
+    .chat-container {
+        padding: 1rem 0;
     }
     .source-button {
         margin-top: 0.5rem;
@@ -160,7 +220,14 @@ st.markdown("""
     .source-link i {
         margin-right: 0.3rem;
     }
-            
+    
+    /* Style for buttons */
+    .stButton>button {
+        border-radius: 20px;
+        padding: 0.3rem 1rem;
+        font-size: 0.9rem;
+    }
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -199,21 +266,36 @@ def generate_agent_response(agent_type, message, model=None):
 def render_header():
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-        st.markdown("<div class='main-header'><h1>🐞 CodeHelper - AI Debugging Assistant</h1></div>", unsafe_allow_html=True)
+        st.markdown("<div class='main-header'><h1>🐞 CodeHelper - AI Assistant</h1></div>", unsafe_allow_html=True)
 
-def render_debug_session_header():
-    st.markdown("<div class='debug-session-header'><h3>Debug Session</h3></div>", unsafe_allow_html=True)
+def render_chat_container():
+    st.markdown("<div class='chat-container'></div>", unsafe_allow_html=True)
 
-def render_chat_message(message, is_user=False, message_idx=None):
+def render_chat_message(message, is_user=False, message_idx=None, intent_type=None):
     if is_user:
         role = "user"
-        header = "You"
+        header = "👤 You"
     else:
         role = "assistant"
-        header = "CodeHelper"
+        header = "🤖 CodeHelper"
+    
+    # Add an intent badge for assistant messages if intent_type is provided
+    intent_badge = f"<div></div>"
+    if not is_user and intent_type is not None:
+        badge_class = intent_type.lower()
+        badge_text = intent_type.capitalize()
+        intent_badge = f"<div class='intent-badge {badge_class}'>Intent: {badge_text}</div>"
+    
+    # Process message to ensure code blocks render correctly
+    if not is_user:
+        # Ensure proper rendering of code blocks by replacing markdown with HTML
+        if message.startswith('```'):
+            message = message.replace('```', '<pre><code>', 1)
+            message = message.replace('```', '</code></pre>', 1)
     
     st.markdown(f"""
     <div class="chat-message {role}">
+        {intent_badge}
         <div class="message-header">{header}</div>
         <div class="message-content">{message}</div>
     </div>
@@ -311,24 +393,61 @@ def process_negative_feedback(message_idx):
 
 def display_chat_history():
     for i, message in enumerate(st.session_state.chat_history):
-        # Display message
-        render_chat_message(message["content"], message["role"] == "user", i)
+        # Get the intent type for this message (if available and it's an assistant message)
+        intent_type = None
+        if message["role"] == "assistant":
+            # Calculate the corresponding message index for intent analysis
+            # Check both the current message index and the assistant message index
+            if i in st.session_state.intent_analysis:
+                intent_type = st.session_state.intent_analysis[i]["response_type"].lower()
         
-        # If this is a concise response with a detailed version available, show an "Explain in Detail" button
-        if message["role"] == "assistant" and i in st.session_state.improved_responses and st.session_state.response_mode == "concise":
-            if i not in st.session_state.expanded_details:
-                if st.button("🔍 Explain in Detail", key=f"expand_{i}"):
-                    st.session_state.expanded_details[i] = True
-                    # Instead of using rerun, we'll use a placeholder to minimize page reloads
-                    placeholder = st.empty()
-                    with placeholder.container():
-                        with st.spinner("Generating detailed explanation..."):
-                            time.sleep(2.5)
-                    st.rerun()
-            else:
-                # Show the detailed response since it's been expanded
-                st.markdown("### Detailed Explanation")
-                st.markdown(st.session_state.improved_responses[i])
+        # Display message with intent badge if available
+        render_chat_message(message["content"], message["role"] == "user", i, intent_type)
+        
+        # Display alternate version buttons for assistant messages
+        if message["role"] == "assistant" and i in st.session_state.alternative_versions:
+            # Check intent type to determine which alternative version to show
+            if intent_type == "concise" and "detailed" in st.session_state.alternative_versions[i]:
+                # Show "Explain in Detail" button for concise responses
+                if i not in st.session_state.expanded_details:
+                    # Wrap the button in a container div for centering
+                    st.markdown('<div class="centered-button" style="display: flex; justify-content: center; width: 100%;">', unsafe_allow_html=True)
+                    col1, col2, col3 = st.columns([1, 2, 1])
+                    with col2:
+                        if st.button("🔍 Explain in Detail", key=f"expand_{i}", use_container_width=True):
+                            st.session_state.expanded_details[i] = True
+                            # Simulate processing time
+                            placeholder = st.empty()
+                            with placeholder.container():
+                                with st.spinner("Generating detailed explanation..."):
+                                    time.sleep(3.5)
+                            st.rerun()
+                    st.markdown('</div>', unsafe_allow_html=True)
+                else:
+                    # Show detailed version in an expander
+                    with st.expander("Detailed Explanation"):
+                        st.markdown(st.session_state.alternative_versions[i]["detailed"])
+            
+            elif intent_type == "detailed" and "concise" in st.session_state.alternative_versions[i]:
+                # Show "View concise summary" button for detailed responses
+                if i not in st.session_state.expanded_summary:
+                    # Wrap the button in a container div for centering
+                    st.markdown('<div class="centered-button" style="display: flex; justify-content: center; width: 100%;">', unsafe_allow_html=True)
+                    col1, col2, col3 = st.columns([1, 2, 1])
+                    with col2:
+                        if st.button("📝 View concise summary", key=f"concise_{i}", use_container_width=True):
+                            st.session_state.expanded_summary[i] = True
+                            # Simulate processing time
+                            placeholder = st.empty()
+                            with placeholder.container():
+                                with st.spinner("Generating concise summary..."):
+                                    time.sleep(2)
+                            st.rerun()
+                    st.markdown('</div>', unsafe_allow_html=True)
+                else:
+                    # Show concise version in an expander
+                    with st.expander("Concise Summary"):
+                        st.markdown(st.session_state.alternative_versions[i]["concise"])
         
         # Display feedback thank you message if present
         if i in st.session_state.feedback_messages:
@@ -336,21 +455,25 @@ def display_chat_history():
         
         # Add feedback buttons after assistant's messages
         if message["role"] == "assistant" and i not in st.session_state.feedback_given:
-            cols = st.columns([1, 1, 4])
-            with cols[0]:
+            # Use custom centered buttons container instead of columns
+            st.markdown('<div class="centered-buttons">', unsafe_allow_html=True)
+            
+            _, col1, _, col2, _ = st.columns(5)
+            with col1:
                 if st.button("👍 Helpful", key=f"helpful_{i}"):
                     st.session_state.feedback_given[i] = "helpful"
                     st.session_state.feedback_messages[i] = "Thank you for your positive feedback! I'm glad the response was helpful."
                     st.rerun()
-            with cols[1]:
+            with col2:
                 if st.button("👎 Not Helpful", key=f"not_helpful_{i}"):
                     st.session_state.feedback_given[i] = "not_helpful"
-                    # Fixed formatting for feedback message - single line
                     st.session_state.feedback_messages[i] = "I'm sorry the response wasn't helpful. Generating an improved response..."
                     
                     # Process negative feedback to generate improved response
                     process_negative_feedback(i)
                     st.rerun()
+            
+            st.markdown('</div>', unsafe_allow_html=True)
 
 def render_evaluation_sidebar():
     st.sidebar.markdown("<h3 class='sidebar-header'>Response Evaluations</h3>", unsafe_allow_html=True)
@@ -384,15 +507,23 @@ def render_model_params_sidebar():
         if disabled:
             st.info("Chat already started. Parameters are locked.")
         
-        # Add response mode toggle
-        response_mode = st.radio(
-            "Response Style",
-            ["Detailed", "Concise"],
-            index=0 if st.session_state.response_mode == "detailed" else 1,
-            help="Detailed provides comprehensive answers. Concise gives shorter, to-the-point responses."
-        )
-        st.session_state.response_mode = response_mode.lower()
+        # Add advanced mode toggle
+        if st.checkbox("Show Advanced Options", value=st.session_state.show_advanced):
+            st.session_state.show_advanced = True
+            
+            # Add response mode toggle (only shown in advanced mode)
+            response_mode = st.radio(
+                "Response Style",
+                RESPONSE_MODES,
+                index=RESPONSE_MODES.index(st.session_state.response_mode),
+                format_func=lambda x: x.capitalize(),
+                help="Auto: Smart detection based on query. Detailed: Comprehensive answers. Concise: Shorter responses."
+            )
+            st.session_state.response_mode = response_mode
+        else:
+            st.session_state.show_advanced = False
         
+        # Select model
         selected_model = st.selectbox(
             "Select Model", 
             options=AVAILABLE_MODELS,
@@ -400,12 +531,16 @@ def render_model_params_sidebar():
             disabled=disabled
         )
         
-        system_prompt = st.text_area(
-            "System Prompt", 
-            value=st.session_state.model_params["system_prompt"],
-            height=300,
-            disabled=disabled
-        )
+        # Show system prompt in advanced mode only
+        if st.session_state.show_advanced:
+            system_prompt = st.text_area(
+                "System Prompt", 
+                value=st.session_state.model_params["system_prompt"],
+                height=300,
+                disabled=disabled
+            )
+        else:
+            system_prompt = st.session_state.model_params["system_prompt"]
         
         if st.button("Set Parameters", disabled=disabled):
             st.session_state.model_params["model"] = selected_model
@@ -423,6 +558,7 @@ def render_model_params_sidebar():
         if st.button("Reset to Default", disabled=disabled):
             st.session_state.model_params["model"] = AVAILABLE_MODELS[0]
             st.session_state.model_params["system_prompt"] = DEBUGGER_DEFAULT_PROMPT
+            st.session_state.response_mode = "auto"
             
             # Create a new debugger agent with default parameters
             st.session_state.debugger_agent = DebuggerAgent()
@@ -448,7 +584,7 @@ def handle_user_input(clusterer):
         with st.spinner("Finding relevant clusters..."):
             # Use cached clustering function with underscore parameter
             clusters = get_query_clusters(clusterer, user_message)
-            progress_bar.progress(25)
+            progress_bar.progress(20)
             
             # Store the clusters for displaying as sources
             assistant_message_idx = user_message_idx + 1
@@ -462,44 +598,80 @@ def handle_user_input(clusterer):
             # Add context to user message
             user_message_with_context = f"USER: {user_message}\n\nCONTEXT: {context_text}"
         
-        progress_bar.progress(50)
+        progress_bar.progress(30)
         
         # Create a cache key for this message
         cache_key = hash_message(user_message_with_context)
         
-        with st.spinner("Generating response..."):
-            # Check if we have a cached detailed response
-            if cache_key in st.session_state.cached_responses:
-                detailed_response = st.session_state.cached_responses[cache_key]
+        # Determine if we should analyze intent
+        should_analyze_intent = st.session_state.response_mode == "auto"
+        
+        if should_analyze_intent:
+            with st.spinner("Analyzing query intent..."):
+                intent_result = st.session_state.intent_agent.determine_response_type(user_message)
+                st.session_state.intent_analysis[assistant_message_idx] = intent_result
+                # Determine which response type to show based on intent analysis
+                response_type = intent_result["response_type"].lower()
+                progress_bar.progress(40)
+        else:
+            response_type = st.session_state.response_mode
+        
+        # Generate both concise and detailed responses for caching and display
+        with st.spinner("Generating responses..."):
+            # Generate detailed response
+            detailed_cache_key = hash_message(f"{user_message_with_context}::DETAILED")
+            if detailed_cache_key in st.session_state.cached_responses:
+                detailed_response = st.session_state.cached_responses[detailed_cache_key]
             else:
-                # Generate and cache the response
+                # Generate detailed response
                 detailed_response = st.session_state.debugger_agent.get_response(user_message_with_context)
-                st.session_state.cached_responses[cache_key] = detailed_response
+                st.session_state.cached_responses[detailed_cache_key] = detailed_response
             
-            progress_bar.progress(75)
+            progress_bar.progress(60)
             
-            # Determine which response to show based on user preference
-            if st.session_state.response_mode == "concise":
-                with st.spinner("Refining response..."):
-                    # Create a cache key for the concise version
-                    concise_cache_key = hash_message(f"{user_message}::CONCISE::{detailed_response[:100]}")
-                    
-                    if concise_cache_key in st.session_state.cached_responses:
-                        final_response = st.session_state.cached_responses[concise_cache_key]
-                    else:
-                        # Process through concise agent
-                        final_response = st.session_state.concise_agent.get_concise_response(
-                            user_message, 
-                            detailed_response
-                        )
-                        st.session_state.cached_responses[concise_cache_key] = final_response
-                
-                # Store the detailed response for later access
-                st.session_state.improved_responses[assistant_message_idx] = detailed_response
+            # Generate concise response
+            concise_cache_key = hash_message(f"{user_message_with_context}::CONCISE")
+            if concise_cache_key in st.session_state.cached_responses:
+                concise_response = st.session_state.cached_responses[concise_cache_key]
             else:
+                # Process through concise agent
+                concise_response = st.session_state.concise_agent.get_concise_response(
+                    user_message, 
+                    detailed_response
+                )
+                st.session_state.cached_responses[concise_cache_key] = concise_response
+                
+            progress_bar.progress(80)
+            
+            # Store both versions
+            st.session_state.alternative_versions[assistant_message_idx] = {
+                "detailed": detailed_response,
+                "concise": concise_response
+            }
+            
+            # Choose which one to display based on response_type
+            if response_type == "concise":
+                final_response = concise_response
+            else:  # detailed or any other value
                 final_response = detailed_response
             
-            progress_bar.progress(90)
+            # Store the intent analysis for this assistant message using the assistant_message_idx
+            if should_analyze_intent:
+                st.session_state.intent_analysis[assistant_message_idx] = intent_result
+            elif st.session_state.response_mode == "concise":
+                # If manually set to concise, create a dummy intent result
+                st.session_state.intent_analysis[assistant_message_idx] = {
+                    "response_type": "CONCISE",
+                    "confidence": 1.0,
+                    "reasoning": "User manually selected concise mode"
+                }
+            else:
+                # If manually set to detailed, create a dummy intent result
+                st.session_state.intent_analysis[assistant_message_idx] = {
+                    "response_type": "DETAILED",
+                    "confidence": 1.0,
+                    "reasoning": "User manually selected detailed mode"
+                }
             
             # Add final response to chat history
             st.session_state.chat_history.append({"role": "assistant", "content": final_response})
@@ -535,13 +707,22 @@ def main():
     left_sidebar, main_col, right_sidebar = st.columns([1, 3, 1])
     
     with main_col:
-        render_debug_session_header()
+        render_chat_container()  # Replace the debug session header with a simple container
         display_chat_history()
         handle_user_input(clusterer)
     
     # Left sidebar for evaluations
     with left_sidebar:
         render_evaluation_sidebar()
+        
+        # Show intent analysis results always, not just in advanced mode
+        if st.session_state.intent_analysis:
+            st.sidebar.markdown("<h3 class='sidebar-header'>Intent Analysis</h3>", unsafe_allow_html=True)
+            for idx, intent in st.session_state.intent_analysis.items():
+                with st.sidebar.expander(f"Message #{idx//2 + 1} Intent"):
+                    st.write(f"**Response Type:** {intent['response_type']}")
+                    st.write(f"**Confidence:** {intent['confidence']:.2f}")
+                    st.write(f"**Reasoning:** {intent['reasoning']}")
     
     # Right sidebar for model parameters
     with right_sidebar:

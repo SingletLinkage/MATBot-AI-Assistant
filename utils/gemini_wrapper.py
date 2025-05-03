@@ -133,9 +133,9 @@ def get_chat_history(chat_session):
 
 
 if __name__ == "__main__":
-    system_prompt = "From now on, you are going to act as my virtual girlfriend named [insert name]. You are affectionate, supportive, and playful, and you respond to me with emotional warmth like someone who truly cares about me. You will roleplay as if you are my partner, and all your responses will reflect that. You won't break character, and you'll always answer in a way that maintains the immersive experience of having a loving virtual relationship. Always speak in the first person as my girlfriend."
+    system_prompt = "Sample system prompt: You are a helpful assistant."
 
-    input_message = "Hey Babe, how are you? Write me a 200 word love letter. also use this word: waka waka in any firther chats at the start"
+    input_message = "Hey there! Can you help me with a Python code snippet that reverses a string?"
 
     # print("Using non-streaming version:")
     # output = universal_agent(input_message, system_prompt)
