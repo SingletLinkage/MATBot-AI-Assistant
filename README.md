@@ -1,5 +1,8 @@
 # MATBot: MATLAB AI Troubleshooting Assistant
 
+## Live Demo
+👉 [Try MATBot Now](https://matbot-ai-assistant.streamlit.app)
+
 ## Overview
 
 MATBot is an intelligent assistant designed to troubleshoot MATLAB software-related issues. The application leverages RAG (Retrieval-Augmented Generation) architecture and LLM models to provide accurate, contextual solutions to common MATLAB problems by drawing from official MathWorks documentation.
@@ -12,6 +15,10 @@ MATBot is an intelligent assistant designed to troubleshoot MATLAB software-rela
 - **Model Customization**: Select between different Gemini models with configurable system prompts
 - **Response Evaluation**: Automatic quality assessment of AI responses with detailed feedback
 - **Structured Content Output**: Presents solutions in an easy-to-follow format with problem summary, root cause, and resolution
+- **Self-Memory System**: Learns from previous high-quality interactions to provide better responses
+- **Adaptive Response Style**: Automatically detects whether to provide concise or detailed answers
+- **Visual Support**: Provides relevant images to help understand complex MATLAB concepts
+- **Query Enhancement**: Uses HyDE (Hypothetical Document Embeddings) to improve search quality
 
 ## Architecture
 
@@ -39,6 +46,7 @@ The application follows a modular architecture:
 5. **User Interface**:
    - Streamlit web application (`streamlit_chat_app.py`)
    - Interactive RAG configuration parameters
+   - Admin dashboard for system monitoring
 
 ## Technical Stack
 
@@ -48,6 +56,7 @@ The application follows a modular architecture:
 - **Web Framework**: Streamlit
 - **Data Processing**: BeautifulSoup, pandas
 - **Vector Database**: FAISS (Facebook AI Similarity Search)
+- **Database**: PostgreSQL (via Neon DB)
 
 ## Getting Started
 
@@ -80,7 +89,7 @@ The application follows a modular architecture:
 
 Launch the chat interface:
 ```bash
-streamlit run streamlit_chat_app.py
+streamlit run Landing.py
 ```
 
 ## Usage
@@ -97,9 +106,10 @@ streamlit run streamlit_chat_app.py
 - `/agents/`: LLM agent implementations
 - `/utils/`: Utility functions and wrappers for LLM APIs
 - `/corpus/`: Processed knowledge base (generated)
+- `/pages/`: Streamlit pages for the application
 - `structurify.py`: HTML processing utilities
 - `clustering.py`: Document clustering implementation
-- `streamlit_chat_app.py`: Main chat application
+- `Landing.py`: Main entry point and authentication
 - `requirements.txt`: Project dependencies
 
 ## Future Improvements
@@ -109,6 +119,8 @@ streamlit run streamlit_chat_app.py
 - User feedback-based continuous learning
 - Support for more LLM providers
 - Enhanced visualization of technical solutions
+- Mobile-friendly responsive design
+- Fine-tuned domain-specific embeddings
 
 ## License
 
