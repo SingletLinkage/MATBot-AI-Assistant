@@ -1,14 +1,13 @@
 import streamlit as st
 import os
 from dotenv import load_dotenv
-import json
 import time
+import os.path
 from agents.debugger_agent import DebuggerAgent, DEFAULT_SYSTEM_PROMPT as DEBUGGER_DEFAULT_PROMPT
 from agents.evaluator_agent import evaluate_response, DEFAULT_SYSTEM_PROMPT as EVALUATOR_DEFAULT_PROMPT
 from agents.concise_agent import ConciseAgent, DEFAULT_SYSTEM_PROMPT as CONCISE_DEFAULT_PROMPT
 from agents.intent_agent import IntentAgent, DEFAULT_SYSTEM_PROMPT as INTENT_DEFAULT_PROMPT
 from clustering import init_clusters, query_clusters
-from functools import lru_cache
 import hashlib
 from query_images import ImageSearchEngine
 from utils.rrr import get_similar_queries
@@ -16,6 +15,14 @@ from utils.hayd import hyde
 
 # Load environment variables
 load_dotenv()
+
+# Authentication check - redirect to login if not authenticated
+if "authenticated" not in st.session_state or not st.session_state.authenticated:
+    st.warning("Please log in first")
+    st.info("Redirecting to login page...")
+    time.sleep(1)
+    st.switch_page("../Landing.py")
+    st.stop()
 
 # Set page configuration
 st.set_page_config(
@@ -35,6 +42,11 @@ AVAILABLE_MODELS = [
 # Response modes
 RESPONSE_MODES = ["auto", "detailed", "concise"]
 
+# File path for self memory storage
+SELF_MEMORY_FILE = os.path.join(os.path.dirname(os.path.dirname(__file__)), "self_memory.json")
+
+# print('Debugging: self_memory_file:', SELF_MEMORY_FILE)
+
 # Initialize session state and use get() pattern to avoid re-initialization on rerun
 if "session_initialized" not in st.session_state:
     st.session_state.chat_history = []
@@ -51,11 +63,17 @@ if "session_initialized" not in st.session_state:
     st.session_state.rag_params = {
         "n_clusters": 30,
         "num_closest_clusters": 5,
-        "top_y": 5
+        "top_y": 5,
+        "top_k_self": 3,
+        "use_self_memory": True,
+        "memory_threshold": 0.85  # Threshold for adding to self memory
     }
     st.session_state.image_search_params = {
         "top_k": 3,
         "embeddings_file": "images_log.json"
+    }
+    st.session_state.hyde_params = {
+        "use_hyde": True  # Default to use HyDE
     }
     st.session_state.source_clusters = {}
     st.session_state.feedback_messages = {}
@@ -77,8 +95,10 @@ if "session_initialized" not in st.session_state:
     st.session_state.query_improvement = None  # Store improved query
     st.session_state.at_query_selection = False  # Flag to show alternatives
     st.session_state.at_query_improvement = False  # Flag to show improved query
+    st.session_state.source_memory = {}  # Track which responses came from self-memory
+    st.session_state.memory_added = {}  # Track which responses were added to self-memory
 
-# Custom CSS
+# Custom CSS - adding styles for self-memory indicators
 st.markdown("""
 <style>
     .chat-message {
@@ -281,18 +301,56 @@ st.markdown("""
         color: #0066cc;
         font-weight: bold;
     }
+    
+    /* Self-memory source indicator */
+    .self-memory-indicator {
+        background-color: #e6f7ff;
+        color: #0066cc;
+        padding: 0.3rem 0.5rem;
+        border-radius: 0.3rem;
+        font-size: 0.8rem;
+        border: 1px solid #99ccff;
+        display: inline-block;
+        margin-bottom: 0.5rem;
+    }
+    
+    /* Memory added indicator */
+    .memory-added-indicator {
+        background-color: #f0fff0;
+        color: #008800;
+        padding: 0.3rem 0.5rem;
+        border-radius: 0.3rem;
+        font-size: 0.8rem;
+        border: 1px solid #ccffcc;
+        display: inline-block;
+        margin-top: 0.5rem;
+    }
 </style>
 """, unsafe_allow_html=True)
 
 # Cache cluster initialization to avoid re-processing on every rerun
 @st.cache_resource
-def get_clusterer(n_clusters=30, num_closest_clusters=5):
-    return init_clusters(n_clusters=n_clusters, num_closest_clusters=num_closest_clusters)
+def get_clusterer(n_clusters=30, num_closest_clusters=5, memory_file=None):
+    """Initialize and cache the RAGClusterer with optional self-memory loading"""
+    print(f"Initializing clusterer with memory_file={memory_file}")
+    clusterer = init_clusters(
+        n_clusters=n_clusters, 
+        num_closest_clusters=num_closest_clusters,
+        memory_file=memory_file
+    )
+    return clusterer
 
 # Cache context fetching for queries
 @st.cache_data(ttl=3600)  # Cache for 1 hour
-def get_query_clusters(_clusterer, query, top_y=5):  # Added underscore to prevent hashing
-    return query_clusters(_clusterer, query, top_y=top_y)
+def get_query_clusters(_clusterer, query, top_y=5, top_k_self=3, use_self_memory=True):
+    """Get query results from clusterer with self-memory support"""
+    return query_clusters(
+        _clusterer, 
+        query, 
+        top_y=top_y, 
+        top_k_self=top_k_self, 
+        use_self_memory=use_self_memory
+    )
 
 # Hash a message to create a cache key
 def hash_message(message):
@@ -361,6 +419,13 @@ def render_chat_message(message, is_user=False, message_idx=None, intent_type=No
         badge_text = intent_type.capitalize()
         intent_badge = f"<div class='intent-badge {badge_class}'>Intent: {badge_text}</div>"
     
+    # Add self-memory indicator if applicable
+    memory_badge = "<div></div>"
+    if not is_user and message_idx in st.session_state.source_memory:
+        memory_source = st.session_state.source_memory[message_idx]
+        if memory_source == "self_memory":
+            memory_badge = "<div class='self-memory-indicator'>🧠 From Self Memory</div>"
+    
     # Process message to ensure code blocks render correctly
     if not is_user:
         # Ensure proper rendering of code blocks by replacing markdown with HTML
@@ -372,22 +437,33 @@ def render_chat_message(message, is_user=False, message_idx=None, intent_type=No
     <div class="chat-message {role}">
         {intent_badge}
         <div class="message-header">{header}</div>
+        {memory_badge}
         <div class="message-content">{message}</div>
     </div>
     """, unsafe_allow_html=True)
+    
+    # Show memory added indicator if applicable
+    if not is_user and message_idx in st.session_state.memory_added and st.session_state.memory_added[message_idx]:
+        st.markdown("<div class='memory-added-indicator'>✅ Added to Self Memory</div>", unsafe_allow_html=True)
     
     # Show sources for assistant messages
     if not is_user and message_idx is not None and message_idx in st.session_state.source_clusters:
         sources = st.session_state.source_clusters[message_idx]
         if sources:
-            with st.expander("Show sources used for this response"):
-                for i, source in enumerate(sources):
-                    st.markdown(f"**Source {i+1}: {source['title'].strip()}**")
-                    st.markdown(f"*{source['heading']}*")
-                    st.markdown(source['content'])
-                    if 'link' in source:
-                        st.markdown(f"[View original document]({source['link']})")
-                    st.divider()
+            # Check if this is a self-memory source
+            if len(sources) == 1 and sources[0].get('source') == 'self_memory':
+                with st.expander("Show original query from memory"):
+                    st.markdown(f"**Original Query:** {sources[0].get('original_query', 'Unknown')}")
+            else:
+                with st.expander("Show sources used for this response"):
+                    for i, source in enumerate(sources):
+                        if source.get('source') != 'self_memory':
+                            st.markdown(f"**Source {i+1}: {source['title'].strip()}**")
+                            st.markdown(f"*{source['heading']}*")
+                            st.markdown(source['content'])
+                            if 'link' in source:
+                                st.markdown(f"[View original document]({source['link']})")
+                            st.divider()
 
 def display_image_results(query, message_idx):
     """Display images related to the user query"""
@@ -594,6 +670,16 @@ def display_chat_history():
             
             st.markdown('</div>', unsafe_allow_html=True)
 
+# Function to get color based on score value
+def get_score_color(score):
+    """Return a color based on the score value"""
+    if score >= 0.8:
+        return "#00CC66"  # Green for high scores
+    elif score >= 0.6:
+        return "#CCCC00"  # Yellow for medium scores
+    else:
+        return "#FF6666"  # Red for low scores
+
 def render_evaluation_sidebar():
     """Display all evaluation results in the sidebar with Ragas metrics"""
     st.sidebar.markdown("<h3 class='sidebar-header'>Response Evaluations</h3>", unsafe_allow_html=True)
@@ -669,6 +755,49 @@ def render_model_params_sidebar():
                 help="Auto: Smart detection based on query. Detailed: Comprehensive answers. Concise: Shorter responses."
             )
             st.session_state.response_mode = response_mode
+            
+            # Add HyDE toggle
+            use_hyde = st.checkbox(
+                "Use HyDE Query Expansion", 
+                value=st.session_state.hyde_params.get("use_hyde", True),
+                help="Enable Hypothetical Document Embeddings to expand and improve queries"
+            )
+            # Update HyDE parameter in session state
+            st.session_state.hyde_params["use_hyde"] = use_hyde
+            
+            # Add self-memory parameters
+            st.sidebar.markdown("<h4 class='sidebar-header'>Self Memory Parameters</h4>", unsafe_allow_html=True)
+            
+            use_self_memory = st.checkbox(
+                "Use Self Memory", 
+                value=st.session_state.rag_params.get("use_self_memory", True),
+                help="Enable self-memory to remember and use previous interactions"
+            )
+            
+            memory_threshold = st.slider(
+                "Memory Quality Threshold", 
+                min_value=0.5, 
+                max_value=1.0, 
+                value=st.session_state.rag_params.get("memory_threshold", 0.85),
+                step=0.05,
+                help="Minimum quality score required to add responses to self-memory",
+                disabled=not use_self_memory
+            )
+            
+            top_k_self = st.slider(
+                "Self Memory Results", 
+                min_value=1, 
+                max_value=10, 
+                value=st.session_state.rag_params.get("top_k_self", 3),
+                step=1,
+                help="Number of self-memory entries to check during retrieval",
+                disabled=not use_self_memory
+            )
+            
+            # Update self-memory parameters in session state
+            st.session_state.rag_params["use_self_memory"] = use_self_memory
+            st.session_state.rag_params["memory_threshold"] = memory_threshold
+            st.session_state.rag_params["top_k_self"] = top_k_self
             
             # Add image search parameters
             st.sidebar.markdown("<h4 class='sidebar-header'>Image Search Parameters</h4>", unsafe_allow_html=True)
@@ -769,10 +898,16 @@ def render_model_params_sidebar():
             st.session_state.rag_params = {
                 "n_clusters": 30,
                 "num_closest_clusters": 5,
-                "top_y": 5
+                "top_y": 5,
+                "top_k_self": 3,
+                "use_self_memory": True,
+                "memory_threshold": 0.85
             }
             st.session_state.image_search_params = {
                 "top_k": 3
+            }
+            st.session_state.hyde_params = {
+                "use_hyde": True
             }
             
             # Create a new debugger agent with default parameters
@@ -812,7 +947,20 @@ def handle_user_input(clusterer):
             if st.button(f"🔵 {st.session_state.query_alternatives['original']}", key="orig_query", use_container_width=True):
                 st.session_state.query_selection = st.session_state.query_alternatives['original']
                 st.session_state.at_query_selection = False
-                st.session_state.at_query_improvement = True
+                
+                # Only go to query improvement if HyDE is enabled
+                if st.session_state.hyde_params.get("use_hyde", True):
+                    st.session_state.at_query_improvement = True
+                else:
+                    # Skip HyDE and process the query directly
+                    selected_query = st.session_state.query_alternatives['original']
+                    # Add the original query to chat history
+                    st.session_state.chat_history.append({
+                        "role": "user", 
+                        "content": selected_query
+                    })
+                    # Process with the original query
+                    process_query(clusterer, selected_query, selected_query)
                 st.rerun()
         
         # Display alternatives in columns
@@ -826,7 +974,20 @@ def handle_user_input(clusterer):
                 if st.button(f"🟢 {alt}", key=f"alt_{i}", use_container_width=True):
                     st.session_state.query_selection = alt
                     st.session_state.at_query_selection = False
-                    st.session_state.at_query_improvement = True
+                    
+                    # Only go to query improvement if HyDE is enabled
+                    if st.session_state.hyde_params.get("use_hyde", True):
+                        st.session_state.at_query_improvement = True
+                    else:
+                        # Skip HyDE and process the query directly
+                        selected_query = alt
+                        # Add the selected query to chat history
+                        st.session_state.chat_history.append({
+                            "role": "user", 
+                            "content": selected_query
+                        })
+                        # Process with the selected query
+                        process_query(clusterer, selected_query, selected_query)
                     st.rerun()
     
     # Step 3: Improve the selected query with HAYD and process
@@ -858,138 +1019,188 @@ def handle_user_input(clusterer):
                 "content": selected_query
             })
             
-            # Process the improved query instead
-            user_message = improved_query
+            # Process the improved query
+            process_query(clusterer, selected_query, improved_query)
             
             # Reset the query selection flags
             st.session_state.at_query_selection = False  
             st.session_state.at_query_improvement = False
             
-            # Continue with existing flow but with improved query
-            # Mark chat as started
-            st.session_state.chat_started = True
-            
-            # Create a progress bar for better UX during processing
-            progress_bar = st.progress(0)
+            st.rerun()
 
-            # Get clusters for the user message using top_y parameter from session state
-            with st.spinner("Fetching relevant documentation..."):
-                # Show "Fetching docs" message for a short time
-                time.sleep(1)
-                
-                # Use cached clustering function with parameters from session state
-                clusters = get_query_clusters(
-                    clusterer, 
-                    user_message, 
-                    top_y=st.session_state.rag_params["top_y"]
-                )
-                progress_bar.progress(20)
-                
-                # Store the clusters for displaying as sources
-                user_message_idx = len(st.session_state.chat_history) - 1
-                assistant_message_idx = user_message_idx + 1
-                st.session_state.source_clusters[assistant_message_idx] = clusters
-                
-                # Format clusters for context
-                context_text = ""
-                for i, cluster in enumerate(clusters):
-                    context_text += f"Source {i+1}:\nTitle: {cluster['title']}\nLink: {cluster.get('link', 'N/A')}\nHeading: {cluster['heading']}\nContent: {cluster['content']}\n\n"
-                
-                # Add context to user message
-                user_message_with_context = f"USER: {user_message}\n\nCONTEXT: {context_text}"
-                st.session_state.retrieved_context = context_text
-            
-            progress_bar.progress(30)
-            
-            # Create a cache key for this message
-            cache_key = hash_message(user_message_with_context)
-            
-            # Determine if we should analyze intent
-            should_analyze_intent = st.session_state.response_mode == "auto"
-            
-            # Rest of the existing processing code remains the same
-            if should_analyze_intent:
-                with st.spinner("Analyzing query intent..."):
-                    intent_result = st.session_state.intent_agent.determine_response_type(user_message)
-                    st.session_state.intent_analysis[assistant_message_idx] = intent_result
-                    # Determine which response type to show based on intent analysis
-                    response_type = intent_result["response_type"].lower()
-                    progress_bar.progress(40)
+# Extract the query processing code into a separate function
+def process_query(clusterer, original_query, processed_query):
+    """Process a query with the RAG system and generate a response"""
+    # Mark chat as started
+    st.session_state.chat_started = True
+    
+    # Create a progress bar for better UX during processing
+    progress_bar = st.progress(0)
+
+    # Get clusters for the user message using parameters from session state
+    with st.spinner("Fetching relevant documentation..."):
+        # Show "Fetching docs" message for a short time
+        time.sleep(1)
+        
+        # Use cached clustering function with parameters from session state including self-memory
+        clusters = get_query_clusters(
+            clusterer, 
+            processed_query, 
+            top_y=st.session_state.rag_params["top_y"],
+            top_k_self=st.session_state.rag_params["top_k_self"],
+            use_self_memory=st.session_state.rag_params["use_self_memory"]
+        )
+        progress_bar.progress(20)
+        
+        # Store the clusters for displaying as sources
+        user_message_idx = len(st.session_state.chat_history) - 1
+        assistant_message_idx = user_message_idx + 1
+        st.session_state.source_clusters[assistant_message_idx] = clusters
+        
+        # Check if any of the clusters is from self-memory
+        if any(cluster.get('source') == 'self_memory' for cluster in clusters):
+            # Mark this message as coming from self-memory
+            st.session_state.source_memory[assistant_message_idx] = "self_memory"
+        
+        # Format clusters for context
+        context_text = ""
+        for i, cluster in enumerate(clusters):
+            source_type = cluster.get('source', 'clustered_db')
+            if source_type == 'self_memory':
+                context_text += f"Source {i+1} (Self Memory):\nPrevious Query: {cluster.get('original_query', 'Unknown')}\nContent: {cluster['content']}\n\n"
             else:
-                response_type = st.session_state.response_mode
+                context_text += f"Source {i+1}:\nTitle: {cluster['title']}\nLink: {cluster.get('link', 'N/A')}\nHeading: {cluster['heading']}\nContent: {cluster['content']}\n\n"
             
-            # Generate both concise and detailed responses for caching and display
-            with st.spinner("Generating responses..."):
+        # Add context to user message
+        user_message_with_context = f"USER: {processed_query}\n\nCONTEXT: {context_text}"
+        st.session_state.retrieved_context = context_text
+        
+        progress_bar.progress(30)
+        
+        # Create a cache key for this message
+        cache_key = hash_message(user_message_with_context)
+        
+        # Determine if we should analyze intent
+        should_analyze_intent = st.session_state.response_mode == "auto"
+        
+        # Rest of the existing processing code remains the same
+        if should_analyze_intent:
+            with st.spinner("Analyzing query intent..."):
+                intent_result = st.session_state.intent_agent.determine_response_type(processed_query)
+                st.session_state.intent_analysis[assistant_message_idx] = intent_result
+                # Determine which response type to show based on intent analysis
+                response_type = intent_result["response_type"].lower()
+                progress_bar.progress(40)
+        else:
+            response_type = st.session_state.response_mode
+        
+        # Generate both concise and detailed responses for caching and display
+        with st.spinner("Generating responses..."):
+            # Generate detailed response
+            detailed_cache_key = hash_message(f"{user_message_with_context}::DETAILED")
+            if detailed_cache_key in st.session_state.cached_responses:
+                detailed_response = st.session_state.cached_responses[detailed_cache_key]
+            else:
                 # Generate detailed response
-                detailed_cache_key = hash_message(f"{user_message_with_context}::DETAILED")
-                if detailed_cache_key in st.session_state.cached_responses:
-                    detailed_response = st.session_state.cached_responses[detailed_cache_key]
-                else:
-                    # Generate detailed response
-                    detailed_response = st.session_state.debugger_agent.get_response(user_message_with_context)
-                    st.session_state.cached_responses[detailed_cache_key] = detailed_response
-                
-                progress_bar.progress(60)
-                
-                # Generate concise response
-                concise_cache_key = hash_message(f"{user_message_with_context}::CONCISE")
-                if concise_cache_key in st.session_state.cached_responses:
-                    concise_response = st.session_state.cached_responses[concise_cache_key]
-                else:
-                    # Process through concise agent
-                    concise_response = st.session_state.concise_agent.get_concise_response(
-                        user_message, 
-                        detailed_response
-                    )
-                    st.session_state.cached_responses[concise_cache_key] = concise_response
-                    
-                progress_bar.progress(80)
-                
-                # Store both versions
-                st.session_state.alternative_versions[assistant_message_idx] = {
-                    "detailed": detailed_response,
-                    "concise": concise_response
-                }
-                
-                # Choose which one to display based on response_type
-                if response_type == "concise":
-                    final_response = concise_response
-                else:  # detailed or any other value
-                    final_response = detailed_response
-                
-                # Store the intent analysis for this assistant message using the assistant_message_idx
-                if should_analyze_intent:
-                    st.session_state.intent_analysis[assistant_message_idx] = intent_result
-                elif st.session_state.response_mode == "concise":
-                    # If manually set to concise, create a dummy intent result
-                    st.session_state.intent_analysis[assistant_message_idx] = {
-                        "response_type": "CONCISE",
-                        "confidence": 1.0,
-                        "reasoning": "User manually selected concise mode"
-                    }
-                else:
-                    # If manually set to detailed, create a dummy intent result
-                    st.session_state.intent_analysis[assistant_message_idx] = {
-                        "response_type": "DETAILED",
-                        "confidence": 1.0,
-                        "reasoning": "User manually selected detailed mode"
-                    }
-                
-                # Add final response to chat history
-                st.session_state.chat_history.append({"role": "assistant", "content": final_response})
-                
-                # Evaluate the response
-                eval_data = evaluate_response(
-                    user_message_with_context, 
-                    final_response,
-                    system_prompt=EVALUATOR_DEFAULT_PROMPT,
-                    model=st.session_state.model_params["model"],
-                    context=st.session_state.retrieved_context
+                detailed_response = st.session_state.debugger_agent.get_response(user_message_with_context)
+                st.session_state.cached_responses[detailed_cache_key] = detailed_response
+            
+            progress_bar.progress(60)
+            
+            # Generate concise response
+            concise_cache_key = hash_message(f"{user_message_with_context}::CONCISE")
+            if concise_cache_key in st.session_state.cached_responses:
+                concise_response = st.session_state.cached_responses[concise_cache_key]
+            else:
+                # Process through concise agent
+                concise_response = st.session_state.concise_agent.get_concise_response(
+                    processed_query, 
+                    detailed_response
                 )
+                st.session_state.cached_responses[concise_cache_key] = concise_response
                 
-                st.session_state.last_evaluation = eval_data
-                st.session_state.evaluation_history.append(eval_data)
+            progress_bar.progress(80)
+            
+            # Store both versions
+            st.session_state.alternative_versions[assistant_message_idx] = {
+                "detailed": detailed_response,
+                "concise": concise_response
+            }
+            
+            # Choose which one to display based on response_type
+            if response_type == "concise":
+                final_response = concise_response
+            else:  # detailed or any other value
+                final_response = detailed_response
+            
+            # Store the intent analysis for this assistant message using the assistant_message_idx
+            if should_analyze_intent:
+                st.session_state.intent_analysis[assistant_message_idx] = intent_result
+            elif st.session_state.response_mode == "concise":
+                # If manually set to concise, create a dummy intent result
+                st.session_state.intent_analysis[assistant_message_idx] = {
+                    "response_type": "CONCISE",
+                    "confidence": 1.0,
+                    "reasoning": "User manually selected concise mode"
+                }
+            else:
+                # If manually set to detailed, create a dummy intent result
+                st.session_state.intent_analysis[assistant_message_idx] = {
+                    "response_type": "DETAILED",
+                    "confidence": 1.0,
+                    "reasoning": "User manually selected detailed mode"
+                }
+            
+            # Add response to chat history
+            st.session_state.chat_history.append({"role": "assistant", "content": final_response})
+            
+            # Evaluate the response
+            eval_data = evaluate_response(
+                user_message_with_context, 
+                final_response,
+                system_prompt=EVALUATOR_DEFAULT_PROMPT,
+                model=st.session_state.model_params["model"],
+                context=st.session_state.retrieved_context
+            )
+            
+            st.session_state.last_evaluation = eval_data
+            st.session_state.evaluation_history.append(eval_data)
+            
+            # Add to self-memory if quality is above threshold
+            if st.session_state.rag_params["use_self_memory"]:
+                quality_score = eval_data.get('score', 0)
+                memory_threshold = st.session_state.rag_params["memory_threshold"]
                 
+                # Debug statement for self-memory
+                print(f"Quality score: {quality_score}, Memory threshold: {memory_threshold}")
+                
+                # Check if response quality is high enough for self-memory
+                if quality_score >= memory_threshold:
+                    print(f"Adding to self-memory: {original_query}")
+                    memory_added = clusterer.add_to_self_memory(
+                        query=original_query,  # Use the original query, not the processed one
+                        context=context_text,
+                        output=final_response,
+                        score=quality_score
+                    )
+                    
+                    # Mark this message as added to self-memory
+                    st.session_state.memory_added[assistant_message_idx] = memory_added
+                    
+                    # Save updated self-memory to file
+                    if memory_added:
+                        try:
+                            # Create parent directory if it doesn't exist
+                            os.makedirs(os.path.dirname(SELF_MEMORY_FILE), exist_ok=True)
+                            
+                            # Debug statement for saving self-memory
+                            print(f"Saving self-memory to: {SELF_MEMORY_FILE}")
+                            success = clusterer.save_self_memory(SELF_MEMORY_FILE)
+                            print(f"Save result: {success}")
+                        except Exception as e:
+                            print(f"Error saving self-memory: {e}")
+                            st.error(f"Error saving self-memory: {e}")
+            
             progress_bar.progress(100)
             
             # Use container update with properly formatted success message
@@ -997,27 +1208,15 @@ def handle_user_input(clusterer):
             with placeholder.container():
                 st.success("Response generated successfully!")
                 time.sleep(0.5)
-            
-            # Still need rerun to update the chat history display
-            st.rerun()
-
-# Helper function to get color based on score
-def get_score_color(score):
-    """Return a color based on the score value"""
-    if score >= 0.8:
-        return "#00CC66"  # Green for high scores
-    elif score >= 0.6:
-        return "#CCCC00"  # Yellow for medium scores
-    else:
-        return "#FF6666"  # Red for low scores
 
 def main():
     render_header()
     
-    # Get cached clusterer with RAG parameters from session state
+    # Get cached clusterer with RAG parameters from session state and self-memory file
     clusterer = get_clusterer(
         n_clusters=st.session_state.rag_params["n_clusters"],
-        num_closest_clusters=st.session_state.rag_params["num_closest_clusters"]
+        num_closest_clusters=st.session_state.rag_params["num_closest_clusters"],
+        memory_file=SELF_MEMORY_FILE  # Add self-memory file path
     )
     
     # Initialize image search engine if needed
