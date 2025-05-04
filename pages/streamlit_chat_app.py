@@ -19,9 +19,9 @@ load_dotenv()
 # Authentication check - redirect to login if not authenticated
 if "authenticated" not in st.session_state or not st.session_state.authenticated:
     st.warning("Please log in first")
-    st.info("Redirecting to login page...")
-    time.sleep(1)
-    st.switch_page("../Landing.py")
+    # st.info("Redirecting to login page...")
+    # time.sleep(1)
+    # st.switch_page("../Landing.py")
     st.stop()
 
 # Set page configuration

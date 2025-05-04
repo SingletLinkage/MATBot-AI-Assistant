@@ -17,9 +17,9 @@ def get_engine():
 # Authentication check
 if "authenticated" not in st.session_state or not st.session_state.authenticated:
     st.warning("Please log in first")
-    st.info("Redirecting to login page...")
-    time.sleep(1)
-    st.switch_page("../Landing.py")
+    # st.info("Redirecting to login page...")
+    # time.sleep(1)
+    # st.switch_page("../Landing.py")
     st.stop()
 
 # Check if user is admin
@@ -324,7 +324,7 @@ def admin_dashboard():
         user_activity = get_user_activity(engine)
         
         # Top level metrics
-        st.markdown('<div class="dashboard-card">', unsafe_allow_html=True)
+        st.markdown('<div>', unsafe_allow_html=True)
         metric_cols = st.columns(4)
         
         with metric_cols[0]:
@@ -365,7 +365,7 @@ def admin_dashboard():
         st.markdown('</div>', unsafe_allow_html=True)
         
         # User Distribution Chart
-        st.markdown('<div class="dashboard-card">', unsafe_allow_html=True)
+        st.markdown('<div>', unsafe_allow_html=True)
         col1, col2 = st.columns(2)
         
         with col1:
@@ -406,7 +406,7 @@ def admin_dashboard():
         st.markdown('</div>', unsafe_allow_html=True)
         
         # File size chart
-        st.markdown('<div class="dashboard-card">', unsafe_allow_html=True)
+        st.markdown('<div>', unsafe_allow_html=True)
         st.subheader("Database Size (MB)")
         
         # Create dataframe for file sizes
@@ -444,7 +444,7 @@ def admin_dashboard():
         
         # Corpus details
         if "error" not in corpus_stats:
-            st.markdown('<div class="dashboard-card">', unsafe_allow_html=True)
+            st.markdown('<div>', unsafe_allow_html=True)
             st.subheader("Corpus Detailed Analysis")
             
             col1, col2 = st.columns(2)
@@ -486,7 +486,7 @@ def admin_dashboard():
 
     with tab3:
         st.markdown('<p class="section-header">System Status</p>', unsafe_allow_html=True)
-        st.markdown('<div class="dashboard-card">', unsafe_allow_html=True)
+        st.markdown('<div>', unsafe_allow_html=True)
         
         # System file status
         st.subheader("System File Status")
